@@ -4,13 +4,25 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="login_signup.css" />
     <title>Sign up Form</title>
+    <script type="text/javascript" >
+        function checkpassword(){
+            var first = document.getElementById('password-inp').value;
+            var second = document.getElementById('re-password-inp').value;
+            if (first == second){
+                return true;
+            } else{
+                alert("Passwords do not match! ");
+                return false;
+            }
+        }
+    </script>
 </head>
 
 <body>
     <div class="container">
         <div class="forms-container" id="MainForm">
           <div class="signup">
-            <form action="#" class="sign-up-form" id="SignUpForm">
+            <form action="#" class="sign-up-form" id="SignUpForm" onsubmit="return checkpassword()">
                 <h2 class="title">Sign up</h2>
                 <div class="input-field">
                   <i class="fas fa-user"></i>
@@ -25,12 +37,12 @@
                 <div class="input-field">
                   <i class="fas fa-lock"></i>
                   <!-- password field -->
-                  <input type="password" id="password-inp" name="password" placeholder="Password" required/>
+                  <input type="password" id="password-inp" name="password1" placeholder="Password" required/>
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
                     <!-- re-enter password field -->
-                    <input type="password" id="re-password-inp" name="re_password" placeholder="Re-enter Password" required/>
+                    <input type="password" id="re-password-inp" name="password2" placeholder="Re-enter Password" required/>
                   </div>
                 <!-- submit button hamzah added the disable for the button-->
                 <input type="submit" id="signUp" name="signup_submit"  value="Sign up"/>
