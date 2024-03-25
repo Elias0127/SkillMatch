@@ -1,0 +1,247 @@
+:root {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  --text-primary: #f0f0f0;
+  --text-secondary: #b9b6b6;
+  --text: rgb(41, 40, 43);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+header {
+  position: relative;
+  padding: 20px 20%;
+  background-image: url(Background.png);
+  background-size: cover;
+  background-position: center;
+  height: 80vh;
+}
+
+.text {
+  font-size: 27px;
+  color: var(--text-primary);
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1000;
+}
+
+.logo {
+  color: var(--text-primary);
+  font-size: 25px;
+  font-weight: bold;
+}
+
+nav {
+   width: 100%;
+   height: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.navbar {
+  display: flex;
+  gap: 3rem;
+}
+
+.navbar a {
+  color: var(--text-primary);
+  transition: all ease-in 0.2s;
+}
+
+.navbar a:hover {
+  color: var(--text-secondary);
+}
+
+nav .toggle {
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: none;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+}
+
+.main a {
+  color: var(--text-primary);
+  transition: all ease-in 0.2s;
+}
+
+.main a:hover {
+  color: var(--text-secondary);
+}
+
+a .sign-in-btn {
+  color: var(--text-primary);
+}
+
+.sign-in-btn {
+  margin-left: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 9px 25px;
+  background-color: rgba(252, 245, 245, 0.2);
+  border: none;
+  border-radius: 40px;
+  transition: all ease-in 0.2s;
+  cursor: pointer;
+}
+
+.sign-in-btn:hover{
+  background-color: rgba(252, 245, 245, 0.4);
+}
+
+/* Dropdown menu stuff */
+.dropdown-menu {
+  position: absolute;
+  right: 2rem;
+  top: 60px;
+  height: 0;
+  width: 300px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: -10px 5px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: none;
+  transition: height 0.2s cubic-bezier(0.39, 0.575, 0.565, 1);
+  z-index: 1001;
+}
+
+.dropdown-menu li {
+  padding: 1rem;
+  display: flex;
+  border-bottom-style: dashed;
+  border-bottom-width: 1.6px;
+  border-bottom-color: rgba(0, 0, 0, 0.1); 
+}
+
+.dropdown-menu.open {
+  height: 380px;
+}
+
+.dropdown-menu  a{
+  color: rgb(65, 61, 61);
+  transition: all ease-in 0.2s;
+}
+
+.dropdown-menu  a:hover {
+  color: var(--text-secondary);
+}
+
+.dropdown-btn {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: bold;
+  padding: 9px 25px;
+  background-color: rgb(103, 103, 232);
+  border: none;
+  border-radius: 40px;
+  transition: all ease-in 0.2s;
+  cursor: pointer;
+  margin-top: 150px;
+}
+
+.dropdown-btn:hover {
+  background-color: var(--text);
+}
+
+/* Media stuff */
+
+@media(max-width: 1500px) {
+  header {
+    padding: 10px 35px;
+    transition: 0.4s;
+  }
+}
+
+@media(max-width: 920px) {
+  .navbar,
+  .main .sign-in-btn,
+  .main a {
+    display: none;
+  }
+
+  nav .toggle {
+    display: block;
+  }
+
+  .dropdown-menu,
+  .dropbutton {
+    display: block;
+  }
+}
+
+@media(max-width: 600px) {
+  .dropdown-menu {
+    left: 2rem;
+    width: unset;
+  }
+}
+
+/* Courses Section*/
+
+.services {
+  padding: 20px 20%;
+  margin: auto;
+  text-align: center;
+  padding-top: 100px;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+p {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 350;
+  line-height: 22px;
+  padding: 10px;
+}
+
+.row {
+  margin-top: 5%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.service-col {
+  flex-basis: 31%;
+  background: #f4f0f0;
+  border-radius: 10px;
+  margin-bottom: 5%;
+  padding: 20px 12px;
+  box-sizing: border-box;
+}
+
+.service-col:hover {
+  transition: all ease-in 0.2s;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+  text-align: center;
+  font-weight: 700;
+  margin: 10px;
+}
+
+@media(max-width: 850px) {
+  .row {
+    flex-direction: column;
+  }
+}
