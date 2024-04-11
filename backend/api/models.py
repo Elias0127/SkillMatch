@@ -1,5 +1,6 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.contrib.auth.models import Group, Permission
 
 # User Model
 class User(AbstractUser):
@@ -9,7 +10,26 @@ class User(AbstractUser):
         (WORKER, 'Worker'),
         (EMPLOYER, 'Employer'),
     ]
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=WORKER)
+    role = models.CharField(
+        max_length=10, choices=ROLE_CHOICES, default=WORKER)
+
+    # Add related_name in groups and user_permissions with a unique format
+    groups = models.ManyToManyField(
+        Group,
+        blank=True,
+        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+        related_name="%(app_label)s_%(class)s_groups",
+        related_query_name="%(app_label)s_user",
+        verbose_name='groups',
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        blank=True,
+        help_text='Specific permissions for this user.',
+        related_name="%(app_label)s_%(class)s_user_permissions",
+        related_query_name="%(app_label)s_user",
+        verbose_name='user permissions',
+    )
 
     def __str__(self):
         return self.username
