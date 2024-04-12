@@ -15,33 +15,42 @@ SkillMatch project is a platform for connecting service providers with service s
 #### Django Backend
 
 1. **Clone the Repository:**
+
    ```bash
    git clone https://github.com/your-username/SkillMatch.git
    cd SkillMatch
    ```
 2. **Create a Virtual Environment:**
+
    ```bash
    python3 -m venv venv
    ```
 3. **Activate the Virtual Environment:**
+
    - **For macOS/Linux:**
+
    ```bash
    source venv/bin/activate
    ```
+
    - **For Windows:**
+
    ```bash
    venv\Scripts\activate
    ```
 4. **Install dependencies:**
+
    ```bash
    pip install -r requirements.txt
    ```
 5. **Apply Migrations:**
+
    ```bash
     cd backend
     python manage.py migrate
    ```
 6. **Run the Development Server:**
+
    ```bash
    python manage.py runserver
    ```
@@ -58,5 +67,5 @@ SkillMatch project is a platform for connecting service providers with service s
    ```
 3. **Run the Development Server:**
    ```bash
-    npm start
+    npm run dev
    ```
