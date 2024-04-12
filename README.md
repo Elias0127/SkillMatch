@@ -32,13 +32,13 @@ SkillMatch project is a platform for connecting service providers with service s
    ```bash
    venv\Scripts\activate
    ```
-4. **Install Django:**
+4. **Install dependencies:**
    ```bash
-   pip install django
+   pip install -r requirements.txt
    ```
 5. **Apply Migrations:**
    ```bash
-    cd skillmatch_django
+    cd backend
     python manage.py migrate
    ```
 6. **Run the Development Server:**
@@ -50,7 +50,7 @@ SkillMatch project is a platform for connecting service providers with service s
 
 1. **Navigate to the React App Directory:**
    ```bash
-    cd ../skillmatch_react
+    cd ../frontend
    ```
 2. **Install Dependencies:**
    ```bash
