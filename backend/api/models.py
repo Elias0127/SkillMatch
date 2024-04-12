@@ -10,8 +10,7 @@ class User(AbstractUser):
         (WORKER, 'Worker'),
         (EMPLOYER, 'Employer'),
     ]
-    role = models.CharField(
-        max_length=10, choices=ROLE_CHOICES, default=WORKER)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=WORKER)
 
     # Add related_name in groups and user_permissions with a unique format
     groups = models.ManyToManyField(
@@ -45,7 +44,15 @@ class WorkerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='worker_profile')
     available_time = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
-    rate = models.DecimalField(max_digits=10, decimal_places=2)
+
+    RATE_TYPE_CHOICES = [
+        ('fixed', 'Fixed'),
+        ('per_hour', 'Per Hour'),
+        ('negotiable', 'Negotiable'),
+    ]
+    rate_type = models.CharField(max_length=10, choices=RATE_TYPE_CHOICES, default='fixed')
+    rate = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+
 
 # Skill Model
 class Skill(models.Model):
