@@ -56,13 +56,25 @@ function Register() {
                         </div>
                       </div>
                       <div className="mt-7 text-base">First Name</div>
-                      <div className="shrink-0 mt-2.5 h-12 bg-white rounded-md border border-solid border-zinc-500" />
+                        <input type="text" 
+                      placeholder='Enter First Name' 
+                      autoComplete='off' 
+                      name='firstName' 
+                      className="shrink-0 mt-2.5 h-12 bg-white rounded-md border border-solid border-zinc-500"
+                      onChange={(e) => setFirstName(e.target.value)}
+                      />
                     </div>
                   </div>
                   <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
                     <div className="flex flex-col grow mt-11 text-base text-black max-md:mt-10">
                       <div>Last Name</div>
-                      <div className="shrink-0 mt-2.5 h-12 bg-white rounded-md border border-solid border-zinc-500" />
+                      <input type="text" 
+                      placeholder='Enter Last Name' 
+                      autoComplete='off' 
+                      name='lastName' 
+                      className="shrink-0 mt-2.5 h-12 bg-white rounded-md border border-solid border-zinc-500" 
+                      onChange={(e) => setLastName(e.target.value)}
+                      />
                     </div>
                   </div>
                 </div>
@@ -70,15 +82,33 @@ function Register() {
               <div className="mt-4 mr-2.5 text-base text-black max-md:max-w-full">
                 Phone Number
               </div>
-              <div className="shrink-0 mt-2.5 mr-2.5 max-w-full h-12 bg-white rounded-md border border-solid border-zinc-500 w-[526px]" />
+              <input type="integer" 
+                      placeholder='Enter Phone Number' 
+                      autoComplete='off' 
+                      name='phoneNum' 
+                      className="shrink-0 mt-2.5 mr-2.5 max-w-full h-12 bg-white rounded-md border border-solid border-zinc-500 w-[526px]"
+                      onChange={(e) => setPhoneNum(e.target.value)}
+                      />
               <div className="mt-4 mr-2.5 text-base text-black max-md:max-w-full">
                 Email
               </div>
-              <div className="shrink-0 mt-1.5 mr-2.5 max-w-full h-12 bg-white rounded-md border border-solid border-zinc-500 w-[526px]" />
+              <input type="text" 
+                      placeholder='Enter Email' 
+                      autoComplete='off' 
+                      name='email' 
+                      className="shrink-0 mt-1.5 mr-2.5 max-w-full h-12 bg-white rounded-md border border-solid border-zinc-500 w-[526px]"
+                      onChange={(e) => setEmail(e.target.value)}
+                      />
               <div className="mt-4 mr-2.5 text-base text-black max-md:max-w-full">
                 Password
               </div>
-              <div className="shrink-0 mt-2.5 mr-2.5 max-w-full h-12 bg-white rounded-md border border-solid border-zinc-500 w-[526px]" />
+              <input type="password" 
+                      placeholder='Enter Password' 
+                      autoComplete='off' 
+                      name='password' 
+                      className="shrink-0 mt-2.5 mr-2.5 max-w-full h-12 bg-white rounded-md border border-solid border-zinc-500 w-[526px]"
+                      onChange={(e) => setPassword(e.target.value)}
+                      />
               <div className="justify-center items-center px-16 py-2.5 mt-11 mr-2.5 text-lg font-semibold text-white bg-blue-600 rounded-md max-md:px-5 max-md:mt-10 max-md:max-w-full">
                 Sign In
               </div>
@@ -86,7 +116,11 @@ function Register() {
 
             <div className="mt-4 mr-2.5 mb-3 text-base text-blue-600 max-md:max-w-full">
               Already have an account?
-              <span className="text-blue-600"> Login</span>
+              <span className="text-blue-600"> 
+                <Link to="/login">
+                  Login
+                </Link>
+              </span>
             </div>
           </div>
         </div>
