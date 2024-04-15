@@ -62,6 +62,14 @@ function EProfile(){
                             onChange={}
                         />
                     </div>
+                    <div>
+                    <label>Bio</label>
+                    <textarea
+                        name="bio"
+                        value={profile.bio}
+                        onChange={}
+                    />
+                </div>
                     <button type="submit">Update Profile</button>
                 </form>
             </div>
