@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import api from "../api";
 import "../styles/Form.css";
 import LoadingIndicator from "../components/LoadingIndicator";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+
 
 function RegistrationForm() {
     const [formData, setFormData] = useState({
@@ -33,8 +35,11 @@ function RegistrationForm() {
 
         try {
             const res = await api.post("/api/register/", formData);
+            localStorage.setItem(ACCESS_TOKEN, res.data.access);
+            localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
             navigate(`/${formData.role}-profile/${formData.username}/complete`);
         } catch (error) {
+            console.error("Registration error:", error.response ? error.response.data : error);
             setErrors({ form: error.response?.data.message || "An error occurred" });
         } finally {
             setLoading(false);

@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from .serializers import UserRegistrationSerializer, ProfileSerializer, WorkerProfileSerializer, EmployerProfileSerializer
 from rest_framework.permissions import AllowAny
 from .permissions import IsOwnerOrReadOnly, IsWorkerAndOwner, IsEmployerAndOwner
-from .models import Profile, WorkerProfile, EmployerProfile
+from .models import Profile, WorkerProfile, EmployerProfile, User
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
@@ -14,9 +14,23 @@ from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
 import logging
 logger = logging.getLogger('api')
 
+
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
     permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        if response.status_code == status.HTTP_201_CREATED:
+            user = User.objects.get(username=response.data['username'])
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'username': user.username,
+                'access': str(refresh.access_token),
+                'refresh': str(refresh),
+                'role': user.role
+            }, status=status.HTTP_201_CREATED)
+        return response
 
 
 class LoginView(APIView):
