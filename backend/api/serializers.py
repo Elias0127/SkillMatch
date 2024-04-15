@@ -4,7 +4,6 @@ from .models import Profile, WorkerProfile, EmployerProfile, WorkerSkill, Skill
 
 User = get_user_model()
 
-
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -27,8 +26,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['user', 'phone_number', 'picture', 'first_name', 'last_name', 'email']
-        extra_kwargs = {'user': {'read_only': True}} 
-
+        extra_kwargs = {'user': {'read_only': True}}
 
 
 class WorkerProfileSerializer(serializers.ModelSerializer):
@@ -51,7 +49,6 @@ class SkillSerializer(serializers.ModelSerializer):
 
 class WorkerSkillSerializer(serializers.ModelSerializer):
     skill = SkillSerializer()
-
     class Meta:
         model = WorkerSkill
         fields = ['skill']
