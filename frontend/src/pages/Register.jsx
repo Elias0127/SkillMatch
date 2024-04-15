@@ -1,12 +1,12 @@
-//import * as React from "react";
-import React, { useState } from "react";
+import * as React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
 function Register() {
  
-    const [userType, setUserType] = useState() //whether user is employer or worker
+    //const [userType, setUserType] = useState() //whether user is employer or worker
     const [firstName, setFirstName] = useState()
     const [lastName, setLastName] = useState()
     const [phoneNum, setPhoneNum] = useState()
@@ -16,7 +16,7 @@ function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("http://localhost:5173/register", { userType, firstName, lastName, phoneNum,email, password })
+        axios.post("http://localhost:5173/register", { firstName, lastName, phoneNum,email, password })
         .then(result => {console.log(result)
         navigate("/login")
         })
