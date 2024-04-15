@@ -12,7 +12,6 @@ function EProfile(){
         email: '',
         location: ''
     });
-
     const navigate = useNavigate();
 
 }
