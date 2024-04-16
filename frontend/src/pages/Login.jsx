@@ -18,7 +18,7 @@ function LoginPage() {
             <Form route="/api/login/" method="Login" fields={fields} />
             <p className="text-center">Don't have an account? 
                 <button onClick={handleRegisterRedirect} className="link-button">
-                    Register here
+                    Sign up
                 </button>
             </p>
         </div>

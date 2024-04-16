@@ -49,7 +49,7 @@ function RegistrationForm() {
     return (
         <div className="registration-container">
             <form onSubmit={handleSubmit} className="form-container">
-                <h1>Register</h1>
+                <h1 className="signup-title">Sign up</h1>
                 <input
                     className="form-input"
                     type="text"
@@ -79,7 +79,7 @@ function RegistrationForm() {
                     error && <p key={index} className="error">{error}</p>
                 ))}
                 {loading && <LoadingIndicator />}
-                <button type="submit" className="form-button">Register</button>
+                <button type="submit" className="form-button">Sign up</button>
             </form>
         </div>
     );
