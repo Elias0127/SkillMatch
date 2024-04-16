@@ -55,7 +55,7 @@ function Form({ route, method, fields }) {
 
     return (
         <form onSubmit={handleSubmit} className="form-container">
-            <h1>{method}</h1>
+            <h1 className="login-title">Sign in to your account</h1>
             {fields.map(field => (
                 <input
                     key={field.name}
@@ -73,7 +73,7 @@ function Form({ route, method, fields }) {
             ))}
             {loading && <LoadingIndicator />}
             <button type="submit" className="form-button">
-                {method}
+                Sign in
             </button>
         </form>
     );
