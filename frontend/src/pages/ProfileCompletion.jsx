@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
 import '../styles/Form.css';
+import "../styles/ProfileCompletion.css";
 import LoadingIndicator from '../components/LoadingIndicator';
 
 function ProfileCompletionForm() {
@@ -72,13 +73,15 @@ function ProfileCompletionForm() {
     return (
         <div className="profile-completion-container">
             <form onSubmit={handleSubmit} className="form-container" encType="multipart/form-data">
-                <h1>Complete Your Profile</h1>
-                <input type="text" name="firstName" value={profileData.firstName} onChange={updateField} placeholder="First Name" />
-                <input type="text" name="lastName" value={profileData.lastName} onChange={updateField} placeholder="Last Name" />
-                <input type="text" name="phoneNumber" value={profileData.phoneNumber} onChange={updateField} placeholder="Phone Number" />
-                <input type="email" name="email" value={profileData.email} onChange={updateField} placeholder="Email" />
+                <h1 className="prof-complete-title">You're almost done!</h1>
+                <h2 className='prof-complete-sub'>Please fill out the required information to complete the registration process</h2>
+                <input className="prof-complete-input" type="text" name="firstName" value={profileData.firstName} onChange={updateField} placeholder="First Name" />
+                <input className="prof-complete-input" type="text" name="lastName" value={profileData.lastName} onChange={updateField} placeholder="Last Name" />
+                <input className="prof-complete-input" type="text" name="phoneNumber" value={profileData.phoneNumber} onChange={updateField} placeholder="Phone Number" />
+                <input className="prof-complete-input" type="email" name="email" value={profileData.email} onChange={updateField} placeholder="Email" />
+                <h3 className="prof-pic-text">Add a profile picture for others to know who you are</h3>
                 {role === 'worker' && (
-                    <input type="file" name="picture" onChange={updateField} />
+                    <input className="pfp-file" type="file" name="picture" onChange={updateField} />
                 )}
                 <button type="submit" className="form-button">Complete Profile</button>
                 {loading && <LoadingIndicator />}

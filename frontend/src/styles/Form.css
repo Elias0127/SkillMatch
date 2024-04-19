@@ -5,8 +5,6 @@ body {
     padding: 0;
 }
 
-
-
 .login-container, .registration-container{
     font-family: "Inter", sans-serif;
     display: flex;
