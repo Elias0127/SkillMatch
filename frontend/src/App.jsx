@@ -7,8 +7,7 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EmployerProfile from "./pages/EmployerProfile";
 import WorkerProfile from "./pages/WorkerProfile";
-import WorkerProfileCompletion from "./pages/WorkerProfileCompletion";
-import EmployerProfileCompletion from "./pages/EmployerProfileCompletion";
+import ProfileCompletion from "./pages/ProfileCompletion";
 
 function App() {
   return (
@@ -21,14 +20,9 @@ function App() {
             <Home />
           </ProtectedRoute>
         } />
-        <Route path="/worker-profile/:username/complete" element={
+        <Route path="/profile-complete/:role/:username" element={
           <ProtectedRoute>
-            <WorkerProfileCompletion />
-          </ProtectedRoute>
-        } />
-        <Route path="/employer-profile/:username/complete" element={
-          <ProtectedRoute>
-            <EmployerProfileCompletion />
+            <ProfileCompletion />
           </ProtectedRoute>
         } />
         <Route path="/profile/worker/:username" element={
@@ -46,5 +40,6 @@ function App() {
     </BrowserRouter>
   );
 }
+
 
 export default App;
