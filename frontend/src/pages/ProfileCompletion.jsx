@@ -79,9 +79,11 @@ function ProfileCompletionForm() {
                 <input className="prof-complete-input" type="text" name="lastName" value={profileData.lastName} onChange={updateField} placeholder="Last Name" />
                 <input className="prof-complete-input" type="text" name="phoneNumber" value={profileData.phoneNumber} onChange={updateField} placeholder="Phone Number" />
                 <input className="prof-complete-input" type="email" name="email" value={profileData.email} onChange={updateField} placeholder="Email" />
-                <h3 className="prof-pic-text">Add a profile picture for others to know who you are</h3>
                 {role === 'worker' && (
-                    <input className="pfp-file" type="file" name="picture" onChange={updateField} />
+                    <div>
+                        <h3 className="prof-pic-text">Add a profile picture for others to know who you are</h3>
+                        <input className="pfp-file" type="file" name="picture" onChange={updateField} />
+                    </div>
                 )}
                 <button type="submit" className="form-button">Complete Profile</button>
                 {loading && <LoadingIndicator />}
