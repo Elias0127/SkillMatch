@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Logout from './Logout'; 
 
 const header = () => {
-    const Header = () => {
         return (
           <header className="header">
             <nav className="nav-bar">
@@ -16,8 +15,16 @@ const header = () => {
             </nav>
           </header>
         );
-      };
-}
+};
+
+const HeroSection = () => {
+return (
+    <section className="hero-section">
+    <h1>Your local service needs</h1>
+    <Link to="/discover" className="discover-button">Discover</Link>
+    </section>
+    );
+};
 
 function Home() {
     return (
