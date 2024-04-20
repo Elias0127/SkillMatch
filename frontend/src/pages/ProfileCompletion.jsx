@@ -3,10 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
 import '../styles/Form.css';
 import LoadingIndicator from '../components/LoadingIndicator';
+import { ACCESS_TOKEN } from "../constants";
+
 
 function ProfileCompletionForm() {
     const { username, role } = useParams();
-    console.log(role)
     const [profileData, setProfileData] = useState({
         firstName: '',
         lastName: '',
@@ -20,9 +21,9 @@ function ProfileCompletionForm() {
 
     const updateField = e => {
         if (e.target.type === 'file') {
-            setProfileData({ ...profileData, picture: e.target.files[0] });
+            setProfileData(prevState => ({ ...prevState, picture: e.target.files[0] }));
         } else {
-            setProfileData({ ...profileData, [e.target.name]: e.target.value });
+            setProfileData(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
         }
     };
 
@@ -44,30 +45,50 @@ function ProfileCompletionForm() {
 
         const endpoint = role === 'worker' ? `/api/worker-profile/${username}/` : `/api/employer-profile/${username}/`;
 
-        try {
-            const formData = new FormData();
-            formData.append('firstName', profileData.firstName);
-            formData.append('lastName', profileData.lastName);
-            formData.append('phoneNumber', profileData.phoneNumber);
+        let formData;
+        if (role === 'worker') {
+            formData = new FormData();
+            formData.append('first_name', profileData.firstName);
+            formData.append('last_name', profileData.lastName);
+            formData.append('phone_number', profileData.phoneNumber);
             formData.append('email', profileData.email);
-            if (role === 'worker' && profileData.picture) {
+            if (profileData.picture) {
                 formData.append('picture', profileData.picture);
             }
+        } else {
+            formData = {
+                profile: {
+                    phone_number: profileData.phoneNumber,
+                    user: {
+                        first_name: profileData.firstName,
+                        last_name: profileData.lastName,
+                        email: profileData.email
+                    }
+                }
+            };
+        }
 
-            const res = await api.put(endpoint, formData, {
+        try {
+            const response = await api.put(endpoint, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': role === 'worker' ? undefined : 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
                 }
             });
-            navigate('/home'); 
+
+            if (response.status !== 200) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            console.log('Response data:', response.data);
+            navigate('/home');
         } catch (error) {
-            console.error('Profile completion error:', error.response ? error.response.data : error);
-            setErrors({ ...errors, form: error.response?.data.message || "An error occurred during profile completion" });
+            console.error('Profile completion error:', error);
+            setErrors(prevErrors => ({ ...prevErrors, form: error.message || "An error occurred during profile completion" }));
         } finally {
             setLoading(false);
         }
     };
-
 
     return (
         <div className="profile-completion-container">
@@ -81,10 +102,14 @@ function ProfileCompletionForm() {
                     <input type="file" name="picture" onChange={updateField} />
                 )}
                 <button type="submit" className="form-button">Complete Profile</button>
-                {loading && <LoadingIndicator />}
-                {Object.values(errors).map((error, index) => (
-                    <p key={index} className="error">{error}</p>
-                ))}
+                {loading && <p>Loading...</p>}
+                {Object.keys(errors).length > 0 && (
+                    <div>
+                        {Object.values(errors).map((error, index) => (
+                            <p key={index} className="error">{error}</p>
+                        ))}
+                    </div>
+                )}
             </form>
         </div>
     );
