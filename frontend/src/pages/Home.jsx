@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logout from './Logout'; 
 
-const header = () => {
+const Header = () => {
         return (
           <header className="header">
             <nav className="nav-bar">
@@ -25,6 +25,19 @@ return (
     </section>
     );
 };
+
+const ServicesSection = () => {
+    return (
+      <section className="services-section">
+        <h2>Available services</h2>
+        <div className="services-list">
+          <div className="service-item">Plumbing</div>
+          <div className="service-item">Electrician</div>
+          <div className="service-item">Mechanic</div>
+        </div>
+      </section>
+    );
+  };
 
 function Home() {
     return (
