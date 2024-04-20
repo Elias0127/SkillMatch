@@ -14,8 +14,10 @@
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-password-checklist": "^1.5.1",
     "react-router-dom": "^6.22.3",
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": "^3.4.3",
+    "validator": "^13.11.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

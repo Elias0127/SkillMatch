@@ -4,7 +4,7 @@ import api from "../api";
 import "../styles/Form.css";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
-
+import PasswordChecklist from "react-password-checklist";
 
 function RegistrationForm() {
     const [formData, setFormData] = useState({
@@ -67,6 +67,20 @@ function RegistrationForm() {
                     onChange={updateField}
                     placeholder="Password"
                 />
+                
+                <PasswordChecklist
+				rules={["minLength","specialChar","number","capital"]}
+				minLength={8}
+				value={formData.password}
+				onChange={(isValid) => {}}
+                messages={{
+					minLength: "Password length must have minimum length of 8 characters.",
+					specialChar: "Password must contain as least 1 special character.",
+					number: "Password must contain as least 1 numerical value.",
+					capital: "Password must contain as least 1 capitialized letter.",
+				}}
+                />
+            
                 <select
                     name="role"
                     value={formData.role}
