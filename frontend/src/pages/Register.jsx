@@ -28,6 +28,22 @@ function RegistrationForm() {
         return Object.keys(tempErrors).length === 0;
     };
 
+    // validate username 
+    // check to see if username contains 0-9, 
+    // uppercase and lowercase letters, 
+    // length between 6- 20 characters
+
+    const isValidUsername = /^[0-9A-Za-z]{6,20}$/;
+    
+    function validateUsername(){
+        if (isValidUsername.test(formData.username)) {
+            alert('Username is not unique.')
+            return
+          }
+
+    }
+    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validate()) return;
@@ -55,10 +71,21 @@ function RegistrationForm() {
                     className="form-input"
                     type="text"
                     name="username"
-                    value={formData.username}
+                    value={validateUsername(formData.username)}
                     onChange={updateField}
                     placeholder="Username"
                 />
+                {/* 
+                <PasswordChecklist
+				rules={["minLength"]}
+				minLength={8}
+				value={formData.username}
+				onChange={(isValid) => {}}
+                messages={{
+					minLength: "Username is not unique."
+				}}
+                />
+                */}
                 <input
                     className="form-input"
                     type="password"
@@ -67,7 +94,7 @@ function RegistrationForm() {
                     onChange={updateField}
                     placeholder="Password"
                 />
-                
+
                 <PasswordChecklist
 				rules={["minLength","specialChar","number","capital"]}
 				minLength={8}
