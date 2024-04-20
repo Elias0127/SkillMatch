@@ -3,12 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import WorkerDashboard from "./pages/WorkerDashboard";
-import EmployerDashboard from "./pages/EmployerDashboard";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import EmployerProfile from "./pages/EmployerProfile";
+import WorkerProfile from "./pages/WorkerProfile";
+import ProfileCompletion from "./pages/ProfileCompletion";
 
 function App() {
   return (
@@ -16,24 +15,25 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/" element={
           <ProtectedRoute>
             <Home />
           </ProtectedRoute>
         } />
-        <Route path="/profile" element={
+        <Route path="/profile-complete/:role/:username" element={
           <ProtectedRoute>
-            <Profile />
+            <ProfileCompletion />
           </ProtectedRoute>
         } />
-        <Route path="/worker-dashboard" element={
+        <Route path="/profile/worker/:username" element={
           <ProtectedRoute>
-            <WorkerDashboard />
+            <WorkerProfile />
           </ProtectedRoute>
         } />
-        <Route path="/employer-dashboard" element={
+        <Route path="/profile/employer/:username" element={
           <ProtectedRoute>
-            <EmployerDashboard />
+            <EmployerProfile />
           </ProtectedRoute>
         } />
         <Route path="*" element={<NotFound />} />
@@ -41,5 +41,6 @@ function App() {
     </BrowserRouter>
   );
 }
+
 
 export default App;

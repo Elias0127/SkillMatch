@@ -39,20 +39,24 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=15)
     picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
 
+    def __str__(self):
+        return self.user.username
+
 # WorkerProfile Model
 class WorkerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='worker_profile')
-    available_time = models.CharField(max_length=50)
-    location = models.CharField(max_length=100)
-
-    RATE_TYPE_CHOICES = [
-        ('fixed', 'Fixed'),
-        ('per_hour', 'Per Hour'),
-        ('negotiable', 'Negotiable'),
-    ]
-    rate_type = models.CharField(max_length=10, choices=RATE_TYPE_CHOICES, default='fixed')
+    available_time = models.CharField(max_length=50, blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    rate_type = models.CharField(max_length=10, choices=[(
+        'fixed', 'Fixed'), ('per_hour', 'Per Hour'), ('negotiable', 'Negotiable')], default='fixed')
     rate = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
+# EmployerProfile Model
+class EmployerProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='employer_profile')
+    company_name = models.CharField(max_length=255, blank=True, null=True)
+    industry = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
 
 # Skill Model
 class Skill(models.Model):
@@ -64,10 +68,6 @@ class Skill(models.Model):
 class WorkerSkill(models.Model):
     worker_profile = models.ForeignKey(WorkerProfile, on_delete=models.CASCADE)
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
-
-# EmployerProfile Model
-class EmployerProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='employer_profile')
 
 # Contract Model
 class Contract(models.Model):

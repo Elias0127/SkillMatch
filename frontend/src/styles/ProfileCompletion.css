@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.profile-completion-container {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url(../assets/profile-completion-background.png);
+    background-size: cover;
+}
+
+.prof-complete-title {
+    font-size: 25px;
+    color: rgb(55, 55, 55);
+}
+
+.prof-complete-sub {
+    font-size: 14px;
+    color: rgb(121, 121, 121);
+    padding-bottom: 25px;  
+    text-align: center; 
+    margin: 0;
+}
+
+.prof-complete-input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ababab;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+.pfp-file {
+    display: inline-block;
+    padding: 30px;
+
+
+}
+
+.prof-pic-text {
+    font-size: 13px;
+    color: rgb(121, 121, 121);
+    padding-top: 25px;  
+    margin: 0;
+    text-align: center; 
+}
+
+
+

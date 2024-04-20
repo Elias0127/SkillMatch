@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.login-container, .registration-container{
+    font-family: "Inter", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #3359E1 60%, #ffffff 50%);
+}
+
+.login-title, .signup-title {
+    font-size: 25px;
+    color: rgb(55, 55, 55);
+    padding-bottom: 20px;
+}
+
+label {
+    font-weight: 500;
+    padding-bottom: 5px;
+    text-align: left;
+}
+
+.form-container {
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px auto;
+    width: 500px;
+    height: 550px;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    max-width: 400px;
+}
+
+.form-input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ababab;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-button {
+    width: 360px;
+    padding: 12px;
+    margin: 20px 0;
+    font-weight: 500;
+    font-size: 17px;
+    background-color: #3359E1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.form-button:hover {
+    background-color: #0056b3;
+}
+
+.link-button {
+    display: inline-block;
+    background-color: #3359E1;
+    color: white;
+    padding: 8px 12px;
+    margin-left: 10px;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.link-button:hover {
+    background-color: #0056b3;
+}
+
+.text-center {
+    text-align: center;
+
+}
+
+

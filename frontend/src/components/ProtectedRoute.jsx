@@ -32,20 +32,30 @@ function ProtectedRoute({ children }) {
 
     const auth = async () => {
         const token = localStorage.getItem(ACCESS_TOKEN);
+        console.log("Checking authentication status...");
         if (!token) {
+            console.log("No access token found.");
             setIsAuthorized(false);
             return;
         }
-        const decoded = jwtDecode(token);
-        const tokenExpiration = decoded.exp;
-        const now = Date.now() / 1000;
+        try {
+            const decoded = jwtDecode(token);
+            const tokenExpiration = decoded.exp;
+            const now = Date.now() / 1000;
 
-        if (tokenExpiration < now) {
-            await refreshToken();
-        } else {
-            setIsAuthorized(true);
+            if (tokenExpiration < now) {
+                console.log("Token expired. Refreshing...");
+                await refreshToken();
+            } else {
+                console.log("Token is valid.");
+                setIsAuthorized(true);
+            }
+        } catch (error) {
+            console.error("Error decoding token:", error);
+            setIsAuthorized(false);
         }
     };
+
 
     if (isAuthorized === null) {
         return <div>Loading...</div>;
