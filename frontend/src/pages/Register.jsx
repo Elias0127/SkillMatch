@@ -32,7 +32,7 @@ function RegistrationForm() {
     // check to see if username contains 0-9, 
     // uppercase and lowercase letters, 
     // length between 6- 20 characters
-
+    /*
     const isValidUsername = /^[0-9A-Za-z]{6,20}$/;
     
     function validateUsername(){
@@ -42,7 +42,7 @@ function RegistrationForm() {
           }
 
     }
-    
+    */
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -71,7 +71,7 @@ function RegistrationForm() {
                     className="form-input"
                     type="text"
                     name="username"
-                    value={validateUsername(formData.username)}
+                    value={formData.username}
                     onChange={updateField}
                     placeholder="Username"
                 />
