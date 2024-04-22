@@ -24,6 +24,25 @@
     margin: 0;
 }
 
+.name-container {
+    display: flex;
+    width: 90%;
+}
+
+.name-container input:first-child {
+    margin-right: 12px;
+}
+
+.rate-container {
+    display: flex;
+    width: 90%;
+}
+
+.rate-container input:first-child {
+    margin-right: 12px;
+}
+
+
 .prof-complete-input {
     width: 90%;
     padding: 12px;
@@ -36,8 +55,6 @@
 .pfp-file {
     display: inline-block;
     padding: 30px;
-
-
 }
 
 .prof-pic-text {
@@ -48,5 +65,32 @@
     text-align: center; 
 }
 
+.completion-form-container {
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px auto;
+    width: 600px;
+    padding: 40px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
 
 
+.back-button {
+    align-self: flex-start;
+    margin-left: 30px;
+    padding: 10px;
+    width: 70px;
+    background-color: #3359E1;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
