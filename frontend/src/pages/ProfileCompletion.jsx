@@ -15,9 +15,17 @@ function ProfileCompletionForm() {
         phoneNumber: '',
         email: '',
         picture: null,
+        availableTime: '',
+        location: '',
+        rateType: '',
+        rate: '',
+        company_name: '',
+        industry: '',
+        description: ''
     });
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
+    const [stage, setStage] = useState(1); 
     const navigate = useNavigate();
 
     const updateField = e => {
@@ -44,20 +52,30 @@ function ProfileCompletionForm() {
         if (!validate()) return;
         setLoading(true);
 
-        const endpoint = role === 'worker' ? `/api/worker-profile/${username}/` : `/api/employer-profile/${username}/`;
+        if (stage === 1) {
+            setStage(2);  // Move to the next form stage and wait for more form fileds
+            setLoading(false);
+            return;  // Exit the function early
+        }
 
+        const endpoint = role === 'worker' ? `/api/worker-profile/${username}/` : `/api/employer-profile/${username}/`;
         let formData;
+
         if (role === 'worker') {
             formData = new FormData();
             formData.append('first_name', profileData.firstName);
             formData.append('last_name', profileData.lastName);
             formData.append('phone_number', profileData.phoneNumber);
             formData.append('email', profileData.email);
+            formData.append('available_time', profileData.availableTime);
+            formData.append('location', profileData.location);
+            formData.append('rate_type', profileData.rateType);
+            formData.append('rate', profileData.rate.toString());
             if (profileData.picture) {
                 formData.append('picture', profileData.picture);
             }
         } else {
-            formData = {
+            formData = JSON.stringify({
                 profile: {
                     phone_number: profileData.phoneNumber,
                     user: {
@@ -65,8 +83,11 @@ function ProfileCompletionForm() {
                         last_name: profileData.lastName,
                         email: profileData.email
                     }
-                }
-            };
+                },
+                company_name: profileData.company_name,
+                industry: profileData.industry,
+                description: profileData.description
+            });
         }
 
         try {
@@ -82,7 +103,7 @@ function ProfileCompletionForm() {
             }
 
             console.log('Response data:', response.data);
-            navigate('/home');
+            navigate('/home'); 
         } catch (error) {
             console.error('Profile completion error:', error);
             setErrors(prevErrors => ({ ...prevErrors, form: error.message || "An error occurred during profile completion" }));
@@ -92,32 +113,62 @@ function ProfileCompletionForm() {
     };
 
     return (
-        <div className="profile-completion-container">
-            <form onSubmit={handleSubmit} className="form-container" encType="multipart/form-data">
-                <h1 className="prof-complete-title">You're almost done!</h1>
-                <h2 className='prof-complete-sub'>Please fill out the required information to complete the registration process</h2>
-                <input className="prof-complete-input" type="text" name="firstName" value={profileData.firstName} onChange={updateField} placeholder="First Name" />
-                <input className="prof-complete-input" type="text" name="lastName" value={profileData.lastName} onChange={updateField} placeholder="Last Name" />
-                <input className="prof-complete-input" type="text" name="phoneNumber" value={profileData.phoneNumber} onChange={updateField} placeholder="Phone Number" />
-                <input className="prof-complete-input" type="email" name="email" value={profileData.email} onChange={updateField} placeholder="Email" />
-                {role === 'worker' && (
-                    <div>
-                        <h3 className="prof-pic-text">Add a profile picture for others to know who you are</h3>
-                        <input className="pfp-file" type="file" name="picture" onChange={updateField} />
-                    </div>
-                )}
-                <button type="submit" className="form-button">Complete Profile</button>
-                {loading && <p>Loading...</p>}
-                {Object.keys(errors).length > 0 && (
-                    <div>
-                        {Object.values(errors).map((error, index) => (
-                            <p key={index} className="error">{error}</p>
-                        ))}
-                    </div>
-                )}
-            </form>
-        </div>
-    );
+    <div className="profile-completion-container">
+        <form onSubmit={handleSubmit} className="form-container" encType={role === 'worker' ? "multipart/form-data" : undefined}>
+            <h1 className="prof-complete-title">You're almost done!</h1>
+            <h2 className='prof-complete-sub'>Please fill out the required information to complete the registration process</h2>
+            
+            {stage === 1 && (
+                <>
+                    <input className="prof-complete-input" type="text" name="firstName" value={profileData.firstName} onChange={updateField} placeholder="First Name" />
+                    <input className="prof-complete-input" type="text" name="lastName" value={profileData.lastName} onChange={updateField} placeholder="Last Name" />
+                    <input className="prof-complete-input" type="text" name="phoneNumber" value={profileData.phoneNumber} onChange={updateField} placeholder="Phone Number" />
+                    <input className="prof-complete-input" type="email" name="email" value={profileData.email} onChange={updateField} placeholder="Email" />
+                    {role === 'worker' && (
+                        <div>
+                            <h3 className="prof-pic-text">Add a profile picture for others to know who you are</h3>
+                            <input className="pfp-file" type="file" name="picture" onChange={updateField} />
+                        </div>
+                    )}
+                    <button type="button" onClick={() => setStage(2)} className="form-button">Next</button>
+                </>
+            )}
+
+            {stage === 2 && role === 'worker' && (
+                <>
+                    <input className="prof-complete-input" type="text" name="availableTime" value={profileData.availableTime} onChange={updateField} placeholder="Available Time" />
+                    <input className="prof-complete-input" type="text" name="location" value={profileData.location} onChange={updateField} placeholder="Location" />
+                    <select className="prof-complete-input" name="rateType" value={profileData.rateType} onChange={updateField}>
+                        <option value="fixed">Fixed</option>
+                        <option value="per_hour">Per Hour</option>
+                        <option value="negotiable">Negotiable</option>
+                    </select>
+                    <input className="prof-complete-input" type="number" name="rate" value={profileData.rate} onChange={updateField} placeholder="Rate" />
+                    <button type="submit" className="form-button">Complete Profile</button>
+                </>
+            )}
+
+            {stage === 2 && role === 'employer' && (
+                <>
+                    <input className="prof-complete-input" type="text" name="company_name" value={profileData.company_name} onChange={updateField} placeholder="Company Name" />
+                    <input className="prof-complete-input" type="text" name="industry" value={profileData.industry} onChange={updateField} placeholder="Industry" />
+                    <textarea className="prof-complete-input" name="description" value={profileData.description} onChange={updateField} placeholder="Description"></textarea>
+                    <button type="submit" className="form-button">Complete Profile</button>
+                </>
+            )}
+
+            {loading && <p>Loading...</p>}
+            {Object.keys(errors).length > 0 && (
+                <div>
+                    {Object.values(errors).map((error, index) => (
+                        <p key={index} className="error">{error}</p>
+                    ))}
+                </div>
+            )}
+        </form>
+    </div>
+);
+
 }
 
 export default ProfileCompletionForm;
