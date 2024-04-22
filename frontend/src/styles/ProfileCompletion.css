@@ -94,3 +94,9 @@
 .back-button:hover {
     background-color: #0056b3;
 }
+
+textarea {
+    resize: vertical;
+    max-height: 500px;
+    min-height: 100px;
+}
