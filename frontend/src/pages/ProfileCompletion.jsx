@@ -114,14 +114,19 @@ function ProfileCompletionForm() {
 
     return (
     <div className="profile-completion-container">
-        <form onSubmit={handleSubmit} className="form-container" encType={role === 'worker' ? "multipart/form-data" : undefined}>
-            <h1 className="prof-complete-title">You're almost done!</h1>
-            <h2 className='prof-complete-sub'>Please fill out the required information to complete the registration process</h2>
+        <form onSubmit={handleSubmit} className="completion-form-container" encType={role === 'worker' ? "multipart/form-data" : undefined}>
+            {stage === 2 && (
+                <button type="button" onClick={() => setStage(1)} className="back-button">Back</button>
+            )}
             
             {stage === 1 && (
                 <>
-                    <input className="prof-complete-input" type="text" name="firstName" value={profileData.firstName} onChange={updateField} placeholder="First Name" />
-                    <input className="prof-complete-input" type="text" name="lastName" value={profileData.lastName} onChange={updateField} placeholder="Last Name" />
+                    <h1 className="prof-complete-title">You're almost done!</h1>
+                    <h2 className='prof-complete-sub'>Please fill out the required information to complete the registration process</h2>
+                    <div className="name-container">
+                        <input className="prof-complete-input" type="text" name="firstName" value={profileData.firstName} onChange={updateField} placeholder="First Name" />
+                        <input className="prof-complete-input" type="text" name="lastName" value={profileData.lastName} onChange={updateField} placeholder="Last Name" />
+                    </div>
                     <input className="prof-complete-input" type="text" name="phoneNumber" value={profileData.phoneNumber} onChange={updateField} placeholder="Phone Number" />
                     <input className="prof-complete-input" type="email" name="email" value={profileData.email} onChange={updateField} placeholder="Email" />
                     {role === 'worker' && (
@@ -136,20 +141,31 @@ function ProfileCompletionForm() {
 
             {stage === 2 && role === 'worker' && (
                 <>
+                    <h1 className="prof-complete-title">One last step!</h1>
+                    <h2 className='prof-complete-sub'>Fill out the last fields to complete your profile</h2>
                     <input className="prof-complete-input" type="text" name="availableTime" value={profileData.availableTime} onChange={updateField} placeholder="Available Time" />
                     <input className="prof-complete-input" type="text" name="location" value={profileData.location} onChange={updateField} placeholder="Location" />
-                    <select className="prof-complete-input" name="rateType" value={profileData.rateType} onChange={updateField}>
-                        <option value="fixed">Fixed</option>
-                        <option value="per_hour">Per Hour</option>
-                        <option value="negotiable">Negotiable</option>
-                    </select>
-                    <input className="prof-complete-input" type="number" name="rate" value={profileData.rate} onChange={updateField} placeholder="Rate" />
+                    <div className="rate-container">
+                            <input className="prof-complete-input" type="number" name="rate" value={profileData.rate} onChange={updateField} placeholder="Pay Rate" />
+                            <select
+                                name="role"
+                                value={profileData.rateType}
+                                onChange={updateField}
+                                className="prof-complete-input"
+                            >
+                                <option value="fixed">Fixed</option>
+                                <option value="per_hour">Per Hour</option>
+                                <option value="negotiable">Negotiable</option>
+                            </select>
+                    </div>
                     <button type="submit" className="form-button">Complete Profile</button>
                 </>
             )}
 
             {stage === 2 && role === 'employer' && (
                 <>
+                    <h1 className="prof-complete-title">One last step!</h1>
+                    <h2 className='prof-complete-sub'>Fill out the last fields to complete your profile</h2>
                     <input className="prof-complete-input" type="text" name="company_name" value={profileData.company_name} onChange={updateField} placeholder="Company Name" />
                     <input className="prof-complete-input" type="text" name="industry" value={profileData.industry} onChange={updateField} placeholder="Industry" />
                     <textarea className="prof-complete-input" name="description" value={profileData.description} onChange={updateField} placeholder="Description"></textarea>
