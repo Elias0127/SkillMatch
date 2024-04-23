@@ -112,7 +112,7 @@ function ProfileCompletionForm() {
         }
     };
 
-    const [totalSteps, setTotalSteps] = useState(role === 'worker' ? 3 : 4);
+    const [totalSteps, setTotalSteps] = useState(role === 'worker' ? 3 : role === 'employer' ? 3 : 4);
 
     const stepLabels = [
         "Personal Info",
@@ -170,7 +170,7 @@ function ProfileCompletionForm() {
                     <div className="rate-container">
                             <input className="prof-complete-input" type="number" name="rate" value={profileData.rate} onChange={updateField} placeholder="Pay Rate" />
                             <select
-                                name="role"
+                                name="rate_type"
                                 value={profileData.rateType}
                                 onChange={updateField}
                                 className="prof-complete-input"
