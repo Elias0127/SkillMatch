@@ -12,6 +12,7 @@
 }
 
 .prof-complete-title {
+    margin-top: 35px;
     font-size: 25px;
     color: rgb(55, 55, 55);
 }
@@ -35,6 +36,7 @@
 
 .rate-container {
     display: flex;
+    margin-bottom: 20px;
     width: 90%;
 }
 
@@ -72,27 +74,52 @@
     align-items: center;
     margin: 50px auto;
     width: 600px;
+
     padding: 40px;
     border-radius: 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
+.button-container {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
 
 .back-button {
-    align-self: flex-start;
-    margin-left: 30px;
-    padding: 10px;
-    width: 70px;
-    background-color: #3359E1;
-    color: white;
-    border: none;
-    border-radius: 100px;
+    border: 1px solid #555555;
+    width: 250px;
+    padding: 12px;
+    margin: 20px 0;
+    font-weight: 500;
+    font-size: 17px;
+    background-color: transparent;
+    color: rgb(40, 40, 40);
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
 
-.back-button:hover {
+.next-button {
+    width: 250px;
+    padding: 12px;
+    margin: 20px 0;
+    font-weight: 500;
+    font-size: 17px;
+    background-color: #3359E1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.next-button:hover {
     background-color: #0056b3;
+}
+
+.back-button:hover {
+    background-color: #e7e7e7;
 }
 
 textarea {
@@ -102,23 +129,47 @@ textarea {
 }
 
 .form-stepper {
-    margin-bottom: 20px;
-    font-size: 16px;
-    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    margin-bottom: 15px;
 }
 
-/* Style for active step */
+.form-stepper-step {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%; 
+    background-color: #ccc; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold; 
+}
+
 .form-stepper .active-step {
-    font-weight: bold;
-    color: #333;
+    background-color: #3359E1; 
+    color: #fff;
 }
 
-/* Style for inactive steps */
-.form-stepper .inactive-step {
-    color: #999;
-}
-
-/* Style for step separator */
-.form-stepper .step-separator {
+.form-stepper-line {
+    flex: 1;
+    height: 2px;
+    background-color: #cccccc;
     margin: 0 10px;
 }
+
+.step-labels {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.step-label {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3359E1;
+}
+
