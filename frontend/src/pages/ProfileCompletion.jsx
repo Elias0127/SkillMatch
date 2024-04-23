@@ -112,13 +112,35 @@ function ProfileCompletionForm() {
         }
     };
 
+    const [totalSteps, setTotalSteps] = useState(role === 'worker' ? 3 : role === 'employer' ? 3 : 4);
+
+    const stepLabels = [
+        "Personal Info",
+        "Additional Info",
+        "Confirmation"
+    ];
+
     return (
     <div className="profile-completion-container">
         <form onSubmit={handleSubmit} className="completion-form-container" encType={role === 'worker' ? "multipart/form-data" : undefined}>
-            {stage === 2 && (
-                <button type="button" onClick={() => setStage(1)} className="back-button">Back</button>
-            )}
-            
+            <div className="form-stepper">
+                {[...Array(totalSteps)].map((_, index) => (
+                    <>
+                        <div className={`form-stepper-step ${index + 1 === stage ? 'active-step' : ''}`}>
+                            {index + 1}
+                        </div>
+                        {index < totalSteps - 1 && <div className="form-stepper-line"></div>}
+                    </>
+                ))}
+            </div>
+            <div className="step-labels">
+                {[...Array(totalSteps)].map((_, index) => (
+                    <div key={index} className="step-label">
+                        {stepLabels[index]} 
+                    </div>
+                ))}
+            </div>
+
             {stage === 1 && (
                 <>
                     <h1 className="prof-complete-title">You're almost done!</h1>
@@ -135,10 +157,10 @@ function ProfileCompletionForm() {
                             <input className="pfp-file" type="file" name="picture" onChange={updateField} />
                         </div>
                     )}
-                    <button type="button" onClick={() => setStage(2)} className="form-button">Next</button>
+                    <button type="button" onClick={() => setStage(2)} className="next-button">Next</button>
                 </>
             )}
-
+            
             {stage === 2 && role === 'worker' && (
                 <>
                     <h1 className="prof-complete-title">One last step!</h1>
@@ -148,7 +170,7 @@ function ProfileCompletionForm() {
                     <div className="rate-container">
                             <input className="prof-complete-input" type="number" name="rate" value={profileData.rate} onChange={updateField} placeholder="Pay Rate" />
                             <select
-                                name="role"
+                                name="rateType"
                                 value={profileData.rateType}
                                 onChange={updateField}
                                 className="prof-complete-input"
@@ -158,7 +180,10 @@ function ProfileCompletionForm() {
                                 <option value="negotiable">Negotiable</option>
                             </select>
                     </div>
-                    <button type="submit" className="form-button">Complete Profile</button>
+                    <div className='button-container'>
+                        <button type="button" onClick={() => setStage(1)} className="back-button">Back</button>
+                        <button type="button" onClick={() => setStage(3)} className="next-button">Next</button>
+                    </div>
                 </>
             )}
 
@@ -169,7 +194,21 @@ function ProfileCompletionForm() {
                     <input className="prof-complete-input" type="text" name="company_name" value={profileData.company_name} onChange={updateField} placeholder="Company Name" />
                     <input className="prof-complete-input" type="text" name="industry" value={profileData.industry} onChange={updateField} placeholder="Industry" />
                     <textarea className="prof-complete-input" name="description" value={profileData.description} onChange={updateField} placeholder="Description"></textarea>
-                    <button type="submit" className="form-button">Complete Profile</button>
+                    <div className='button-container'>
+                        <button type="button" onClick={() => setStage(1)} className="back-button">Back</button>
+                        <button type="button" onClick={() => setStage(3)} className="next-button">Next</button>
+                    </div>
+                </>
+            )}
+
+            {stage === 3 && (
+                <>
+                <h1 className="prof-complete-title">Thank you!</h1>
+                <h2 className='prof-complete-sub'>Complete your profile or go back to make changes</h2>
+                <div className='button-container'>
+                        <button type="button" onClick={() => setStage(2)} className="back-button">Back</button>
+                        <button type="submit" className="next-button">Complete Profile</button>
+                    </div>
                 </>
             )}
 
