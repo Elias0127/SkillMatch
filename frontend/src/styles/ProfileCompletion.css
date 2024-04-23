@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url(../assets/profile-completion-background.png);
+    background-color: #eeeeee;
     background-size: cover;
 }
 
@@ -99,4 +99,26 @@ textarea {
     resize: vertical;
     max-height: 500px;
     min-height: 100px;
+}
+
+.form-stepper {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Style for active step */
+.form-stepper .active-step {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style for inactive steps */
+.form-stepper .inactive-step {
+    color: #999;
+}
+
+/* Style for step separator */
+.form-stepper .step-separator {
+    margin: 0 10px;
 }

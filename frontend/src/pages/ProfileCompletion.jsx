@@ -112,9 +112,14 @@ function ProfileCompletionForm() {
         }
     };
 
+    const [totalSteps, setTotalSteps] = useState(role === 'worker' ? 2 : 3);
+
     return (
     <div className="profile-completion-container">
         <form onSubmit={handleSubmit} className="completion-form-container" encType={role === 'worker' ? "multipart/form-data" : undefined}>
+            <div className="form-stepper">
+                Step <span className="active-step">{stage}</span> of {totalSteps}
+            </div>
             {stage === 2 && (
                 <button type="button" onClick={() => setStage(1)} className="back-button">Back</button>
             )}
