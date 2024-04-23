@@ -170,7 +170,7 @@ function ProfileCompletionForm() {
                     <div className="rate-container">
                             <input className="prof-complete-input" type="number" name="rate" value={profileData.rate} onChange={updateField} placeholder="Pay Rate" />
                             <select
-                                name="rate_type"
+                                name="rateType"
                                 value={profileData.rateType}
                                 onChange={updateField}
                                 className="prof-complete-input"
