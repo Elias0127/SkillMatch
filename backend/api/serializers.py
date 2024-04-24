@@ -150,11 +150,10 @@ class WorkerSkillSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkerSkill
-        fields = ['skill']
+        fields = ['id', 'skill']
 
     def create(self, validated_data):
         skill_data = validated_data.pop('skill')
         skill, created = Skill.objects.get_or_create(**skill_data)
-        worker_skill = WorkerSkill.objects.create(
-            skill=skill, **validated_data)
+        worker_skill = WorkerSkill.objects.create(skill=skill, **validated_data)
         return worker_skill
