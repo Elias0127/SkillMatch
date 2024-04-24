@@ -125,12 +125,12 @@ function ProfileCompletionForm() {
         <form onSubmit={handleSubmit} className="completion-form-container" encType={role === 'worker' ? "multipart/form-data" : undefined}>
             <div className="form-stepper">
                 {[...Array(totalSteps)].map((_, index) => (
-                    <>
-                        <div className={`form-stepper-step ${index + 1 === stage ? 'active-step' : ''}`}>
-                            {index + 1}
-                        </div>
-                        {index < totalSteps - 1 && <div className="form-stepper-line"></div>}
-                    </>
+                <React.Fragment key={index}>
+                    <div className={`form-stepper-step ${index + 1 === stage ? 'active-step' : ''}`}>
+                        {index + 1}
+                    </div>
+                    {index < totalSteps - 1 && <div className="form-stepper-line"></div>}
+                </React.Fragment>
                 ))}
             </div>
             <div className="step-labels">
