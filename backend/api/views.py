@@ -3,8 +3,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Profile, WorkerProfile, EmployerProfile
-from .serializers import UserRegistrationSerializer, ProfileSerializer, WorkerProfileSerializer, EmployerProfileSerializer
+from .models import Profile, Skill, WorkerProfile, EmployerProfile, WorkerSkill
+from .serializers import SkillSerializer, UserRegistrationSerializer, ProfileSerializer, WorkerProfileSerializer, EmployerProfileSerializer, WorkerSkillSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
@@ -95,3 +95,38 @@ class EmployerProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return get_object_or_404(EmployerProfile, user__username=self.kwargs['username'])
+
+
+# View for managing skills (Admin level)
+class SkillListView(generics.ListCreateAPIView):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+class SkillDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
+# View for managing worker skills
+class WorkerSkillView(generics.ListCreateAPIView):
+    serializer_class = WorkerSkillSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        user = get_user_model().objects.get(username=username)
+        return WorkerSkill.objects.filter(worker_profile__user=user)
+
+    def create(self, request, *args, **kwargs):
+        username = self.kwargs['username']
+        user = get_user_model().objects.get(username=username)
+        worker_profile = WorkerProfile.objects.get(user=user)
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            worker_skill = serializer.save(worker_profile=worker_profile)
+            return Response(WorkerSkillSerializer(worker_skill).data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

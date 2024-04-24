@@ -157,7 +157,11 @@ function ProfileCompletionForm() {
             }
 
             console.log('Response data:', response.data);
-            navigate('/home'); 
+            if (role === 'worker') {
+                navigate(`/skill-management/${username}`);
+            } else {
+                navigate('/home');
+            }
         } catch (error) {
             console.error('Profile completion error:', error);
             setErrors(prevErrors => ({ ...prevErrors, form: error.message || "An error occurred during profile completion" }));
@@ -179,14 +183,15 @@ function ProfileCompletionForm() {
         <form onSubmit={handleSubmit} className="completion-form-container" encType={role === 'worker' ? "multipart/form-data" : undefined}>
             <div className="form-stepper">
                 {[...Array(totalSteps)].map((_, index) => (
-                <React.Fragment key={index}>
-                    <div className={`form-stepper-step ${index + 1 === stage ? 'active-step' : ''}`}>
-                        {index + 1}
-                    </div>
-                    {index < totalSteps - 1 && <div className="form-stepper-line"></div>}
-                </React.Fragment>
+                    <React.Fragment key={index}>
+                        <div className={`form-stepper-step ${index + 1 === stage ? 'active-step' : ''}`}>
+                            {index + 1}
+                        </div>
+                        {index < totalSteps - 1 && <div className="form-stepper-line"></div>}
+                    </React.Fragment>
                 ))}
             </div>
+
             <div className="step-labels">
                 {[...Array(totalSteps)].map((_, index) => (
                     <div key={index} className="step-label">

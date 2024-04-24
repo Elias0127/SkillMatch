@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import EmployerProfile from "./pages/EmployerProfile";
 import WorkerProfile from "./pages/WorkerProfile";
 import ProfileCompletion from "./pages/ProfileCompletion";
+import SkillManagement from "./pages/SkillManagement";
 
 function App() {
   return (
@@ -26,6 +27,11 @@ function App() {
             <ProfileCompletion />
           </ProtectedRoute>
         } />
+        <Route path="/skill-management/:username" element={
+          <ProtectedRoute>
+            <SkillManagement />
+          </ProtectedRoute>
+        } />
         <Route path="/profile/worker/:username" element={
           <ProtectedRoute>
             <WorkerProfile />
@@ -41,6 +47,7 @@ function App() {
     </BrowserRouter>
   );
 }
+
 
 
 export default App;
