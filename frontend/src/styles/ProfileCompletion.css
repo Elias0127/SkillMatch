@@ -3,12 +3,13 @@
 .profile-completion-container {
     font-family: "Inter", sans-serif;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #eeeeee;
+    background-image: url(../assets/background3.jpg);
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .prof-complete-title {
@@ -69,15 +70,13 @@
 
 .completion-form-container {
     display: flex;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     flex-direction: column;
     align-items: center;
-    margin: 50px auto;
     width: 600px;
-
     padding: 40px;
     border-radius: 50px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .button-container {
@@ -95,7 +94,7 @@
     font-size: 17px;
     background-color: transparent;
     color: rgb(40, 40, 40);
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
@@ -106,10 +105,10 @@
     margin: 20px 0;
     font-weight: 500;
     font-size: 17px;
-    background-color: #3359E1;
+    background-color: #567aff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
@@ -148,7 +147,7 @@ textarea {
 }
 
 .form-stepper .active-step {
-    background-color: #3359E1; 
+    background-color: #7293ff; 
     color: #fff;
 }
 
@@ -170,6 +169,6 @@ textarea {
     text-align: center;
     font-size: 14px;
     font-weight: 500;
-    color: #3359E1;
+    color: #333333;
 }
 

@@ -17,7 +17,7 @@ function ProfileCompletionForm() {
         picture: null,
         availableTime: '',
         location: '',
-        rateType: '',
+        rateType: 'fixed',
         rate: '',
         company_name: '',
         industry: '',
@@ -27,7 +27,7 @@ function ProfileCompletionForm() {
     const [errors, setErrors] = useState({});
     const [stage, setStage] = useState(1); 
     const navigate = useNavigate();
-
+    
     const updateField = e => {
         if (e.target.type === 'file') {
             setProfileData(prevState => ({ ...prevState, picture: e.target.files[0] }));
@@ -45,6 +45,60 @@ function ProfileCompletionForm() {
         if (role === 'worker' && !profileData.picture) tempErrors.picture = 'Picture is required for workers';
         setErrors(tempErrors);
         return Object.keys(tempErrors).length === 0;
+    };
+
+    const fieldDisplayNames = {
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        phoneNumber: 'Phone Number',
+        email: 'Email',
+        picture: 'Picture',
+        availableTime: 'Available Time',
+        location: 'Location',
+        rate: 'Rate',
+        rateType: 'Rate Type',
+        company_name: 'Company Name',
+        industry: 'Industry',
+        description: 'Description'
+    };
+
+    const handleNext = () => {
+        if (stage === 1) {
+            const requiredFields = ['firstName', 'lastName', 'phoneNumber', 'email'];
+            const missingFields = requiredFields.filter(field => !profileData[field]);
+            if (missingFields.length > 0) {
+                const missingFieldNames = missingFields.map(field => fieldDisplayNames[field]);
+                setErrors(prevErrors => ({ ...prevErrors, form: `Please fill out the following fields: ${missingFieldNames.join(', ')}` }));
+                return;
+            }
+            if (role === 'worker' && !profileData.picture) {
+                setErrors(prevErrors => ({ ...prevErrors, form: `${fieldDisplayNames.picture} is required for workers` }));
+                return;
+            }
+        }
+    
+        if (stage === 2 && role === 'worker') {
+            const requiredFields = ['availableTime', 'location', 'rate', 'rateType'];
+            const missingFields = requiredFields.filter(field => !profileData[field]);
+            if (missingFields.length > 0) {
+                const missingFieldNames = missingFields.map(field => fieldDisplayNames[field]);
+                setErrors(prevErrors => ({ ...prevErrors, form: `Please fill out the following fields: ${missingFieldNames.join(', ')}` }));
+                return;
+            }
+        }
+    
+        if (stage === 2 && role === 'employer') {
+            const requiredFields = ['company_name', 'industry', 'description'];
+            const missingFields = requiredFields.filter(field => !profileData[field]);
+            if (missingFields.length > 0) {
+                const missingFieldNames = missingFields.map(field => fieldDisplayNames[field]);
+                setErrors(prevErrors => ({ ...prevErrors, form: `Please fill out the following fields: ${missingFieldNames.join(', ')}` }));
+                return;
+            }
+        }
+    
+        setErrors({}); // Clear any previous error messages
+        setStage(prevStage => prevStage + 1);
     };
 
     const handleSubmit = async (e) => {
@@ -157,7 +211,7 @@ function ProfileCompletionForm() {
                             <input className="pfp-file" type="file" name="picture" onChange={updateField} />
                         </div>
                     )}
-                    <button type="button" onClick={() => setStage(2)} className="next-button">Next</button>
+                    <button type="button" onClick={handleNext} className="next-button">Next</button>
                 </>
             )}
             
@@ -182,7 +236,7 @@ function ProfileCompletionForm() {
                     </div>
                     <div className='button-container'>
                         <button type="button" onClick={() => setStage(1)} className="back-button">Back</button>
-                        <button type="button" onClick={() => setStage(3)} className="next-button">Next</button>
+                        <button type="button" onClick={handleNext} className="next-button">Next</button>
                     </div>
                 </>
             )}
@@ -196,7 +250,7 @@ function ProfileCompletionForm() {
                     <textarea className="prof-complete-input" name="description" value={profileData.description} onChange={updateField} placeholder="Description"></textarea>
                     <div className='button-container'>
                         <button type="button" onClick={() => setStage(1)} className="back-button">Back</button>
-                        <button type="button" onClick={() => setStage(3)} className="next-button">Next</button>
+                        <button type="button" onClick={handleNext} className="next-button">Next</button>
                     </div>
                 </>
             )}
