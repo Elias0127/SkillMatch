@@ -180,6 +180,7 @@ function ProfileCompletionForm() {
 
     return (
     <div className="profile-completion-container">
+        <h1 className='title'>SkillMatch</h1>
         <form onSubmit={handleSubmit} className="completion-form-container" encType={role === 'worker' ? "multipart/form-data" : undefined}>
             <div className="form-stepper">
                 {[...Array(totalSteps)].map((_, index) => (

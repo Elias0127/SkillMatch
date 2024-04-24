@@ -3,13 +3,16 @@
 .profile-completion-container {
     font-family: "Inter", sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url(../assets/background3.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: linear-gradient(90deg, rgb(28, 50, 85) 0%, rgb(71, 127, 168) 100%);
+}
+
+.title {
+    color: white;
+    font-size: 45px;
 }
 
 .prof-complete-title {
@@ -105,7 +108,7 @@
     margin: 20px 0;
     font-weight: 500;
     font-size: 17px;
-    background-color: #567aff;
+    background-color: rgb(45, 71, 116);
     color: white;
     border: none;
     border-radius: 30px;
@@ -114,7 +117,7 @@
 }
 
 .next-button:hover {
-    background-color: #0056b3;
+    background-color: rgb(62, 99, 164);
 }
 
 .back-button:hover {
@@ -147,7 +150,7 @@ textarea {
 }
 
 .form-stepper .active-step {
-    background-color: #7293ff; 
+    background-color: rgb(62, 99, 164);
     color: #fff;
 }
 

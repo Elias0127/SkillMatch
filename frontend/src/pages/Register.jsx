@@ -65,6 +65,7 @@ function RegistrationForm() {
 
     return (
         <div className="registration-container">
+            <h1 className='title'>SkillMatch</h1>
             <form onSubmit={handleSubmit} className="form-container">
                 <h1 className="signup-title">Sign up</h1>
                 <input
