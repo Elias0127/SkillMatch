@@ -157,3 +157,12 @@ class WorkerSkillSerializer(serializers.ModelSerializer):
         skill, created = Skill.objects.get_or_create(**skill_data)
         worker_skill = WorkerSkill.objects.create(skill=skill, **validated_data)
         return worker_skill
+
+    def update(self, instance, validated_data):
+        skill_data = validated_data.pop('skill', {})
+        skill = instance.skill
+        skill.name = skill_data.get('name', skill.name)
+        skill.description = skill_data.get('description', skill.description)
+        skill.level = skill_data.get('level', skill.level)
+        skill.save()
+        return instance

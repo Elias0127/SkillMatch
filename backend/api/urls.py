@@ -1,7 +1,7 @@
-from django.urls import path
-from .views import SkillDetailView, SkillListView, UserRegistrationView, ProfileView, WorkerProfileView, EmployerProfileView, LoginView, LogoutView, WorkerSkillView
-from django.conf import settings
+from django.urls import path, include
 from django.conf.urls.static import static
+from django.conf import settings
+from .views import (UserRegistrationView, ProfileView, WorkerProfileView, EmployerProfileView,LoginView, LogoutView, SkillListView, SkillDetailView, WorkerSkillViewSet)
 
 urlpatterns = [
     path('register/', UserRegistrationView.as_view(), name='register'),
@@ -12,5 +12,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('skills/', SkillListView.as_view(), name='skills_list'),
     path('skills/<int:pk>/', SkillDetailView.as_view(), name='skill_detail'),
-    path('worker-skills/<str:username>/', WorkerSkillView.as_view(), name='worker_skills'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('worker-skills/<str:username>/', WorkerSkillViewSet.as_view({'get': 'list', 'post': 'create'}), name='worker_skills'),
+    path('worker-skills/<str:username>/<int:pk>/', WorkerSkillViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'}), name='worker_skill_detail'),
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
