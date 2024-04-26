@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import api from '../api';
+import { useParams } from 'react-router-dom';
+import { ACCESS_TOKEN } from "../constants";
+
 
 function ProfileView({ user }) {
     const [editMode, setEditMode] = useState(false);
+    const { username } = useParams();
+    // console.log("Username from params:", username);
+
     const [formData, setFormData] = useState({
         firstName: user.first_name || '',
         lastName: user.last_name || '',
@@ -20,37 +26,64 @@ function ProfileView({ user }) {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+        console.log("Form Data being sent:", formData);
+
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!username) {
+            console.error('Username is undefined, cannot update profile.');
+            return; 
+        }
+
+        const submitFormData = new FormData();
+        submitFormData.append('first_name', formData.firstName);
+        submitFormData.append('last_name', formData.lastName);
+        submitFormData.append('email', formData.email);
+        submitFormData.append('phone_number', formData.phone_number);
+        submitFormData.append('available_time', formData.availableTime);
+        submitFormData.append('location', formData.location);
+        submitFormData.append('rate', formData.rate);  
+        submitFormData.append('company_name', formData.companyName);
+        submitFormData.append('industry', formData.industry);
+        submitFormData.append('description', formData.description);
+
+        if (typeof formData.picture === 'object') {  
+            submitFormData.append('picture', formData.picture, formData.picture.name);
+        }
+
         const config = {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
+                'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+                'Content-Type': 'multipart/form-data'  
             }
         };
+
         try {
-            const { data } = await api.put(`/api/worker-profile/${user.username}/`, formData, config);
+            const { data } = await api.put(`/api/worker-profile/${username}/`, submitFormData, config);
             setEditMode(false);
-            setFormData({
+            console.log('Successfully updated profile:', data);
+            setFormData({ 
                 firstName: data.first_name,
                 lastName: data.last_name,
                 email: data.email,
                 phone_number: data.phone_number,
-                picture: data.picture,
+                picture: data.picture_url || data.picture, 
                 availableTime: data.available_time,
                 location: data.location,
-                rate: data.rate,
+                rate: data.rate.toString(), 
                 companyName: data.company_name,
                 industry: data.industry,
                 description: data.description
             });
         } catch (error) {
             console.error('Failed to update profile:', error);
+            if (error.response) {
+                console.log('Error details:', error.response.data);
+            }
         }
     };
-
-    if (!user) return <div>No user data found.</div>;
 
     return (
         <div>
@@ -66,7 +99,7 @@ function ProfileView({ user }) {
                     <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />
                     <input type="text" name="rate" value={formData.rate} onChange={handleChange} placeholder="Rate" />
 
-                    <button type="submit">Save</button>
+                    <button type="submit">Save Changes</button>
                 </form>
             ) : (
                 <div>
