@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import api from '../api';
 import { useParams } from 'react-router-dom';
+import Logout from './Logout';
+import SkillManagement from './SkillManagement';
 import { ACCESS_TOKEN } from "../constants";
+import '../styles/dashboard.css';
 
 
 function ProfileView({ user }) {
     const [editMode, setEditMode] = useState(false);
-    const { username } = useParams();
+    const { username, role } = useParams();
     // console.log("Username from params:", username);
 
     const [formData, setFormData] = useState({
@@ -86,10 +89,10 @@ function ProfileView({ user }) {
     };
 
     return (
-        <div>
-            <h2>Profile</h2>
+        <div className="container">
+            <h2 className="profile-header">Profile: <span style={{ color: 'red' }}>{role}</span></h2>
             {editMode ? (
-                <form onSubmit={handleSubmit}>
+                <form className="profile-form" onSubmit={handleSubmit}>
                     <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" />
                     <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" />
                     <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
@@ -99,10 +102,18 @@ function ProfileView({ user }) {
                     <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />
                     <input type="text" name="rate" value={formData.rate} onChange={handleChange} placeholder="Rate" />
 
+                    {role === 'employer' && (
+                        <div>
+                            <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} placeholder="Company Name" />
+                            <input type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="Industry" />
+                            <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
+                        </div>
+                    )}
+
                     <button type="submit">Save Changes</button>
                 </form>
             ) : (
-                <div>
+                <div className="profile-info">
                     <p>Name: {formData.firstName} {formData.lastName}</p>
                     <p>Email: {formData.email}</p>
                     <p>Phone Number: {formData.phone_number}</p>
@@ -110,9 +121,20 @@ function ProfileView({ user }) {
                     <p>Available Time: {formData.availableTime}</p>
                     <p>Location: {formData.location}</p>
                     <p>Rate: {formData.rate}</p>
+
+                    {role === 'employer' && (
+                        <div>
+                            <p>Company Name: {formData.companyName}</p>
+                            <p>Industry: {formData.industry}</p>
+                            <p>Description: {formData.description}</p>
+                        </div>
+                    )}
+
                     <button onClick={() => setEditMode(true)}>Edit</button>
                 </div>
             )}
+            {role === 'worker' && <SkillManagement username={username} />}
+            <Logout />
         </div>
     );
 }
