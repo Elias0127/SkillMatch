@@ -1,0 +1,92 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+h2 {
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #567aff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+/* ProfileView Component Styles */
+.profile-header {
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-info {
+    margin: 20px 0;
+}
+
+.profile-info p {
+    margin: 5px 0;
+}
+
+/* SkillManagement Component Styles */
+.skills-container {
+    margin-top: 20px;
+}
+
+.skill-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skill-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.skill-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
