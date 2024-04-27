@@ -148,7 +148,7 @@ function ProfileView({ user }) {
                         </div>
                     )}
 
-                    <button type="submit">Save Changes</button>
+                    <button className='save-button'type="submit">Save Changes</button>
                 </form>
             ) : (
             <div className="profile-info">

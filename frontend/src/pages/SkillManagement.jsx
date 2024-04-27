@@ -9,6 +9,7 @@ import '../styles/dashboard.css';
 
 
 function SkillManagement() {
+    const [showSkillForm, setShowSkillForm] = useState(false);
     const { username } = useParams();
     const [skills, setSkills] = useState([]);
     const [newSkill, setNewSkill] = useState({ name: '', level: '', description: '' });
@@ -93,17 +94,22 @@ function SkillManagement() {
                 <div className="skill-item" key={skill.id}>
                     {skill.skill.name} - {skill.skill.level}
                     <div className="skill-actions">
-                        <button className='skill-button' onClick={() => handleDeleteSkill(skill.id)}>Delete</button>
+                        <button className='delete-button' onClick={() => handleDeleteSkill(skill.id)}>Delete</button>
                         <button className='skill-button'  onClick={() => handleUpdateSkill(skill.id, { ...skill.skill, level: 'Beginner' })}>Update Level</button>
                     </div>
                 </div>
             ))}
-            <div className="skill-form">
-                <input className='skill-fields' type="text" value={newSkill.name} onChange={(e) => setNewSkill({...newSkill, name: e.target.value})} placeholder="Skill name" />
-                <input className='skill-fields' type="text" value={newSkill.level} onChange={(e) => setNewSkill({...newSkill, level: e.target.value})} placeholder="Skill level" />
-                <input className='skill-fields' type="text" value={newSkill.description} onChange={(e) => setNewSkill({...newSkill, description: e.target.value})} placeholder="Description" />
-                <button className='skill-button' onClick={handleAddSkill}>Add Skill</button>
-            </div>
+            <h2>Add New Skills</h2>
+            <button className='add-skill-button' onClick={() => setShowSkillForm(true)}>Add Skill</button>
+            {showSkillForm && (
+                <div className="skill-form">
+                    <input className='skill-fields' type="text" value={newSkill.name} onChange={(e) => setNewSkill({...newSkill, name: e.target.value})} placeholder="Skill name" />
+                    <input className='skill-fields' type="text" value={newSkill.level} onChange={(e) => setNewSkill({...newSkill, level: e.target.value})} placeholder="Skill level" />
+                    <input className='skill-fields' type="text" value={newSkill.description} onChange={(e) => setNewSkill({...newSkill, description: e.target.value})} placeholder="Description" />
+                    <button className='skill-button' onClick={handleAddSkill}>Add Skill</button>
+                    <button className='cancel-skill-button' onClick={() => setShowSkillForm(false)}>Cancel</button>
+                </div>
+            )}
         </div>
 
     );
