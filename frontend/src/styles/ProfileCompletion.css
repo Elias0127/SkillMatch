@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(90deg, rgb(28, 50, 85) 0%, rgb(71, 127, 168) 100%);
+    background: linear-gradient(90deg, #4966cc 0%, rgb(111, 163, 200) 100%);
 }
 
 .title {
@@ -108,7 +108,7 @@
     margin: 20px 0;
     font-weight: 500;
     font-size: 17px;
-    background-color: rgb(45, 71, 116);
+    background-color: #4966cc;
     color: white;
     border: none;
     border-radius: 30px;
