@@ -40,8 +40,8 @@ function Dashboard() {
     }
 
     return (
-        <div>
-            <h1>Dashboard</h1>
+        <div className='dash-container'>
+            <h1 className='dash-title'>Dashboard</h1>
             <ProfileView user={user} />
             {user.role === 'worker' && <SkillManagement username={username} />}
         </div>

@@ -63,6 +63,10 @@ function RegistrationForm() {
         }
     };
 
+    const handleRegisterRedirect = () => {
+        navigate('/login');
+    };
+
     return (
         <div className="registration-container">
             <h1 className='title'>SkillMatch</h1>
@@ -124,6 +128,11 @@ function RegistrationForm() {
                 {loading && <LoadingIndicator />}
                 <button type="submit" className="form-button">Sign up</button>
             </form>
+            <p className="text-center">Already have an account? 
+                <button onClick={handleRegisterRedirect} className="link-button">
+                    Log in
+                </button>
+            </p>
         </div>
     );
 }

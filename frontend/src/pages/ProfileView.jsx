@@ -89,53 +89,92 @@ function ProfileView({ user }) {
     };
 
     return (
-        <div className="container">
-            <h2 className="profile-header">Profile: <span style={{ color: 'red' }}>{role}</span></h2>
+        <>
+        <div className="profile-container">
+            <div className='profile-header'>
+                <h2>Information</h2> 
+                <button className='edit-button' onClick={() => setEditMode(true)}>Edit</button>
+            </div>
+            <h2 className='role-header'>Role: <span className='role-title'>{role}</span></h2>
             {editMode ? (
                 <form className="profile-form" onSubmit={handleSubmit}>
-                    <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" />
-                    <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" />
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
-                    <input type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} placeholder="Phone Number" />
-                    <input type="text" name="picture" value={formData.picture} onChange={handleChange} placeholder="Picture" />
-                    <input type="text" name="availableTime" value={formData.availableTime} onChange={handleChange} placeholder="Available Time" />
-                    <input type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />
-                    <input type="text" name="rate" value={formData.rate} onChange={handleChange} placeholder="Rate" />
+                    <label className="form-group">
+                        First Name
+                        <input className='edit-fields' type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" />
+                    </label>
+                    <label className="form-group">
+                        Last Name
+                        <input className='edit-fields' type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" />
+                    </label>
+                    <label className="form-group">
+                        Email
+                        <input className='edit-fields' type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+                    </label>
+                    <label className="form-group">
+                        Phone Number
+                        <input className='edit-fields' type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} placeholder="Phone Number" />
+                    </label>
+                    <label className="form-group">
+                        Picture
+                        <input className='edit-fields' type="text" name="picture" value={formData.picture} onChange={handleChange} placeholder="Picture" />
+                    </label>
+                    <label className="form-group">
+                        Available Time
+                        <input className='edit-fields' type="text" name="availableTime" value={formData.availableTime} onChange={handleChange} placeholder="Available Time" />
+                    </label>
+                    <label className="form-group">
+                        Location
+                        <input className='edit-fields' type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />
+                    </label>
+                    <label className="form-group">
+                        Rate
+                        <input className='edit-fields' type="text" name="rate" value={formData.rate} onChange={handleChange} placeholder="Rate" />
+                    </label>
 
                     {role === 'employer' && (
                         <div>
-                            <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} placeholder="Company Name" />
-                            <input type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="Industry" />
-                            <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
+                            <label className="form-group">
+                                Company Name
+                                <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} placeholder="Company Name" />
+                            </label>
+                            <label className="form-group">
+                                Industry
+                                <input type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="Industry" />
+                            </label>
+                            <label className="form-group">
+                                Description
+                                <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
+                            </label>
                         </div>
                     )}
 
                     <button type="submit">Save Changes</button>
                 </form>
             ) : (
-                <div className="profile-info">
-                    <p>Name: {formData.firstName} {formData.lastName}</p>
-                    <p>Email: {formData.email}</p>
-                    <p>Phone Number: {formData.phone_number}</p>
-                    <p>Picture: {formData.picture}</p>
-                    <p>Available Time: {formData.availableTime}</p>
-                    <p>Location: {formData.location}</p>
-                    <p>Rate: {formData.rate}</p>
+            <div className="profile-info">
+                <p className="info-item"><span className="label">Name</span> {formData.firstName} {formData.lastName}</p>
+                <p className="info-item"><span className="label">Email</span> {formData.email}</p>
+                <p className="info-item"><span className="label">Phone Number</span> {formData.phone_number}</p>
+                <p className="info-item"><span className="label">Picture</span> {formData.picture}</p>
+                <p className="info-item"><span className="label">Available Time</span> {formData.availableTime}</p>
+                <p className="info-item"><span className="label">Location</span> {formData.location}</p>
+                <p className="info-item"><span className="label">Rate</span> {formData.rate}</p>
 
-                    {role === 'employer' && (
-                        <div>
-                            <p>Company Name: {formData.companyName}</p>
-                            <p>Industry: {formData.industry}</p>
-                            <p>Description: {formData.description}</p>
-                        </div>
-                    )}
-
-                    <button onClick={() => setEditMode(true)}>Edit</button>
-                </div>
+                {role === 'employer' && (
+                    <div>
+                        <p className="info-item"><span className="label">Company Name</span> {formData.companyName}</p>
+                        <p className="info-item"><span className="label">Industry</span> {formData.industry}</p>
+                        <p className="info-item"><span className="label">Description</span> {formData.description}</p>
+                    </div>
+                )}
+            </div>
             )}
-            {role === 'worker' && <SkillManagement username={username} />}
             <Logout />
         </div>
+        <div className='skill-container'>
+            {role === 'worker' && <SkillManagement username={username} />}
+        </div>
+        </>
     );
 }
 export default ProfileView;
