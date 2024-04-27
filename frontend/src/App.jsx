@@ -9,6 +9,7 @@ import EmployerProfile from "./pages/EmployerProfile";
 import WorkerProfile from "./pages/WorkerProfile";
 import ProfileCompletion from "./pages/ProfileCompletion";
 import SkillManagement from "./pages/SkillManagement";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -42,12 +43,16 @@ function App() {
             <EmployerProfile />
           </ProtectedRoute>
         } />
+        <Route path="/dashboard/:username/:role" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-
-
 export default App;
+

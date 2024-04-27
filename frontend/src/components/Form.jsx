@@ -36,21 +36,20 @@ function Form({ route, method, fields }) {
             console.log("Sending request to:", route);
 
             const res = await api.post(route, formData);
-            if (res.status === 200 && method.toLowerCase() === "login") {
-                localStorage.setItem(ACCESS_TOKEN, res.data.access);
-                localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-                navigate("/");
-            } else if (res.status === 200) {
-                navigate("/login");
-            } else {
-                setErrors({ form: "Unexpected server response: " + res.status });
+                if (res.status === 200) {
+                    localStorage.setItem('access', res.data.access); 
+                    localStorage.setItem('refresh', res.data.refresh);
+                    console.log("Username:", formData.username);
+                    console.log("User role:", res.data.role); 
+                    navigate(`/dashboard/${formData.username}/${res.data.role}`);
+                } else {
+                    setErrors({ form: "Unexpected server response: " + res.status });
+                }
+            } catch (error) {
+                setErrors({ form: error.response?.data?.error || "An error occurred" });
+            } finally {
+                setLoading(false);
             }
-        } catch (error) {
-            console.error("Login error:", error); // More detailed error logging
-            setErrors({ form: error.response?.data?.error || "An error occurred" });
-        } finally {
-            setLoading(false);
-        }
     };
 
     return (

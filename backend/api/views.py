@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, get_user_model
+from django.http import Http404
 from django.shortcuts import get_object_or_404
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Profile, Skill, WorkerProfile, EmployerProfile, WorkerSkill
@@ -43,6 +44,7 @@ class LoginView(APIView):
             return Response({
                 'access': str(refresh.access_token),
                 'refresh': str(refresh),
+                'role': user.role
             }, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -103,22 +105,29 @@ class SkillListView(generics.ListCreateAPIView):
     serializer_class = SkillSerializer
     permission_classes = [permissions.IsAdminUser]
 
-
 class SkillDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Skill.objects.all()
     serializer_class = SkillSerializer
     permission_classes = [permissions.IsAdminUser]
 
-
-# View for managing worker skills
-class WorkerSkillView(generics.ListCreateAPIView):
+# Views for managing WorkerSkill
+class WorkerSkillViewSet(viewsets.ModelViewSet):
     serializer_class = WorkerSkillSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        username = self.kwargs['username']
-        user = get_user_model().objects.get(username=username)
-        return WorkerSkill.objects.filter(worker_profile__user=user)
+        username = self.kwargs.get('username')
+        if not username:
+            # Handle the case where username is not provided
+            raise Http404("Username not provided")
+
+        try:
+            user = get_user_model().objects.get(username=username)
+            return WorkerSkill.objects.filter(worker_profile__user=user)
+        except get_user_model().DoesNotExist:
+            # Handle the case where user does not exist
+            raise Http404("User does not exist")
+
 
     def create(self, request, *args, **kwargs):
         username = self.kwargs['username']
@@ -129,4 +138,4 @@ class WorkerSkillView(generics.ListCreateAPIView):
             worker_skill = serializer.save(worker_profile=worker_profile)
             return Response(WorkerSkillSerializer(worker_skill).data, status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUES)
