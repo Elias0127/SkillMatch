@@ -23,6 +23,23 @@ function ProfileCompletionForm() {
         industry: '',
         description: ''
     });
+
+     const fieldDisplayNames = {
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        phoneNumber: 'Phone Number',
+        email: 'Email',
+        picture: 'Picture',
+        availableTime: 'Available Time',
+        location: 'Location',
+        rate: 'Rate',
+        rateType: 'Rate Type',
+        company_name: 'Company Name',
+        industry: 'Industry',
+        description: 'Description'
+    };
+
+    const [newSkill, setNewSkill] = useState({ name: '', level: '', description: '' });
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [stage, setStage] = useState(1); 
@@ -45,60 +62,6 @@ function ProfileCompletionForm() {
         if (role === 'worker' && !profileData.picture) tempErrors.picture = 'Picture is required for workers';
         setErrors(tempErrors);
         return Object.keys(tempErrors).length === 0;
-    };
-
-    const fieldDisplayNames = {
-        firstName: 'First Name',
-        lastName: 'Last Name',
-        phoneNumber: 'Phone Number',
-        email: 'Email',
-        picture: 'Picture',
-        availableTime: 'Available Time',
-        location: 'Location',
-        rate: 'Rate',
-        rateType: 'Rate Type',
-        company_name: 'Company Name',
-        industry: 'Industry',
-        description: 'Description'
-    };
-
-    const handleNext = () => {
-        if (stage === 1) {
-            const requiredFields = ['firstName', 'lastName', 'phoneNumber', 'email'];
-            const missingFields = requiredFields.filter(field => !profileData[field]);
-            if (missingFields.length > 0) {
-                const missingFieldNames = missingFields.map(field => fieldDisplayNames[field]);
-                setErrors(prevErrors => ({ ...prevErrors, form: `Please fill out the following fields: ${missingFieldNames.join(', ')}` }));
-                return;
-            }
-            if (role === 'worker' && !profileData.picture) {
-                setErrors(prevErrors => ({ ...prevErrors, form: `${fieldDisplayNames.picture} is required for workers` }));
-                return;
-            }
-        }
-    
-        if (stage === 2 && role === 'worker') {
-            const requiredFields = ['availableTime', 'location', 'rate', 'rateType'];
-            const missingFields = requiredFields.filter(field => !profileData[field]);
-            if (missingFields.length > 0) {
-                const missingFieldNames = missingFields.map(field => fieldDisplayNames[field]);
-                setErrors(prevErrors => ({ ...prevErrors, form: `Please fill out the following fields: ${missingFieldNames.join(', ')}` }));
-                return;
-            }
-        }
-    
-        if (stage === 2 && role === 'employer') {
-            const requiredFields = ['company_name', 'industry', 'description'];
-            const missingFields = requiredFields.filter(field => !profileData[field]);
-            if (missingFields.length > 0) {
-                const missingFieldNames = missingFields.map(field => fieldDisplayNames[field]);
-                setErrors(prevErrors => ({ ...prevErrors, form: `Please fill out the following fields: ${missingFieldNames.join(', ')}` }));
-                return;
-            }
-        }
-    
-        setErrors({}); // Clear any previous error messages
-        setStage(prevStage => prevStage + 1);
     };
 
     const handleSubmit = async (e) => {
@@ -169,6 +132,77 @@ function ProfileCompletionForm() {
             setLoading(false);
         }
     };
+
+    const handleAddSkill = async () => {
+        if (!newSkill.name || !newSkill.level || !newSkill.description) {
+            setErrors(prevErrors => ({ ...prevErrors, skillForm: 'Please fill in all fields for skills' }));
+            return false;
+        }
+        try {
+            const response = await api.post(`/api/worker-skills/${username}/`, { skill: newSkill }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
+                }
+            });
+            if (response.data) {
+                console.log('Skill added successfully:', response.data);
+                setNewSkill({ name: '', level: '', description: '' }); // Reset form
+                return true;
+            }
+        } catch (error) {
+            console.error('Error adding skill:', error);
+            setErrors(prevErrors => ({ ...prevErrors, skillForm: 'Failed to add skill' }));
+            return false;
+        }
+    };
+
+    const handleNext = async () => {
+        if (stage === 1) {
+            const requiredFields = ['firstName', 'lastName', 'phoneNumber', 'email'];
+            const missingFields = requiredFields.filter(field => !profileData[field]);
+            if (missingFields.length > 0) {
+                const missingFieldNames = missingFields.map(field => fieldDisplayNames[field]);
+                setErrors(prevErrors => ({ ...prevErrors, form: `Please fill out the following fields: ${missingFieldNames.join(', ')}` }));
+                return;
+            }
+            if (role === 'worker' && !profileData.picture) {
+                setErrors(prevErrors => ({ ...prevErrors, form: `${fieldDisplayNames.picture} is required for workers` }));
+                return;
+            }
+        }
+    
+        if (stage === 2 && role === 'worker') {
+            const requiredFields = ['availableTime', 'location', 'rate', 'rateType'];
+            const missingFields = requiredFields.filter(field => !profileData[field]);
+            if (missingFields.length > 0) {
+                const missingFieldNames = missingFields.map(field => fieldDisplayNames[field]);
+                setErrors(prevErrors => ({ ...prevErrors, form: `Please fill out the following fields: ${missingFieldNames.join(', ')}` }));
+                return;
+            }
+        }
+
+         if (stage === 3 && role === 'worker') {
+            const skillAddedSuccessfully = await handleAddSkill();
+            if (!skillAddedSuccessfully) {
+                return; // Stop proceeding if adding skill failed
+            }
+        }
+    
+        if (stage === 2 && role === 'employer') {
+            const requiredFields = ['company_name', 'industry', 'description'];
+            const missingFields = requiredFields.filter(field => !profileData[field]);
+            if (missingFields.length > 0) {
+                const missingFieldNames = missingFields.map(field => fieldDisplayNames[field]);
+                setErrors(prevErrors => ({ ...prevErrors, form: `Please fill out the following fields: ${missingFieldNames.join(', ')}` }));
+                return;
+            }
+        }
+    
+        setErrors({}); // Clear any previous error messages
+        setStage(prevStage => prevStage + 1);
+    };
+
 
     const [totalSteps, setTotalSteps] = useState(role === 'worker' ? 3 : role === 'employer' ? 3 : 4);
 
@@ -243,6 +277,15 @@ function ProfileCompletionForm() {
                         <button type="button" onClick={() => setStage(1)} className="back-button">Back</button>
                         <button type="button" onClick={handleNext} className="next-button">Next</button>
                     </div>
+                </>
+            )}
+
+            {stage === 3 && role === 'worker' && (
+                <>
+                    <input type="text" value={newSkill.name} onChange={(e) => setNewSkill({ ...newSkill, name: e.target.value })} placeholder="Skill Name" />
+                    <input type="text" value={newSkill.level} onChange={(e) => setNewSkill({ ...newSkill, level: e.target.value })} placeholder="Skill Level" />
+                    <input type="text" value={newSkill.description} onChange={(e) => setNewSkill({ ...newSkill, description: e.target.value })} placeholder="Skill Description" />
+                    <button type="button" onClick={handleNext} className="next-button">Add Skill</button>
                 </>
             )}
 
