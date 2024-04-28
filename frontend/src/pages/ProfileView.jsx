@@ -10,21 +10,35 @@ import '../styles/dashboard.css';
 function ProfileView({ user }) {
     const [editMode, setEditMode] = useState(false);
     const { username, role } = useParams();
-    // console.log("Username from params:", username);
 
-    const [formData, setFormData] = useState({
-        firstName: user.first_name || '',
-        lastName: user.last_name || '',
-        email: user.email || '',
-        phone_number: user.phone_number || '',
-        picture: user.picture || '',
-        availableTime: user.available_time || '',
-        location: user.location || '',
-        rate: user.rate || '',
-        companyName: user.company_name || '', 
-        industry: user.industry || '',
-        description: user.description || ''
-    });
+    const getFormData = () => {
+        if (role === 'worker') {
+            return {
+                firstName: user.first_name || '',
+                lastName: user.last_name || '',
+                email: user.email || '',
+                phone_number: user.phone_number || '',
+                picture: user.picture || '',
+                availableTime: user.available_time || '',
+                location: user.location || '',
+                rate: user.rate || '',
+                rateType: user.rate_type || '', 
+            };
+        } else { 
+            return {
+                firstName: user.profile.user.first_name || '',
+                lastName: user.profile.user.last_name || '',
+                email: user.profile.user.email || '',
+                phone_number: user.profile.phone_number || '',
+                picture: user.profile.picture || '',
+                companyName: user.company_name || '',
+                industry: user.industry || '',
+                description: user.description || ''
+            };
+        }
+    };
+
+    const [formData, setFormData] = useState(getFormData);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -97,6 +111,7 @@ function ProfileView({ user }) {
             </div>
             <h2 className='role-header'><span className='role-title'>{role.charAt(0).toUpperCase() + role.slice(1)} Profile</span></h2>
             {editMode ? (
+                // Edit form with fields for both worker and employer
                 <form className="profile-form" onSubmit={handleSubmit}>
                     <label className="form-group">
                         First Name
@@ -118,19 +133,26 @@ function ProfileView({ user }) {
                         Picture
                         <input className='edit-fields' type="text" name="picture" value={formData.picture} onChange={handleChange} placeholder="Picture" />
                     </label>
-                    <label className="form-group">
-                        Available Time
-                        <input className='edit-fields' type="text" name="availableTime" value={formData.availableTime} onChange={handleChange} placeholder="Available Time" />
-                    </label>
-                    <label className="form-group">
-                        Location
-                        <input className='edit-fields' type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />
-                    </label>
-                    <label className="form-group">
-                        Rate
-                        <input className='edit-fields' type="text" name="rate" value={formData.rate} onChange={handleChange} placeholder="Rate" />
-                    </label>
 
+                    {/* Fields specific to worker */}
+                    {role === 'worker' && (
+                        <>
+                        <label className="form-group">
+                            Available Time
+                            <input className='edit-fields' type="text" name="availableTime" value={formData.availableTime} onChange={handleChange} placeholder="Available Time" />
+                        </label>
+                        <label className="form-group">
+                            Location
+                            <input className='edit-fields' type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />
+                        </label>
+                        <label className="form-group">
+                            Rate
+                            <input className='edit-fields' type="text" name="rate" value={formData.rate} onChange={handleChange} placeholder="Rate" />
+                        </label>
+                        </>
+                    )}
+
+                    {/* Fields specific to employer */}
                     {role === 'employer' && (
                         <div>
                             <label className="form-group">
@@ -151,23 +173,31 @@ function ProfileView({ user }) {
                     <button className='save-button'type="submit">Save Changes</button>
                 </form>
             ) : (
-            <div className="profile-info">
-                <p className="info-item"><span className="label">Name</span> {formData.firstName} {formData.lastName}</p>
-                <p className="info-item"><span className="label">Email</span> {formData.email}</p>
-                <p className="info-item"><span className="label">Phone Number</span> {formData.phone_number}</p>
-                <p className="info-item"><span className="label">Picture</span> {formData.picture}</p>
-                <p className="info-item"><span className="label">Available Time</span> {formData.availableTime}</p>
-                <p className="info-item"><span className="label">Location</span> {formData.location}</p>
-                <p className="info-item"><span className="label">Rate</span> {formData.rate}</p>
+                // Display profile info with fields for both worker and employer
+                <div className="profile-info">
+                    <p className="info-item"><span className="label">Name</span> {formData.firstName} {formData.lastName}</p>
+                    <p className="info-item"><span className="label">Email</span> {formData.email}</p>
+                    <p className="info-item"><span className="label">Phone Number</span> {formData.phone_number}</p>
+                    <p className="info-item"><span className="label">Picture</span> {formData.picture}</p>
 
-                {role === 'employer' && (
-                    <div>
-                        <p className="info-item"><span className="label">Company Name</span> {formData.companyName}</p>
-                        <p className="info-item"><span className="label">Industry</span> {formData.industry}</p>
-                        <p className="info-item"><span className="label">Description</span> {formData.description}</p>
-                    </div>
-                )}
-            </div>
+                    {/* Display fields specific to worker */}
+                    {role === 'worker' && (
+                        <>
+                            <p className="info-item"><span className="label">Available Time</span> {formData.availableTime}</p>
+                            <p className="info-item"><span className="label">Location</span> {formData.location}</p>
+                            <p className="info-item"><span className="label">Rate</span> {formData.rate}</p>
+                        </>
+                    )}
+
+                    {/* Display fields specific to employer */}
+                    {role === 'employer' && (
+                        <>
+                            <p className="info-item"><span className="label">Company Name</span> {formData.companyName}</p>
+                            <p className="info-item"><span className="label">Industry</span> {formData.industry}</p>
+                            <p className="info-item"><span className="label">Description</span> {formData.description}</p>
+                        </>
+                    )}
+                </div>
             )}
             <Logout />
         </div>
@@ -177,4 +207,5 @@ function ProfileView({ user }) {
         </>
     );
 }
+
 export default ProfileView;

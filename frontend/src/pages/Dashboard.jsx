@@ -6,14 +6,14 @@ import { useParams } from 'react-router-dom';
 import { ACCESS_TOKEN } from "../constants";
 
 function Dashboard() {
-    const { username } = useParams();
+    const { username, role } = useParams();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const { data } = await api.get(`/api/worker-profile/${username}/`, { 
+                const { data } = await api.get(`/api/${role}-profile/${username}/`, { 
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
                     }
