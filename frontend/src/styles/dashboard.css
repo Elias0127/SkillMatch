@@ -1,40 +1,153 @@
 /* General Styling */
 body {
     font-family: "Inter", sans-serif;
-    background-color: #e8e8e8;
-}
-
-.dash-title {
-    padding: 10px 19%;
-    color: #15098f;
-    font-weight: 900;
+    background-color: #dadada;
 }
 
 .role-title {
     color: #4163dd;
+    margin: 0 30px;
 }
 
-.profile-container {
-    width: 60%;
-    margin: 20px auto;
-    padding: 35px;
+.dash-title {
+    display: flex;
+    margin: 0 170px;
+    margin-top: 30px;
+    color: #4163dd;
+}
+
+/* Dash nav container */
+.dashboard-container {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 50px;
+    max-width: 1100px;
+}
+
+.profile {
+    flex: 1;
+    margin-right: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #fff;
+    background-color: white;
+    border-radius: 10px;
+    height: max-content;
 }
 
-.profile-form {
-    display: flex;
-    flex-direction: column;
+.profile-text-container {
+    line-height: 0.5s;
 }
 
-.form-group {
+.profile-header {
+    display: flex;
+    margin-left: 15px;
+}
+
+.profile-img {
+    height: 60px;
+    width: 60px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.profile-title {
+    font-size: 20px;
+}
+
+.profile-email {
+    font-size: 14px;
+}
+
+.menu {
+    margin: 0 20px;
+}
+
+.menu-links {
+    display: block;
+    text-decoration: none;
+    margin: 10px;
+    padding: 10px;
+    color: #768499;
+    border-radius: 10px;
+}
+
+.menu-links.active {
+    color: white;
+    background-color: #4163dd;
+}
+
+.menu-links.active:hover {
+    color: white;
+    background-color: #4163dd;
+}
+
+.menu-links:hover {
+    background-color: #dfdfdf;
+    color: #000000;
+}
+
+/* Main container */
+
+.main-container {
+    flex: 2;
+    margin-left: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-bottom: 30px;
+    height: max-content;
+}
+
+.account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
+
+.account-title {
+    font-size: 25px;
+    margin-left: 20px;
+    color: #333333;
+    font-weight: 600;
+}
+
+/* Account section */
+
+.edit-button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 100px;
+    font-size: 16px;
+    background-color: #4163dd;
+    color: white;
+    border: none;
+}
+
+.account-edit {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.input-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
+    margin: 0 30px;
+}
+
+.edit-fields {
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #a9a9a9;
+    border-radius: 10px;
+    background-color: white;
 }
 
 .save-button {
-    align-self: flex-end;
+    margin: 0 30px;
     background-color: #4163dd;
     color: white;
     border: none;
@@ -45,32 +158,6 @@ body {
     font-size: 16px;
 }
 
-.edit-fields {
-    padding: 12px;
-    margin: 5px 0;
-    border: 1px solid #a9a9a9;
-    border-radius: 10px;
-}
-
-.skill-container {
-    width: 60%;
-    margin: 20px auto;
-    padding: 35px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #fff;
-}
-
-h2 {
-    color: #333333;
-}
-
-.skill-fields {
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #a9a9a9;
-    border-radius: 10px;
-}
 
 .logout-button, .skill-button, .add-skill-button {
     background-color: #4163dd;
@@ -94,32 +181,20 @@ button:hover {
 }
 
 /* ProfileView Component Styles */
-.profile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.edit-button {
-    background-color: #4163dd;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 100px;
-    font-size: 16px;
-}
 
 .role-header {
     color: #7d7d7d;
     margin-bottom: 20px;
 }
 
+.profile-info {
+    margin: 0 30px;
+}
+
 .info-item {
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     color: #282828;
 }
 
@@ -128,8 +203,29 @@ button:hover {
     margin-bottom: 5px;
 }
 
-
 /* SkillManagement Component Styles */
+
+
+.skill-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 35px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+h2 {
+    color: #333333;
+}
+
+.skill-fields {
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #a9a9a9;
+    border-radius: 10px;
+}
+
 .delete-button, .cancel-skill-button {
     border: 1px solid #555555;
     background-color: #ffffff;
@@ -144,14 +240,6 @@ button:hover {
 .delete-button:hover, .cancel-skill-button:hover {
     background-color: #e3e3e3;
     transition: background-color 0.2s ease-in-out;
-}
-
-.skills-container {
-    margin-top: 20px;
-}
-
-.skill-info {
-    flex-shrink: 0;
 }
 
 .skill-actions {
@@ -199,6 +287,23 @@ button:hover {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+}
+
+/* Media */
+
+@media screen and (max-width: 800px){
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .profile {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    .account-container {
+        margin: 0;
+    }
 }
 
 
