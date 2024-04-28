@@ -21,7 +21,6 @@ function Dashboard() {
                 setUser({
                     ...data, 
                 });
-                console.log("User data:", data);
                 setLoading(false);
             } catch (error) {
                 console.error('Failed to fetch user data:', error);
