@@ -172,6 +172,12 @@ button:hover {
     margin-bottom: 15px;
 }
 
+.skill-info{
+    flex: 1;
+    max-width: calc(100% - 300px);
+    word-wrap: break-word;
+}
+
 .skill-label {
     font-weight: 600;
 }
@@ -185,6 +191,8 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
 }
 
 .skill-form {
