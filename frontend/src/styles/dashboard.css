@@ -10,10 +10,14 @@ body {
     font-weight: 900;
 }
 
+.role-title {
+    color: #4163dd;
+}
+
 .profile-container {
     width: 60%;
     margin: 20px auto;
-    padding: 20px;
+    padding: 35px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     background-color: #fff;
@@ -51,7 +55,7 @@ body {
 .skill-container {
     width: 60%;
     margin: 20px auto;
-    padding: 20px;
+    padding: 35px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     background-color: #fff;
@@ -116,6 +120,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     margin-bottom: 5px;
+    color: #282828;
 }
 
 .label {
@@ -145,19 +150,41 @@ button:hover {
     margin-top: 20px;
 }
 
-.skill-item {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.skill-info {
+    flex-shrink: 0;
 }
 
 .skill-actions {
     display: flex;
     gap: 10px;
+}
+
+.skill-name {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.skill-title {
+    padding-bottom: 20px;
+}
+
+.skill-info, .skill-item {
+    margin-bottom: 15px;
+}
+
+.skill-label {
+    font-weight: 600;
+}
+
+.skill-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .skill-form {

@@ -92,10 +92,18 @@ function SkillManagement() {
             <h2>Manage Skills</h2>
             {skills.map(skill => (
                 <div className="skill-item" key={skill.id}>
-                    {skill.skill.name} - {skill.skill.level}
+                    <div className="skill-info">
+                        <div className='skill-title'>
+                            <span className="skill-name">{skill.skill.name}</span>
+                        </div>
+                            <span className="skill-label">Skill Level:</span> <span className="skill-level">{skill.skill.level}</span>
+                        <div>
+                            <span className="skill-label">Description:</span> <span className="skill-description">{skill.skill.description}</span>
+                        </div>
+                    </div>
                     <div className="skill-actions">
                         <button className='delete-button' onClick={() => handleDeleteSkill(skill.id)}>Delete</button>
-                        <button className='skill-button'  onClick={() => handleUpdateSkill(skill.id, { ...skill.skill, level: 'Beginner' })}>Update Level</button>
+                        <button className='skill-button' onClick={() => handleUpdateSkill(skill.id, { ...skill.skill, level: 'Beginner' })}>Update Level</button>
                     </div>
                 </div>
             ))}

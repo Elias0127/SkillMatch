@@ -95,7 +95,7 @@ function ProfileView({ user }) {
                 <h2>Information</h2> 
                 <button className='edit-button' onClick={() => setEditMode(true)}>Edit</button>
             </div>
-            <h2 className='role-header'>Role: <span className='role-title'>{role}</span></h2>
+            <h2 className='role-header'><span className='role-title'>{role.charAt(0).toUpperCase() + role.slice(1)} Profile</span></h2>
             {editMode ? (
                 <form className="profile-form" onSubmit={handleSubmit}>
                     <label className="form-group">
