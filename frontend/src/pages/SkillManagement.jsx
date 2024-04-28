@@ -107,7 +107,6 @@ function SkillManagement() {
                     </div>
                 </div>
             ))}
-            <h2>Add New Skills</h2>
             <button className='add-skill-button' onClick={() => setShowSkillForm(true)}>Add Skill</button>
             {showSkillForm && (
                 <div className="skill-form">

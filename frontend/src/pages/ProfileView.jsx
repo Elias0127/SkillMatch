@@ -11,6 +11,12 @@ function ProfileView({ user }) {
     const [editMode, setEditMode] = useState(false);
     const { username, role } = useParams();
 
+    const [activeSection, setActiveSection] = useState('account');
+
+    const handleMenuClick = (section) => {
+        setActiveSection(section);
+    };
+
     const getFormData = () => {
         if (role === 'worker') {
             return {
@@ -104,105 +110,185 @@ function ProfileView({ user }) {
 
     return (
         <>
-        <div className="profile-container">
-            <div className='profile-header'>
-                <h2>Information</h2> 
-                <button className='edit-button' onClick={() => setEditMode(true)}>Edit</button>
-            </div>
-            <h2 className='role-header'><span className='role-title'>{role.charAt(0).toUpperCase() + role.slice(1)} Profile</span></h2>
-            {editMode ? (
-                // Edit form with fields for both worker and employer
-                <form className="profile-form" onSubmit={handleSubmit}>
-                    <label className="form-group">
-                        First Name
-                        <input className='edit-fields' type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" />
-                    </label>
-                    <label className="form-group">
-                        Last Name
-                        <input className='edit-fields' type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" />
-                    </label>
-                    <label className="form-group">
-                        Email
-                        <input className='edit-fields' type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
-                    </label>
-                    <label className="form-group">
-                        Phone Number
-                        <input className='edit-fields' type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} placeholder="Phone Number" />
-                    </label>
-                    <label className="form-group">
-                        Picture
-                        <input className='edit-fields' type="text" name="picture" value={formData.picture} onChange={handleChange} placeholder="Picture" />
-                    </label>
-
-                    {/* Fields specific to worker */}
-                    {role === 'worker' && (
-                        <>
-                        <label className="form-group">
-                            Available Time
-                            <input className='edit-fields' type="text" name="availableTime" value={formData.availableTime} onChange={handleChange} placeholder="Available Time" />
-                        </label>
-                        <label className="form-group">
-                            Location
-                            <input className='edit-fields' type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />
-                        </label>
-                        <label className="form-group">
-                            Rate
-                            <input className='edit-fields' type="text" name="rate" value={formData.rate} onChange={handleChange} placeholder="Rate" />
-                        </label>
-                        </>
-                    )}
-
-                    {/* Fields specific to employer */}
-                    {role === 'employer' && (
-                        <div>
-                            <label className="form-group">
-                                Company Name
-                                <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} placeholder="Company Name" />
-                            </label>
-                            <label className="form-group">
-                                Industry
-                                <input type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="Industry" />
-                            </label>
-                            <label className="form-group">
-                                Description
-                                <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
-                            </label>
-                        </div>
-                    )}
-
-                    <button className='save-button'type="submit">Save Changes</button>
-                </form>
-            ) : (
-                // Display profile info with fields for both worker and employer
-                <div className="profile-info">
-                    <p className="info-item"><span className="label">Name</span> {formData.firstName} {formData.lastName}</p>
-                    <p className="info-item"><span className="label">Email</span> {formData.email}</p>
-                    <p className="info-item"><span className="label">Phone Number</span> {formData.phone_number}</p>
-                    <p className="info-item"><span className="label">Picture</span> {formData.picture}</p>
-
-                    {/* Display fields specific to worker */}
-                    {role === 'worker' && (
-                        <>
-                            <p className="info-item"><span className="label">Available Time</span> {formData.availableTime}</p>
-                            <p className="info-item"><span className="label">Location</span> {formData.location}</p>
-                            <p className="info-item"><span className="label">Rate</span> {formData.rate}</p>
-                        </>
-                    )}
-
-                    {/* Display fields specific to employer */}
-                    {role === 'employer' && (
-                        <>
-                            <p className="info-item"><span className="label">Company Name</span> {formData.companyName}</p>
-                            <p className="info-item"><span className="label">Industry</span> {formData.industry}</p>
-                            <p className="info-item"><span className="label">Description</span> {formData.description}</p>
-                        </>
-                    )}
+        <h1 className='dash-title'>Dashboard</h1>
+        <div className='dashboard-container'>
+            <div className='profile'>
+                <div className='profile-header'>
+                    <img src="../assets/background3.jpg" alt="image" />
+                    <div className='profile-text-container'>
+                        <p className="profile-title"> {formData.firstName} {formData.lastName}</p>
+                        <p className="profile-email">{formData.email}</p>
+                    </div>
                 </div>
-            )}
-            <Logout />
-        </div>
-        <div className='skill-container'>
-            {role === 'worker' && <SkillManagement username={username} />}
+                <div className='menu'> 
+                    <a href="#" className={activeSection === 'account' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('account')}>Account</a>
+                    <a href="#" className={activeSection === 'password' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('password')}>Password</a>
+                    <a href="#" className={activeSection === 'contract' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('contract')}>Contract</a>
+                    <a href="#" className={activeSection === 'notification' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('notification')}>Notification</a>
+                    <a href="#" className={activeSection === 'logout' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('logout')}>Log out</a>
+                </div>
+            </div>
+
+            <div id="account-section" className="main-container">
+                {/* Account Section */}
+                {activeSection === 'account' && (
+                <>
+                    <div id="account-section" className="section">
+                    <div className='account-header'>
+                        <h2 className='account-title'>Information</h2> 
+                        <button className='edit-button' onClick={() => setEditMode(true)}>Edit</button>
+                    </div>
+                    <h2 className='role-header'><span className='role-title'>{role.charAt(0).toUpperCase() + role.slice(1)} Profile</span></h2>
+                        {editMode ? (
+                            // Edit form with fields for both worker and employer
+                            <form className="profile-form" onSubmit={handleSubmit}>
+
+                                <div className='account-edit'>
+                                    <div className='input-container'>
+                                    <label>First Name</label>
+                                        <input className='edit-fields' type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" />                           
+                                    </div>
+                                    <div className='input-container'>
+                                    <label>Last Name</label>
+                                        <input className='edit-fields' type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" />                           
+                                    </div>
+                                </div>
+
+                                <div className='account-edit'>
+                                    <div className='input-container'>
+                                    <label>Email</label>
+                                        <input className='edit-fields' type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />                           
+                                    </div>
+                                    <div className='input-container'>
+                                    <label> Phone Number </label>
+                                        <input className='edit-fields' type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} placeholder="Phone Number" />                        
+                                    </div>
+                                </div>
+
+                                <div className='account-edit'>
+                                    <div className='input-container'>
+                                    <label>Picture</label>
+                                        <input className='edit-fields' type="text" name="picture" value={formData.picture} onChange={handleChange} placeholder="Picture" />                       
+                                    </div>
+                                </div>
+
+                                {/* Fields specific to worker */}
+                                {role === 'worker' && (
+                                    <>
+                                    <div className='account-edit'>
+                                        <div className='input-container'>
+                                        <label>Available Time</label>
+                                            <input className='edit-fields' type="text" name="availableTime" value={formData.availableTime} onChange={handleChange} placeholder="Available Time" />                      
+                                        </div>
+                                    </div>
+                                    <div className='account-edit'>
+                                        <div className='input-container'>
+                                        <label>Location</label>
+                                            <input className='edit-fields' type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />                      
+                                        </div>
+                                    </div>
+                                    <div className='account-edit'>
+                                        <div className='input-container'>
+                                        <label>Rate</label>
+                                            <input className='edit-fields' type="text" name="rate" value={formData.rate} onChange={handleChange} placeholder="Rate" />                       
+                                        </div>
+                                    </div>
+                                    </>
+                                )}
+
+                                {/* Fields specific to employer */}
+                                {role === 'employer' && (
+                                    <div>
+                                        <div className='input-container'>
+                                        <label>Company Name</label>
+                                            <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} placeholder="Company Name" />                       
+                                        </div>
+                                        <div className='input-container'>
+                                        <label>Industry</label>
+                                            <input type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="Industry" />                     
+                                        </div>
+                                        <div className='input-container'>
+                                        <label>Description</label>
+                                            <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />                      
+                                        </div>
+                                    </div>
+                                )}
+
+                                <button className='save-button'type="submit">Save Changes</button>
+                            </form>
+                        ) : (
+                            // Display profile info with fields for both worker and employer
+                            <div className="profile-info">
+                                <p className="info-item"><span className="label">Name</span> {formData.firstName} {formData.lastName}</p>
+                                <p className="info-item"><span className="label">Email</span> {formData.email}</p>
+                                <p className="info-item"><span className="label">Phone Number</span> {formData.phone_number}</p>
+                                <p className="info-item"><span className="label">Picture</span> {formData.picture}</p>
+
+                                {/* Display fields specific to worker */}
+                                {role === 'worker' && (
+                                    <>
+                                        <p className="info-item"><span className="label">Available Time</span> {formData.availableTime}</p>
+                                        <p className="info-item"><span className="label">Location</span> {formData.location}</p>
+                                        <p className="info-item"><span className="label">Rate</span> {formData.rate}</p>
+                                    </>
+                                )}
+
+                                {/* Display fields specific to employer */}
+                                {role === 'employer' && (
+                                    <>
+                                        <p className="info-item"><span className="label">Company Name</span> {formData.companyName}</p>
+                                        <p className="info-item"><span className="label">Industry</span> {formData.industry}</p>
+                                        <p className="info-item"><span className="label">Description</span> {formData.description}</p>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
+                    <div className='skill-container'>
+                    {role === 'worker' && <SkillManagement username={username} />}
+                    </div>
+                </>
+                )}
+
+                {/* Password Section */}
+                {activeSection === 'password' && (
+                    <div id="password-section" className="section">
+                        <div className='account-header'>
+                            <h2 className='account-title'>Password</h2> 
+                        </div>
+                    </div>
+                )}
+                
+                {/* Contract Section */}
+                {activeSection === 'contract' && (
+                    <div id="contract-section" className="section">
+                        <div className='account-header'>
+                            <h2 className='account-title'>Contracts</h2> 
+                        </div>
+                    </div>
+                )}
+
+                {/* Notification Section */}
+                {activeSection === 'notification' && (
+                    <div id="notification-section" className="section">
+                        <div className='account-header'>
+                            <h2 className='account-title'>Notifications</h2> 
+                        </div>
+                    </div>
+                )}
+
+                {/* Logout Section */}
+                {activeSection === 'logout' && (
+                    <div id="logout-section" className="section">
+                        <div className='account-header'>
+                            <h2 className='account-title'>Log Out</h2> 
+                        </div>
+                        <Logout />
+                    </div>
+                )}
+
+            </div>
         </div>
         </>
     );
