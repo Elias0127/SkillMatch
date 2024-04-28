@@ -271,9 +271,9 @@ function ProfileCompletionForm() {
                     <>
                         <h1 className="prof-complete-title">Add Your Skills</h1>
                         <h2 className='prof-complete-sub'>Enter details about your skills</h2>
-                        <input type="text" value={newSkill.name} onChange={(e) => setNewSkill({ ...newSkill, name: e.target.value })} placeholder="Skill Name" />
-                        <input type="text" value={newSkill.level} onChange={(e) => setNewSkill({ ...newSkill, level: e.target.value })} placeholder="Skill Level" />
-                        <input type="text" value={newSkill.description} onChange={(e) => setNewSkill({ ...newSkill, description: e.target.value })} placeholder="Skill Description" />
+                        <input className="prof-complete-input" type="text" value={newSkill.name} onChange={(e) => setNewSkill({ ...newSkill, name: e.target.value })} placeholder="Skill Name" />
+                        <input className="prof-complete-input" type="text" value={newSkill.level} onChange={(e) => setNewSkill({ ...newSkill, level: e.target.value })} placeholder="Skill Level" />
+                        <input className="prof-complete-input" type="text" value={newSkill.description} onChange={(e) => setNewSkill({ ...newSkill, description: e.target.value })} placeholder="Skill Description" />
                         <div className='button-container'>
                             <button type="button" onClick={() => setStage(2)} className="back-button">Back to Profile Info</button>
                             <button type="button" onClick={() => handleNext()} className="next-button">Add Skill and Continue</button>
