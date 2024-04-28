@@ -32,15 +32,10 @@ function Form({ route, method, fields }) {
         setLoading(true);
 
         try {
-            console.log("Submitting form data:", formData); // Debugging line to see what is sent to the backend
-            console.log("Sending request to:", route);
-
             const res = await api.post(route, formData);
                 if (res.status === 200) {
                     localStorage.setItem('access', res.data.access); 
                     localStorage.setItem('refresh', res.data.refresh);
-                    console.log("Username:", formData.username);
-                    console.log("User role:", res.data.role); 
                     navigate(`/dashboard/${formData.username}/${res.data.role}`);
                 } else {
                     setErrors({ form: "Unexpected server response: " + res.status });
