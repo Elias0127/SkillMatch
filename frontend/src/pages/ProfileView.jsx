@@ -84,7 +84,7 @@ function ProfileView({ user }) {
         };
 
         try {
-            const { data } = await api.put(`/api/worker-profile/${username}/`, submitFormData, config);
+            const { data } = await api.put(`/api/${role}-profile/${username}/`, submitFormData, config);
             setEditMode(false);
             console.log('Successfully updated profile:', data);
             setFormData({ 
