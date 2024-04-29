@@ -117,10 +117,14 @@ function ProfileView({ user }) {
                     <img src={formData.picture} className="profile-image" />
                     <div className='profile-text-container'>
                         <p className="profile-title"> {formData.firstName} {formData.lastName}</p>
+                        <p className='profile-role'><span className='role-title'>{role.charAt(0).toUpperCase() + role.slice(1)} Profile</span></p>
                     </div>
                 </div>
                 <div className='menu'> 
                     <a href="#" className={activeSection === 'account' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('account')}>Account</a>
+                    {role === 'worker' && (
+                        <a href="#" className={activeSection === 'skills' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('skills')}>Skills</a>
+                    )}
                     <a href="#" className={activeSection === 'password' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('password')}>Password</a>
                     <a href="#" className={activeSection === 'contract' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('contract')}>Contract</a>
                     <a href="#" className={activeSection === 'notification' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('notification')}>Notification</a>
@@ -128,15 +132,15 @@ function ProfileView({ user }) {
                 </div>
             </div>
 
-            <div id="account-section" className="main-container">
+            <div className="main-container">
                 {/* Account Section */}
                 {activeSection === 'account' && (
                 <>
                     <div id="account-section" className="section">
-                    <div className='account-header'>
-                        <h2 className='account-title'>Information</h2> 
-                        <button className='edit-button' onClick={() => setEditMode(true)}>Edit</button>
-                    </div>
+                        <div className='account-header'>
+                            <h2 className='account-title'>Information</h2>
+                            <button className='edit-button' onClick={() => setEditMode(true)}>Edit</button>
+                        </div>
                         {editMode ? (
                             // Edit form with fields for both worker and employer
                             <form className="profile-form" onSubmit={handleSubmit}>
@@ -241,11 +245,19 @@ function ProfileView({ user }) {
                             </div>
                         )}
                     </div>
-
-                    <div className='skill-container'>
-                    {role === 'worker' && <SkillManagement username={username} />}
-                    </div>
                 </>
+                )}
+
+                {activeSection === 'skills' && (
+                    <div id="skill-section" className="section">
+                        <div className='account-header'>
+                            <h2 className='account-title'>Skill Management</h2> 
+                        </div>
+                        <div className='skill-container'>
+                        <SkillManagement username={username} />
+                        </div>
+                    </div>
+
                 )}
 
                 {/* Password Section */}
