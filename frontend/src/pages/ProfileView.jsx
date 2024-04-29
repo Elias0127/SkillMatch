@@ -108,6 +108,17 @@ function ProfileView({ user }) {
         }
     };
 
+    const BackIcon = () => {
+        return (
+            <a href="/" className="home-link">
+                <svg className="back-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" width="20" height="20">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                </svg>
+                <span className="home-text">Home</span>
+            </a>
+        )
+    }
+
     return (
         <>
         <h1 className='dash-title'>Dashboard</h1>
@@ -121,6 +132,8 @@ function ProfileView({ user }) {
                     </div>
                 </div>
                 <div className='menu'> 
+                    <a href="/home" className='home-link'><BackIcon></BackIcon></a>
+
                     <a href="#" className={activeSection === 'account' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('account')}>Account</a>
                     {role === 'worker' && (
                         <a href="#" className={activeSection === 'skills' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('skills')}>Skills</a>
