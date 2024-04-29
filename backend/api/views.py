@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from .models import Profile, Skill, WorkerProfile, EmployerProfile, WorkerSkill
 from .serializers import SkillSerializer, UserRegistrationSerializer, ProfileSerializer, WorkerProfileSerializer, EmployerProfileSerializer, WorkerSkillSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
+from tokenize import TokenError
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 
@@ -57,9 +58,15 @@ class LogoutView(APIView):
     def post(self, request):
         try:
             refresh_token = request.data.get("refresh_token")
+            if refresh_token is None:
+                return Response({'error': 'Refresh token is missing'}, status=status.HTTP_400_BAD_REQUEST)
             token = RefreshToken(refresh_token)
-            token.blacklist()
-            return Response(status=status.HTTP_205_RESET_CONTENT)
+            try:
+                token.blacklist()
+            except TokenError as e:
+                # Handle already blacklisted token
+                return Response({'error': str(e)}, status=status.HTTP_409_CONFLICT)
+            return Response(status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
