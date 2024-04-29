@@ -108,40 +108,51 @@ function ProfileView({ user }) {
         }
     };
 
-    const BackIcon = () => {
-        return (
-            <>
-                <svg className="back-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" width="20" height="20">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-                </svg>
-                <span className="home-text">Home</span>
-            </>
-        )
-    }
-
     return (
         <>
-        <h1 className='dash-title'>Dashboard</h1>
         <div className='dashboard-container'>
             <div className='profile'>
                 <div className='profile-header'>
-                    <img src={formData.picture} className="profile-image" />
                     <div className='profile-text-container'>
-                        <p className="profile-title"> {formData.firstName} {formData.lastName}</p>
-                        <p className='profile-role'><span className='role-title'>{role.charAt(0).toUpperCase() + role.slice(1)} Profile</span></p>
+                        <h1 className='header-logo'>SkillMatch</h1>
                     </div>
                 </div>
                 <div className='menu'> 
-                    <a href="/home" className='home-link'><BackIcon></BackIcon></a>
-
-                    <a href="#" className={activeSection === 'account' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('account')}>Account</a>
+                    <a href="/home" className='menu-links'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" width="20" height="20" className="back-icon">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+                        Home
+                    </a>
+                    <a href="#" className={activeSection === 'account' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('account')}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" width="20" height="20" className="back-icon">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
+                        Account</a>
                     {role === 'worker' && (
-                        <a href="#" className={activeSection === 'skills' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('skills')}>Skills</a>
+                        <a href="#" className={activeSection === 'skills' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('skills')}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" width="20" height="20" stroke="currentColor" class="back-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 0 0-1.883 2.542l.857 6a2.25 2.25 0 0 0 2.227 1.932H19.05a2.25 2.25 0 0 0 2.227-1.932l.857-6a2.25 2.25 0 0 0-1.883-2.542m-16.5 0V6A2.25 2.25 0 0 1 6 3.75h3.879a1.5 1.5 0 0 1 1.06.44l2.122 2.12a1.5 1.5 0 0 0 1.06.44H18A2.25 2.25 0 0 1 20.25 9v.776" /></svg>                      
+                            Skills
+                        </a>
                     )}
-                    <a href="#" className={activeSection === 'password' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('password')}>Password</a>
-                    <a href="#" className={activeSection === 'contract' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('contract')}>Contract</a>
-                    <a href="#" className={activeSection === 'notification' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('notification')}>Notification</a>
-                    <a href="#" className={activeSection === 'logout' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('logout')}>Log out</a>
+                    <a href="#" className={activeSection === 'password' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('password')}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} width="20" height="20" stroke="currentColor" className="back-icon">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
+                        Password
+                    </a>
+                    <a href="#" className={activeSection === 'contract' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('contract')}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} width="20" height="20" stroke="currentColor" className="back-icon">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" /></svg>
+                        Contract
+                    </a>
+                    <a href="#" className={activeSection === 'notification' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('notification')}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} width="20" height="20" stroke="currentColor" className="back-icon">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg>
+                        Notification
+                    </a>
+                    <a href="#" className={activeSection === 'logout' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('logout')}>
+                        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" className="back-icon"><path d="M14 16l4-4m0 0l-4-4 m4 4h-11m11 5v1a2 2 0 01-2 2H6a3 3 0 01-3-3V7a3 3 0 013-3h10a2 2 0 0 12 2v1"></path></svg>
+                        Log out
+                    </a>
                 </div>
             </div>
 
@@ -149,10 +160,10 @@ function ProfileView({ user }) {
                 {/* Account Section */}
                 {activeSection === 'account' && (
                 <>
-                    <div id="account-section" className="section">
+                    <div id="account-section" className="account-section">
                         <div className='account-header'>
-                            <h2 className='account-title'>Information</h2>
-                            <button className='edit-button' onClick={() => setEditMode(true)}>Edit</button>
+                            <h2 className='account-title'>Hey, {formData.firstName}! </h2>
+                            <p className='account-text'>This is your profile dashboard with all your information as a <span className='role-title'>{role}.</span></p>
                         </div>
                         {editMode ? (
                             // Edit form with fields for both worker and employer
@@ -180,16 +191,15 @@ function ProfileView({ user }) {
                                     </div>
                                 </div>
 
-                                <div className='account-edit'>
-                                    <div className='input-container'>
-                                    <label>Picture</label>
-                                        <input className='edit-fields' type="text" name="picture" value={formData.picture} onChange={handleChange} placeholder="Picture" />                       
-                                    </div>
-                                </div>
-
                                 {/* Fields specific to worker */}
                                 {role === 'worker' && (
                                     <>
+                                    <div className='account-edit'>
+                                        <div className='input-container'>
+                                        <label>Picture</label>
+                                            <input className='edit-fields' type="text" name="picture" value={formData.picture} onChange={handleChange} placeholder="Picture" />                       
+                                        </div>
+                                    </div>
                                     <div className='account-edit'>
                                         <div className='input-container'>
                                         <label>Available Time</label>
@@ -216,15 +226,15 @@ function ProfileView({ user }) {
                                     <div>
                                         <div className='input-container'>
                                         <label>Company Name</label>
-                                            <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} placeholder="Company Name" />                       
+                                            <input className="edit-fields" type="text" name="companyName" value={formData.companyName} onChange={handleChange} placeholder="Company Name" />                       
                                         </div>
                                         <div className='input-container'>
                                         <label>Industry</label>
-                                            <input type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="Industry" />                     
+                                            <input className="edit-fields" type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="Industry" />                     
                                         </div>
                                         <div className='input-container'>
                                         <label>Description</label>
-                                            <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />                      
+                                            <input className="edit-fields" type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />                      
                                         </div>
                                     </div>
                                 )}
@@ -234,25 +244,43 @@ function ProfileView({ user }) {
                         ) : (
                             // Display profile info with fields for both worker and employer
                             <div className="profile-info">
-                                <p className="info-item"><span className="label">Name</span> {formData.firstName} {formData.lastName}</p>
-                                <p className="info-item"><span className="label">Email</span> {formData.email}</p>
-                                <p className="info-item"><span className="label">Phone Number</span> {formData.phone_number}</p>
+                                <div className='account-top'>
+                                    <h2>Personal Information</h2>
+                                    <button className='edit-button' onClick={() => setEditMode(true)}>Edit</button>
+                                </div>
+                                {role === 'worker' && (
+                                    <>
+                                        <img src={formData.picture} className="profile-image"/>
+                                        <p className='prof-text'>Your current profile picture</p>
+                                    </>
+                                )}
+                                <div className='name-email-container'>
+                                    <p className="info-item"><span className="label">Name</span> {formData.firstName} {formData.lastName}</p>
+                                </div>
+                                <div className='name-email-container'>
+                                    <p className="info-item"><span className="label">Email</span> {formData.email}</p>  
+                                    <p className="info-item name-item"><span className="label">Phone Number</span> {formData.phone_number}</p>                                   
+                                </div>
 
                                 {/* Display fields specific to worker */}
                                 {role === 'worker' && (
                                     <>
-                                        <p className="info-item"><span className="label">Available Time</span> {formData.availableTime}</p>
-                                        <p className="info-item"><span className="label">Location</span> {formData.location}</p>
-                                        <p className="info-item"><span className="label">Rate</span> {formData.rate}</p>
+                                        <div className='name-email-container'>
+                                            <p className="info-item"><span className="label">Available Time</span> {formData.availableTime}</p>
+                                            <p className="info-item name-item"><span className="label">Location</span> {formData.location}</p>
+                                            <p className="info-item name-item"><span className="label">Rate</span> {formData.rate}</p>
+                                        </div>
                                     </>
                                 )}
 
                                 {/* Display fields specific to employer */}
                                 {role === 'employer' && (
                                     <>
-                                        <p className="info-item"><span className="label">Company Name</span> {formData.companyName}</p>
-                                        <p className="info-item"><span className="label">Industry</span> {formData.industry}</p>
-                                        <p className="info-item"><span className="label">Description</span> {formData.description}</p>
+                                        <div className='name-email-container'>
+                                            <p className="info-item"><span className="label">Company Name</span> {formData.companyName}</p>
+                                            <p className="info-item name-item"><span className="label">Industry</span> {formData.industry}</p>
+                                            <p className="info-item name-item"><span className="label">Description</span> {formData.description}</p>
+                                        </div>
                                     </>
                                 )}
                             </div>
@@ -264,7 +292,8 @@ function ProfileView({ user }) {
                 {activeSection === 'skills' && (
                     <div id="skill-section" className="section">
                         <div className='account-header'>
-                            <h2 className='account-title'>Skill Management</h2> 
+                            <h2 className='account-title'>Skill Management</h2>
+                            <p className='account-text'>This is where you can manage all your skills as a <span className='role-title'>{role}</span>.</p>
                         </div>
                         <div className='skill-container'>
                         <SkillManagement username={username} />

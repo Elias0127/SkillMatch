@@ -4,6 +4,16 @@ body {
     background-color: #dadada;
 }
 
+p {
+    font-weight: 500;
+}
+
+.header-logo {
+    margin: 20px;
+    color: #4163dd;
+    font-size: 28px;
+}
+
 .role-title {
     color: #366ac5;
     font-size: 17px;
@@ -21,18 +31,15 @@ body {
 .dashboard-container {
     display: flex;
     margin: 0 auto;
-    margin-top: 50px;
     max-width: 1500px;
+    min-height: 100vh;
 }
 
 .profile {
     flex: 1;
-    margin-right: 10px;
     padding-bottom: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: white;
-    border-radius: 10px;
-    height: max-content;
+
 }
 
 .profile-text-container {
@@ -60,40 +67,46 @@ body {
     margin-bottom: 15px;
     margin-top: 20px;
     padding-left: 10px;
-    color: #000000;
     border-radius: 7px;
-}
-
-.home-text {
-    margin-left: 7px;
-    font-weight: 500;
-    color: #4c4e51;
-}
-
-.home-text:hover {
-    font-weight: 700;
 }
 
 .back-icon {
     vertical-align: middle;
-    margin-right: 5px;
-    color: #4c4e51;
+    color: #1b1b1b;
+    margin-right: 10px;
 }
 
 .menu-links {
     display: block;
     text-decoration: none;
-    margin-bottom: 10px;
     margin-top: 10px;
-    padding: 10px;
+    padding: 15px;
     padding-left: 15px;
-    color: #768499;
-    border-radius: 7px;
+    color: #1b1b1b;
+    font-weight: 500;
+    border-radius: 15px;
 }
+
+.menu {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.menu-links:last-child {
+    margin-top: auto; /* Push the last menu link to the bottom */
+}
+
 
 .menu-links.active {
     color: white;
     background-color: #4163dd;
+    outline: 1px solid white;
+    box-shadow: 0 0 0 2px #4163dd;
+}
+
+.menu-links.active .back-icon {
+    color: white;
 }
 
 .menu-links.active:hover {
@@ -111,35 +124,57 @@ body {
 
 .main-container {
     flex: 2;
-    max-width: 75%;
-    min-width: 75%;
-    margin-left: 10px;
+    max-width: 80%;
+    min-width: 80%;
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-left: 1px solid rgb(225, 225, 225);
     padding-bottom: 30px;
-    height: max-content;
 }
 
 .account-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     padding: 10px;
-    border-bottom: 1px solid rgb(220, 220, 220);
+    margin: 0;
+    position: relative;
+    align-items: flex-start;
 }
 
-.account-title {
+.account-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+    right: 30px; 
+    height: 1px;
+    background-color: rgb(220, 220, 220);
+}
+
+.account-title{
     font-size: 25px;
     margin-left: 20px;
+    margin-bottom: 0;
     color: #333333;
+    font-weight: 700;
+}
+
+.account-text {
+    margin-left: 20px;
+    font-size: 20;
     font-weight: 600;
+    color: rgb(129, 129, 129);
 }
 
 /* Account section */
+.account-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .edit-button {
-    margin-right: 10px;
+    margin-right: 20px;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 100px;
@@ -147,6 +182,7 @@ body {
     background-color: #4163dd;
     color: white;
     border: none;
+    align-self: flex-end;
 }
 
 .account-edit {
@@ -222,14 +258,35 @@ button:hover {
     margin-bottom: 20px;
 }
 
+.prof-text {
+    font-size: 20;
+    font-weight: 500;
+    color: rgb(129, 129, 129);
+}
+
 .profile-info {
-    margin: 0 30px;
+    margin: 30px;
+    padding: 25px;
+    border: 1px solid rgb(214, 214, 214);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.name-email-container {
+    display: flex;
+    align-items: center;
+}
+
+.name-item {
+    margin-left: 50px; /* Add space between image and name */
+
 }
 
 .info-item {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     color: #282828;
 }
 
@@ -243,9 +300,9 @@ button:hover {
 .skill-container {
     width: 85%;
     margin: 20px auto;
-    padding: 35px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    padding: 50px;
+    border: 1px solid rgb(214, 214, 214);
+    border-radius: 30px;
     background-color: #fff;
 }
 
@@ -328,8 +385,7 @@ h2 {
     height: 80px;
     width: 80px;
     border-radius: 50px;
-    margin: 15px;
-    margin-right: 15px;
+    margin: 10px;
 }
 
 /* Media */
