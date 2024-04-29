@@ -289,6 +289,13 @@ h2 {
     margin-top: 20px;
 }
 
+.profile-image {
+    height: 80px;
+    width: 80px;
+    border-radius: 50px;
+    margin: 10px;
+}
+
 /* Media */
 
 @media screen and (max-width: 800px){

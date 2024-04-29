@@ -114,10 +114,9 @@ function ProfileView({ user }) {
         <div className='dashboard-container'>
             <div className='profile'>
                 <div className='profile-header'>
-                    <img src="../assets/background3.jpg" alt="image" />
+                    <img src={formData.picture} className="profile-image" />
                     <div className='profile-text-container'>
                         <p className="profile-title"> {formData.firstName} {formData.lastName}</p>
-                        <p className="profile-email">{formData.email}</p>
                     </div>
                 </div>
                 <div className='menu'> 
@@ -138,7 +137,6 @@ function ProfileView({ user }) {
                         <h2 className='account-title'>Information</h2> 
                         <button className='edit-button' onClick={() => setEditMode(true)}>Edit</button>
                     </div>
-                    <h2 className='role-header'><span className='role-title'>{role.charAt(0).toUpperCase() + role.slice(1)} Profile</span></h2>
                         {editMode ? (
                             // Edit form with fields for both worker and employer
                             <form className="profile-form" onSubmit={handleSubmit}>
@@ -222,7 +220,6 @@ function ProfileView({ user }) {
                                 <p className="info-item"><span className="label">Name</span> {formData.firstName} {formData.lastName}</p>
                                 <p className="info-item"><span className="label">Email</span> {formData.email}</p>
                                 <p className="info-item"><span className="label">Phone Number</span> {formData.phone_number}</p>
-                                <p className="info-item"><span className="label">Picture</span> {formData.picture}</p>
 
                                 {/* Display fields specific to worker */}
                                 {role === 'worker' && (
