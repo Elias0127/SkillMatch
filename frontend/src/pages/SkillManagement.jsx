@@ -83,7 +83,7 @@ function SkillManagement() {
             setError('Failed to update skill');
         }
     };
-
+    
     if (loading) return <p>Loading...</p>;
 
     return (
@@ -96,7 +96,9 @@ function SkillManagement() {
                         <div className='skill-title'>
                             <span className="skill-name">{skill.skill.name}</span>
                         </div>
+                        <div>
                             <span className="skill-label">Skill Level:</span> <span className="skill-level">{skill.skill.level}</span>
+                        </div>
                         <div>
                             <span className="skill-label">Description:</span> <span className="skill-description">{skill.skill.description}</span>
                         </div>
