@@ -13,10 +13,19 @@ function LoginPage() {
         navigate('/register');
     };
 
+    const handleForgotPasswordRedirect = () => {
+        navigate('/forgot-password');
+    };
+
     return (
         <div className="login-container">
             <h1 className='title'>SkillMatch</h1>
             <Form route="/api/login/" method="Login" fields={fields} />
+            <p className="text-center">
+                <button onClick={handleForgotPasswordRedirect} className="link-button forgot-password">
+                    Forgot Password?
+                </button>
+                </p>
             <p className="text-center">Don't have an account? 
                 <button onClick={handleRegisterRedirect} className="link-button">
                     Sign up

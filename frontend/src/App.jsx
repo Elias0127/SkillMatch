@@ -10,6 +10,7 @@ import WorkerProfile from "./pages/WorkerProfile";
 import ProfileCompletion from "./pages/ProfileCompletion";
 import SkillManagement from "./pages/SkillManagement";
 import Dashboard from "./pages/Dashboard";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
