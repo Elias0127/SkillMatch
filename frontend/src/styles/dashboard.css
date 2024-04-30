@@ -8,6 +8,10 @@ p {
     font-weight: 500;
 }
 
+a {
+    text-decoration: none;
+}
+
 .header-logo {
     margin: 20px;
     color: #4163dd;
@@ -54,10 +58,6 @@ p {
     font-weight: 600;
 }
 
-.menu {
-    margin: 0 20px;
-}
-
 .home-link {
     display: inline-flex;
     align-items: center;
@@ -87,13 +87,7 @@ p {
 }
 
 .menu {
-    display: flex;
-    flex-direction: column;
-
-}
-
-.menu-links:last-child {
-    margin-top: auto; /* Push the last menu link to the bottom */
+    margin: 0 20px;
 }
 
 
