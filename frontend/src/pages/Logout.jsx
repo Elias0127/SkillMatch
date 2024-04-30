@@ -36,7 +36,10 @@ function LogoutButton() {
         navigate('/login');
     }
     return (
-        <button className='logout-button' onClick={handleLogout}>Logout</button>
+        <a href="#" className="menu-links" onClick={handleLogout}>
+        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" className="back-icon"><path d="M14 16l4-4m0 0l-4-4 m4 4h-11m11 5v1a2 2 0 01-2 2H6a3 3 0 01-3-3V7a3 3 0 013-3h10a2 2 0 0 12 2v1"></path></svg>
+        Log out
+        </a>
     );
 }
 

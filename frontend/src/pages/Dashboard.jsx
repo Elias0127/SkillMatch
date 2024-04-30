@@ -21,7 +21,6 @@ function Dashboard() {
                 setUser({
                     ...data, 
                 });
-                console.log("User data:", data);
                 setLoading(false);
             } catch (error) {
                 console.error('Failed to fetch user data:', error);
@@ -40,8 +39,7 @@ function Dashboard() {
     }
 
     return (
-        <div>
-            <h1>Dashboard</h1>
+        <div className='dash-container'>
             <ProfileView user={user} />
             {user.role === 'worker' && <SkillManagement username={username} />}
         </div>

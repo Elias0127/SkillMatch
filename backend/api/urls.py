@@ -1,6 +1,4 @@
-from django.urls import path, include
-from django.conf.urls.static import static
-from django.conf import settings
+from django.urls import path
 from .views import (UserRegistrationView, ProfileView, WorkerProfileView, EmployerProfileView,LoginView, LogoutView, SkillListView, SkillDetailView, WorkerSkillViewSet)
 
 urlpatterns = [
@@ -15,5 +13,3 @@ urlpatterns = [
     path('worker-skills/<str:username>/', WorkerSkillViewSet.as_view({'get': 'list', 'post': 'create'}), name='worker_skills'),
     path('worker-skills/<str:username>/<int:pk>/', WorkerSkillViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'}), name='worker_skill_detail'),
 ]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -9,6 +9,7 @@ import '../styles/dashboard.css';
 
 
 function SkillManagement() {
+    const [showSkillForm, setShowSkillForm] = useState(false);
     const { username } = useParams();
     const [skills, setSkills] = useState([]);
     const [newSkill, setNewSkill] = useState({ name: '', level: '', description: '' });
@@ -82,7 +83,7 @@ function SkillManagement() {
             setError('Failed to update skill');
         }
     };
-
+    
     if (loading) return <p>Loading...</p>;
 
     return (
@@ -91,19 +92,33 @@ function SkillManagement() {
             <h2>Manage Skills</h2>
             {skills.map(skill => (
                 <div className="skill-item" key={skill.id}>
-                    {skill.skill.name} - {skill.skill.level}
+                    <div className="skill-info">
+                        <div className='skill-title'>
+                            <span className="skill-name">{skill.skill.name}</span>
+                        </div>
+                        <div>
+                            <span className="skill-label">Skill Level:</span> <span className="skill-level">{skill.skill.level}</span>
+                        </div>
+                        <div>
+                            <span className="skill-label">Description:</span> <span className="skill-description">{skill.skill.description}</span>
+                        </div>
+                    </div>
                     <div className="skill-actions">
-                        <button onClick={() => handleDeleteSkill(skill.id)}>Delete</button>
-                        <button onClick={() => handleUpdateSkill(skill.id, { ...skill.skill, level: 'Begineer' })}>Update Level</button>
+                        <button className='delete-button' onClick={() => handleDeleteSkill(skill.id)}>Delete</button>
+                        <button className='skill-button' onClick={() => handleUpdateSkill(skill.id, { ...skill.skill, level: 'Beginner' })}>Update Level</button>
                     </div>
                 </div>
             ))}
-            <div className="skill-form">
-                <input type="text" value={newSkill.name} onChange={(e) => setNewSkill({...newSkill, name: e.target.value})} placeholder="Skill name" />
-                <input type="text" value={newSkill.level} onChange={(e) => setNewSkill({...newSkill, level: e.target.value})} placeholder="Skill level" />
-                <input type="text" value={newSkill.description} onChange={(e) => setNewSkill({...newSkill, description: e.target.value})} placeholder="Description" />
-                <button onClick={handleAddSkill}>Add Skill</button>
-            </div>
+            <button className='add-skill-button' onClick={() => setShowSkillForm(true)}>Add Skill</button>
+            {showSkillForm && (
+                <div className="skill-form">
+                    <input className='skill-fields' type="text" value={newSkill.name} onChange={(e) => setNewSkill({...newSkill, name: e.target.value})} placeholder="Skill name" />
+                    <input className='skill-fields' type="text" value={newSkill.level} onChange={(e) => setNewSkill({...newSkill, level: e.target.value})} placeholder="Skill level" />
+                    <input className='skill-fields' type="text" value={newSkill.description} onChange={(e) => setNewSkill({...newSkill, description: e.target.value})} placeholder="Description" />
+                    <button className='skill-button' onClick={handleAddSkill}>Add Skill</button>
+                    <button className='cancel-skill-button' onClick={() => setShowSkillForm(false)}>Cancel</button>
+                </div>
+            )}
         </div>
 
     );
