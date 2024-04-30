@@ -1,6 +1,10 @@
 from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth.tokens import default_token_generator
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -146,3 +150,25 @@ class WorkerSkillViewSet(viewsets.ModelViewSet):
             return Response(WorkerSkillSerializer(worker_skill).data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUES)
+        
+# User forgets their password
+class ForgotPasswordView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        email = request.data.get('email')
+        user = get_user_model().objects.filter(email=email).first()
+        if user:
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            reset_link = f"http://frontend-url.com/reset-password/{uid}/{token}"
+
+            send_mail(
+                'Reset Your Password',
+                f'Please click on the link to reset your password: {reset_link}',
+                'from@example.com',
+                [email],
+                fail_silently=False,
+            )
+            return Response({"message": "Email sent successfully with reset instructions."}, status=status.HTTP_200_OK)
+        return Response({"error": "No user found with this email address"}, status=status.HTTP_404_NOT_FOUND)

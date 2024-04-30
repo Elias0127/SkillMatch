@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import (UserRegistrationView, ProfileView, WorkerProfileView, EmployerProfileView,LoginView, LogoutView, SkillListView, SkillDetailView, WorkerSkillViewSet)
+from .views import (UserRegistrationView, ProfileView, WorkerProfileView, EmployerProfileView,LoginView, LogoutView, SkillListView, SkillDetailView, WorkerSkillViewSet, ForgotPasswordView)
 
 urlpatterns = [
     path('register/', UserRegistrationView.as_view(), name='register'),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('skills/<int:pk>/', SkillDetailView.as_view(), name='skill_detail'),
     path('worker-skills/<str:username>/', WorkerSkillViewSet.as_view({'get': 'list', 'post': 'create'}), name='worker_skills'),
     path('worker-skills/<str:username>/<int:pk>/', WorkerSkillViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'}), name='worker_skill_detail'),
+    path('forgot-password/', ForgotPasswordView.as_view(), name='forgot_password'),
 ]
