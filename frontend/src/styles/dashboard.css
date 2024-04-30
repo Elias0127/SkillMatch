@@ -31,7 +31,6 @@ p {
 .dashboard-container {
     display: flex;
     margin: 0 auto;
-    max-width: 1500px;
     min-height: 100vh;
 }
 
@@ -39,7 +38,6 @@ p {
     flex: 1;
     padding-bottom: 20px;
     background-color: white;
-
 }
 
 .profile-text-container {
@@ -85,6 +83,7 @@ p {
     color: #1b1b1b;
     font-weight: 500;
     border-radius: 15px;
+    position: relative;
 }
 
 .menu {
@@ -127,7 +126,7 @@ p {
     max-width: 80%;
     min-width: 80%;
     background-color: white;
-    border-left: 1px solid rgb(225, 225, 225);
+    border-left: 2px solid rgb(232, 232, 232);
     padding-bottom: 30px;
 }
 
@@ -147,8 +146,8 @@ p {
     bottom: 0;
     left: 30px;
     right: 30px; 
-    height: 1px;
-    background-color: rgb(220, 220, 220);
+    height: px;
+    background-color: rgb(232, 232, 232);
 }
 
 .account-title{
@@ -163,7 +162,7 @@ p {
     margin-left: 20px;
     font-size: 20;
     font-weight: 600;
-    color: rgb(129, 129, 129);
+    color: rgb(119, 121, 128);
 }
 
 /* Account section */
@@ -185,10 +184,27 @@ p {
     align-self: flex-end;
 }
 
+.specific-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 25px;
+    margin-bottom: 30px;
+    color: rgb(30, 30, 30);
+}
+
 .account-edit {
     display: flex;
     justify-content: space-between;
     margin: 10px 0;
+}
+
+.edit-container {
+    margin: 30px;
+    padding: 25px;
+    border: 2px solid rgb(232, 232, 232);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 .input-container {
@@ -261,13 +277,13 @@ button:hover {
 .prof-text {
     font-size: 20;
     font-weight: 500;
-    color: rgb(129, 129, 129);
+    color: rgb(98, 101, 112);
 }
 
 .profile-info {
     margin: 30px;
     padding: 25px;
-    border: 1px solid rgb(214, 214, 214);
+    border: 2px solid rgb(232, 232, 232);
     border-radius: 30px;
     display: flex;
     flex-direction: column;
@@ -301,14 +317,14 @@ button:hover {
     width: 85%;
     margin: 20px auto;
     padding: 50px;
-    border: 1px solid rgb(214, 214, 214);
+    border: 2px solid rgb(232, 232, 232);
     border-radius: 30px;
     background-color: #fff;
 }
 
 .skill-item {
     background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    border: 2px solid rgb(232, 232, 232);
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;

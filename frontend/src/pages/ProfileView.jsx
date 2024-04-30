@@ -168,73 +168,82 @@ function ProfileView({ user }) {
                         {editMode ? (
                             // Edit form with fields for both worker and employer
                             <form className="profile-form" onSubmit={handleSubmit}>
+                                <div className='edit-container'>
+                                    <div className='account-edit'>
+                                        <div className='input-container'>
+                                        <label>First Name</label>
+                                            <input className='edit-fields' type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" />                           
+                                        </div>
+                                        <div className='input-container'>
+                                        <label>Last Name</label>
+                                            <input className='edit-fields' type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" />                           
+                                        </div>
+                                    </div>
 
-                                <div className='account-edit'>
-                                    <div className='input-container'>
-                                    <label>First Name</label>
-                                        <input className='edit-fields' type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" />                           
-                                    </div>
-                                    <div className='input-container'>
-                                    <label>Last Name</label>
-                                        <input className='edit-fields' type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" />                           
-                                    </div>
-                                </div>
-
-                                <div className='account-edit'>
-                                    <div className='input-container'>
-                                    <label>Email</label>
-                                        <input className='edit-fields' type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />                           
-                                    </div>
-                                    <div className='input-container'>
-                                    <label> Phone Number </label>
-                                        <input className='edit-fields' type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} placeholder="Phone Number" />                        
+                                    <div className='account-edit'>
+                                        <div className='input-container'>
+                                        <label>Email</label>
+                                            <input className='edit-fields' type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" />                           
+                                        </div>
+                                        <div className='input-container'>
+                                        <label> Phone Number </label>
+                                            <input className='edit-fields' type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} placeholder="Phone Number" />                        
+                                        </div>
                                     </div>
                                 </div>
 
                                 {/* Fields specific to worker */}
                                 {role === 'worker' && (
-                                    <>
-                                    <div className='account-edit'>
-                                        <div className='input-container'>
-                                        <label>Picture</label>
-                                            <input className='edit-fields' type="text" name="picture" value={formData.picture} onChange={handleChange} placeholder="Picture" />                       
+                                    <div className='edit-container'>
+                                        <p className='specific-title'>These are specific fields for workers.</p>
+                                        <div className='account-edit'>
+                                            <div className='input-container'>
+                                            <label>Picture</label>
+                                                <input className='edit-fields' type="text" name="picture" value={formData.picture} onChange={handleChange} placeholder="Picture" />                       
+                                            </div>
+                                        </div>
+                                        <div className='account-edit'>
+                                            <div className='input-container'>
+                                            <label>Available Time</label>
+                                                <input className='edit-fields' type="text" name="availableTime" value={formData.availableTime} onChange={handleChange} placeholder="Available Time" />                      
+                                            </div>
+                                        </div>
+                                        <div className='account-edit'>
+                                            <div className='input-container'>
+                                            <label>Location</label>
+                                                <input className='edit-fields' type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />                      
+                                            </div>
+                                        </div>
+                                        <div className='account-edit'>
+                                            <div className='input-container'>
+                                            <label>Rate</label>
+                                                <input className='edit-fields' type="text" name="rate" value={formData.rate} onChange={handleChange} placeholder="Rate" />                       
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className='account-edit'>
-                                        <div className='input-container'>
-                                        <label>Available Time</label>
-                                            <input className='edit-fields' type="text" name="availableTime" value={formData.availableTime} onChange={handleChange} placeholder="Available Time" />                      
-                                        </div>
-                                    </div>
-                                    <div className='account-edit'>
-                                        <div className='input-container'>
-                                        <label>Location</label>
-                                            <input className='edit-fields' type="text" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />                      
-                                        </div>
-                                    </div>
-                                    <div className='account-edit'>
-                                        <div className='input-container'>
-                                        <label>Rate</label>
-                                            <input className='edit-fields' type="text" name="rate" value={formData.rate} onChange={handleChange} placeholder="Rate" />                       
-                                        </div>
-                                    </div>
-                                    </>
                                 )}
 
                                 {/* Fields specific to employer */}
                                 {role === 'employer' && (
-                                    <div>
-                                        <div className='input-container'>
-                                        <label>Company Name</label>
-                                            <input className="edit-fields" type="text" name="companyName" value={formData.companyName} onChange={handleChange} placeholder="Company Name" />                       
+                                    <div className='edit-container'>
+                                        <p className='specific-title'>These are specific fields for employers.</p>
+                                        <div className='account-edit'>
+                                            <div className='input-container'>
+                                            <label>Company Name</label>
+                                                <input className="edit-fields" type="text" name="companyName" value={formData.companyName} onChange={handleChange} placeholder="Company Name" />                       
+                                            </div>
                                         </div>
-                                        <div className='input-container'>
-                                        <label>Industry</label>
-                                            <input className="edit-fields" type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="Industry" />                     
+                                        <div className='account-edit'>
+                                            <div className='input-container'>
+                                            <label>Industry</label>
+                                                <input className="edit-fields" type="text" name="industry" value={formData.industry} onChange={handleChange} placeholder="Industry" />                     
+                                            </div>
                                         </div>
-                                        <div className='input-container'>
-                                        <label>Description</label>
-                                            <input className="edit-fields" type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />                      
+                                        <div className='account-edit'>
+                                            <div className='input-container'>
+                                            <label>Description</label>
+                                                <input className='edit-fields' type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />                       
+                                            </div>
                                         </div>
                                     </div>
                                 )}
