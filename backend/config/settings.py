@@ -49,7 +49,7 @@ LOGGING = {
         'file': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'backend' / 'api.log',
+            'filename': BASE_DIR / 'config' / 'api.log',
         },
     },
     'loggers': {
