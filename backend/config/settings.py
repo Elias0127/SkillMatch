@@ -13,12 +13,19 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+import dj_database_url
 import os
 
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+GDAL_LIBRARY_PATH = '/opt/homebrew/lib/libgdal.34.dylib'
+GEOS_LIBRARY_PATH = '/opt/homebrew/lib/libgeos_c.1.dylib'
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -87,6 +94,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     'rest_framework_simplejwt.token_blacklist',
+    'django.contrib.gis',
 
 ]
 
@@ -126,11 +134,11 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )
 }
+
 
 
 
