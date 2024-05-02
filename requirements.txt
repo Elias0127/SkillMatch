@@ -11,3 +11,4 @@ python-dotenv
 Pillow
 psycopg2
 dj-database-url
+GDAL==3.8.5
