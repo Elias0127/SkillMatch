@@ -25,6 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 GDAL_LIBRARY_PATH = '/opt/homebrew/lib/libgdal.34.dylib'
 GEOS_LIBRARY_PATH = '/opt/homebrew/lib/libgeos_c.1.dylib'
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 
 
