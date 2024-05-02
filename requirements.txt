@@ -12,3 +12,4 @@ Pillow
 psycopg2
 dj-database-url
 GDAL==3.8.5
+gunicorn==20.1.0
