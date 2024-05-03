@@ -24,8 +24,14 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-GDAL_LIBRARY_PATH = '/app/.heroku-geo-buildpack/vendor/lib/libgdal.so.31'
-GEOS_LIBRARY_PATH = '/app/.heroku-geo-buildpack/vendor/lib/libgeos_c.so.1.16.0'
+# Heroku paths if running on Heroku
+if os.environ.get('ON_HEROKU'):
+    GDAL_LIBRARY_PATH = '/app/.heroku-geo-buildpack/vendor/lib/libgdal.so.31'
+    GEOS_LIBRARY_PATH = '/app/.heroku-geo-buildpack/vendor/lib/libgeos_c.so.1.16.0'
+else:
+    # Homebrew paths if running on local
+    GDAL_LIBRARY_PATH = '/opt/homebrew/lib/libgdal.dylib'
+    GEOS_LIBRARY_PATH = '/opt/homebrew/lib/libgeos_c.dylib'
 
 
 STATIC_URL = '/static/'
