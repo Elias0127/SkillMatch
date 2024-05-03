@@ -16,7 +16,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     
     # Function to validate if username is unique or not
-    '''
     def validate_username(self):
 
         # data from the form is fetched using super function
@@ -26,13 +25,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         username = self.cleaned_data.get('username')
         
         # check username length
-        if len(username) < 4:
+        if len(username) < 3:
             self._errors['username'] = self.error_class([
                 'Username is not unique'])
         
         # return any errors if found
         return self.cleaned_data
-    '''
+
     # Automatically create a profile for the user depending on the role user selected
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
