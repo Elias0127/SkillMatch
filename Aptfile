@@ -1,1 +1,2 @@
-gdal-bin
+gdal-bin=3.8.5*
+libgdal-dev=3.8.5*
