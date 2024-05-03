@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 import dj_database_url
 import os
 
-print("Database URL from env:", os.environ.get('DATABASE_URL'))
+# print("Database URL from env:", os.environ.get('DATABASE_URL'))
 
 load_dotenv()
 
