@@ -16,20 +16,24 @@ from dotenv import load_dotenv
 import dj_database_url
 import os
 
+print("Database URL from env:", os.environ.get('DATABASE_URL'))
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# GDAL_LIBRARY_PATH = '/opt/homebrew/lib/libgdal.34.dylib'
-# GEOS_LIBRARY_PATH = '/opt/homebrew/lib/libgeos_c.1.dylib'
+GDAL_LIBRARY_PATH = '/opt/homebrew/lib/libgdal.34.dylib'
+GEOS_LIBRARY_PATH = '/opt/homebrew/lib/libgeos_c.1.dylib'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+
+if os.getenv('ENV') == 'production':  # You can set ENV=production in your Heroku config vars
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
 
 
 
