@@ -16,20 +16,9 @@ function JobPostForm({ onSuccess }) {
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
-        const fetchSkills = async () => {
-            try {
-                setLoading(true);
-                const response = await api.get('/api/skills/');
-                setAllSkills(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Failed to fetch skills:', error);
-                setLoading(false);
-            }
-        };
-
-        fetchSkills();
-    }, []);
+        // Clear errors when stage changes
+        setErrors({});
+    }, [stage]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
