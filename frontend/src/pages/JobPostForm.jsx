@@ -59,7 +59,7 @@ function JobPostForm({ onSuccess }) {
             setLoading(true);
             const response = await api.post('/api/job-posts/', formData);
             setLoading(false);
-            onSuccess();  // Callback to refresh or navigate on success
+            onSuccess();  
         } catch (error) {
             console.error('Registration error:', error.response ? error.response.data : error);
             setErrors({ form: error.response?.data.message || "An error occurred" });
@@ -69,51 +69,54 @@ function JobPostForm({ onSuccess }) {
 
     return (
         <div className="registration-container">
-            <h1 className='title'>Post a Job</h1>
+            <h1 className='title'>Post a Job Request</h1>
             {loading && <LoadingIndicator />}
             <form onSubmit={handleSubmit} className="form-container">
+                <label htmlFor='title'>Job Title:</label>
                 <input
                     className="form-input"
                     type="text"
                     name="title"
                     value={formData.title}
                     onChange={handleChange}
-                    placeholder="Job Title"
+                    placeholder="Enter a Job Title"
                 />
                 {errors.title && <p className="error">{errors.title}</p>}
                 
+                <label htmlFor="description">Job Description:</label>
                 <textarea
                     className="form-input"
                     name="description"
+                    id="description"
                     value={formData.description}
                     onChange={handleChange}
-                    placeholder="Job Description"
+                    placeholder="Describe the responsibilities and required skills"
                 />
                 {errors.description && <p className="error">{errors.description}</p>}
 
-                <select
-                    multiple
+                <label htmlFor="skills">Required Skills:</label>
+                <input
+                    className="form-input"
                     name="skills"
+                    id="skills"
                     value={formData.skills}
                     onChange={handleSkillChange}
-                    className="form-input"
-                >
-                    {allSkills.map(skill => (
-                        <option key={skill.id} value={skill.id}>{skill.name}</option>
-                    ))}
-                </select>
+                    placeholder="List required skills"
+                />
                 {errors.skills && <p className="error">{errors.skills}</p>}
 
+                <label htmlFor="budget">Budget:</label>
                 <input
                     className="form-input"
                     type="text"
                     name="budget"
                     value={formData.budget}
                     onChange={handleChange}
-                    placeholder="Budget"
+                    placeholder="Specify the salary for the job"
                 />
                 {errors.budget && <p className="error">{errors.budget}</p>}
 
+                <label htmlFor="location">Location:</label>
                 <input
                     className="form-input"
                     type="text"
@@ -123,6 +126,7 @@ function JobPostForm({ onSuccess }) {
                     placeholder="Location"
                 />
 
+                <label htmlFor="duration">Duration:</label>
                 <input
                     className="form-input"
                     type="text"

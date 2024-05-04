@@ -11,6 +11,7 @@ import ProfileCompletion from "./pages/ProfileCompletion";
 import SkillManagement from "./pages/SkillManagement";
 import Dashboard from "./pages/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword";
+import JobPostForm from "./pages/JobPostForm";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/Job-post" element={<JobPostForm />} />
         <Route path="/" element={
           <ProtectedRoute>
             <Home />
