@@ -147,13 +147,15 @@ a {
 .account-title{
     font-size: 25px;
     margin-left: 20px;
-    margin-bottom: 0;
+    margin-bottom: 10px;
+    margin-top: 20px;
     color: #333333;
     font-weight: 700;
 }
 
 .account-text {
     margin-left: 20px;
+    margin-bottom: 10px;
     font-size: 20;
     font-weight: 600;
     color: rgb(119, 121, 128);
@@ -271,6 +273,8 @@ button:hover {
 .prof-text {
     font-size: 20;
     font-weight: 500;
+    padding-bottom: 40px;
+    padding-top: 10px;
     color: rgb(98, 101, 112);
 }
 
@@ -308,7 +312,7 @@ button:hover {
 /* SkillManagement Component Styles */
 
 .skill-container {
-    width: 85%;
+    width: 95%;
     margin: 20px auto;
     padding: 50px;
     border: 2px solid rgb(232, 232, 232);
