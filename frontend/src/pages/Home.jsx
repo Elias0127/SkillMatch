@@ -59,7 +59,6 @@ function Home() {
             <Header />
             <HeroSection />
             <ServicesSection />
-            <Logout />
         </div>
     );
 }

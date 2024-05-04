@@ -34,16 +34,15 @@ label {
     flex-direction: column;
     align-items: center;
     margin: 30px auto;
-    width: 500px;
     height: 550px;
     padding: 40px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    max-width: 400px;
+    width: 400px;
 }
 
 .form-input {
-    width: 90%;
+    width: 100%;
     padding: 12px;
     margin: 10px 0;
     border: 1px solid #ababab;
@@ -52,7 +51,7 @@ label {
 }
 
 .form-button {
-    width: 360px;
+    width: 100%;
     padding: 12px;
     margin: 20px 0;
     font-weight: 500;
