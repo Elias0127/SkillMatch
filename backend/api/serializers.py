@@ -14,6 +14,25 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'password', 'role']
 
+    
+    # Function to validate if username is unique or not
+    '''
+    def validate_username(self):
+
+        # data from the form is fetched using super function
+        # super(UserRegistrationSerializer, self).clean()
+
+        # extract the username field from the data
+        username = self.cleaned_data.get('username')
+        
+        # check username length
+        if len(username) < 4:
+            self._errors['username'] = self.error_class([
+                'Username is not unique'])
+        
+        # return any errors if found
+        return self.cleaned_data
+    '''
     # Automatically create a profile for the user depending on the role user selected
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
@@ -23,7 +42,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         elif user.role == User.EMPLOYER:
             EmployerProfile.objects.create(user=user)
         return user
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -132,11 +150,19 @@ class WorkerSkillSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkerSkill
-        fields = ['skill']
+        fields = ['id', 'skill']
 
     def create(self, validated_data):
         skill_data = validated_data.pop('skill')
         skill, created = Skill.objects.get_or_create(**skill_data)
-        worker_skill = WorkerSkill.objects.create(
-            skill=skill, **validated_data)
+        worker_skill = WorkerSkill.objects.create(skill=skill, **validated_data)
         return worker_skill
+
+    def update(self, instance, validated_data):
+        skill_data = validated_data.pop('skill', {})
+        skill = instance.skill
+        skill.name = skill_data.get('name', skill.name)
+        skill.description = skill_data.get('description', skill.description)
+        skill.level = skill_data.get('level', skill.level)
+        skill.save()
+        return instance

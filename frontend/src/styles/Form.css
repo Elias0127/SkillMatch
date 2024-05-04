@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 body {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -32,7 +33,7 @@ label {
     background-color: white;
     flex-direction: column;
     align-items: center;
-    margin: 50px auto;
+    margin: 30px auto;
     width: 500px;
     height: 550px;
     padding: 40px;
@@ -68,6 +69,10 @@ label {
     background-color: #0056b3;
 }
 
+.text-center {
+    padding-bottom: 40px;
+}
+
 .link-button {
     display: inline-block;
     background-color: #3359E1;
@@ -86,8 +91,8 @@ label {
 }
 
 .text-center {
-    text-align: center;
-
+    display: flex;
+    margin: 0;
 }
 
 

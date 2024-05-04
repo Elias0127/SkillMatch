@@ -7,11 +7,16 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url(../assets/profile-completion-background.png);
-    background-size: cover;
+    background: linear-gradient(90deg, #3d5ccc 0%, rgb(111, 163, 200) 100%);
+}
+
+.title {
+    color: white;
+    font-size: 45px;
 }
 
 .prof-complete-title {
+    margin-top: 35px;
     font-size: 25px;
     color: rgb(55, 55, 55);
 }
@@ -23,6 +28,26 @@
     text-align: center; 
     margin: 0;
 }
+
+.name-container {
+    display: flex;
+    width: 90%;
+}
+
+.name-container input:first-child {
+    margin-right: 12px;
+}
+
+.rate-container {
+    display: flex;
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+.rate-container input:first-child {
+    margin-right: 12px;
+}
+
 
 .prof-complete-input {
     width: 90%;
@@ -36,8 +61,6 @@
 .pfp-file {
     display: inline-block;
     padding: 30px;
-
-
 }
 
 .prof-pic-text {
@@ -48,5 +71,107 @@
     text-align: center; 
 }
 
+.completion-form-container {
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    padding: 40px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
+.button-container {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
+
+.back-button {
+    border: 1px solid #555555;
+    width: 250px;
+    padding: 12px;
+    margin: 20px 0;
+    font-weight: 500;
+    font-size: 17px;
+    background-color: transparent;
+    color: rgb(40, 40, 40);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.next-button {
+    width: 250px;
+    padding: 12px;
+    margin: 20px 0;
+    font-weight: 500;
+    font-size: 17px;
+    background-color: #4966cc;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.next-button:hover {
+    background-color: rgb(62, 99, 164);
+}
+
+.back-button:hover {
+    background-color: #e7e7e7;
+}
+
+textarea {
+    resize: vertical;
+    max-height: 500px;
+    min-height: 100px;
+}
+
+.form-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    margin-bottom: 15px;
+}
+
+.form-stepper-step {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%; 
+    background-color: #ccc; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold; 
+}
+
+.form-stepper .active-step {
+    background-color: rgb(27, 86, 187);
+    color: #fff;
+}
+
+.form-stepper-line {
+    flex: 1;
+    height: 2px;
+    background-color: #cccccc;
+    margin: 0 10px;
+}
+
+.step-labels {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.step-label {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+}
 

@@ -4,7 +4,7 @@ import api from "../api";
 import "../styles/Form.css";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
-
+import PasswordChecklist from "react-password-checklist";
 
 function RegistrationForm() {
     const [formData, setFormData] = useState({
@@ -28,6 +28,22 @@ function RegistrationForm() {
         return Object.keys(tempErrors).length === 0;
     };
 
+    // validate username 
+    // check to see if username contains 0-9, 
+    // uppercase and lowercase letters, 
+    // length between 6- 20 characters
+    /*
+    const isValidUsername = /^[0-9A-Za-z]{6,20}$/;
+    
+    function validateUsername(){
+        if (isValidUsername.test(formData.username)) {
+            alert('Username is not unique.')
+            return
+          }
+
+    }
+    */
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validate()) return;
@@ -47,8 +63,13 @@ function RegistrationForm() {
         }
     };
 
+    const handleRegisterRedirect = () => {
+        navigate('/login');
+    };
+
     return (
         <div className="registration-container">
+            <h1 className='title'>SkillMatch</h1>
             <form onSubmit={handleSubmit} className="form-container">
                 <h1 className="signup-title">Sign up</h1>
                 <input
@@ -59,6 +80,17 @@ function RegistrationForm() {
                     onChange={updateField}
                     placeholder="Username"
                 />
+                {/* 
+                <PasswordChecklist
+				rules={["minLength"]}
+				minLength={8}
+				value={formData.username}
+				onChange={(isValid) => {}}
+                messages={{
+					minLength: "Username is not unique."
+				}}
+                />
+                */}
                 <input
                     className="form-input"
                     type="password"
@@ -67,6 +99,20 @@ function RegistrationForm() {
                     onChange={updateField}
                     placeholder="Password"
                 />
+
+                <PasswordChecklist
+				rules={["minLength","specialChar","number","capital"]}
+				minLength={8}
+				value={formData.password}
+				onChange={(isValid) => {}}
+                messages={{
+					minLength: "Password length must have minimum length of 8 characters.",
+					specialChar: "Password must contain as least 1 special character.",
+					number: "Password must contain as least 1 numerical value.",
+					capital: "Password must contain as least 1 capitialized letter.",
+				}}
+                />
+            
                 <select
                     name="role"
                     value={formData.role}
@@ -82,6 +128,11 @@ function RegistrationForm() {
                 {loading && <LoadingIndicator />}
                 <button type="submit" className="form-button">Sign up</button>
             </form>
+            <p className="text-center">Already have an account? 
+                <button onClick={handleRegisterRedirect} className="link-button">
+                    Log in
+                </button>
+            </p>
         </div>
     );
 }
