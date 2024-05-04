@@ -11,7 +11,7 @@ function ProfileView({ user }) {
     const [editMode, setEditMode] = useState(false);
     const { username, role } = useParams();
 
-    const [activeSection, setActiveSection] = useState('account');
+    const [activeSection, setActiveSection] = useState('home');
 
     const handleMenuClick = (section) => {
         setActiveSection(section);
@@ -155,12 +155,61 @@ function ProfileView({ user }) {
             </div>
 
             <div className="main-container">
+
+                {/* Home Section */}
+
                 {activeSection === 'home' && (
                     <div id="home-section" className="section">
                          <div className='account-header'>
                             <h2 className='account-title'>Hey, {formData.firstName}! </h2>
-                            <p className='account-text'>This is your profile dashboard with all your information as a <span className='role-title'>{role}.</span></p>
                         </div>
+                        {role === 'worker' && (
+                            <div className='home-container'>
+                                <div className='home-row-1'> 
+                                    <div className='status-box'>
+                                        <h2 className='box-title'>Active Status</h2>
+                                        <p className='prof-text'>Being active will allow for employers to see your profile! This status will depend on whether or not you have an active contract.</p>
+                                        <div className='activity-status'>
+                                            <p className='current-status-text'>You are currently</p>
+                                            <p><svg xmlns="http://www.w3.org/2000/svg" className="status-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"/></svg>Active</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="separator-line"></hr>
+                                <div className='home-row-2'>
+                                    <div className='box'>
+                                        <h2 className='box-title'>Notifications</h2>
+                                        <p className='prof-text'>Don't miss out on opportunities! Check your notifications for possible job requests from employers.</p>
+                                        <button className='check-notif-button' onClick={() => handleMenuClick('notification')}>Check Notifications <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} width="20" height="20" stroke="currentColor" className="notif-icon">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg></button>                                       
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {role === 'employer' && (
+                            <div className='home-container'>
+                            <div className='home-row-1'> 
+                                <div className='status-box'>
+                                    <h2 className='box-title'>Active Status</h2>
+                                    <p className='prof-text'>Being active will allow for employers to see your profile! This status will depend on whether or not you have an active contract.</p>
+                                    <div className='activity-status'>
+                                        <p>You are currently</p>
+                                        <p><svg xmlns="http://www.w3.org/2000/svg" className="status-icon" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"/></svg>Active</p>
+                                    </div>
+                                </div>
+                                <div className='box'>
+                                    <h2 className='box-title'>Notifications</h2>
+                                    <p className='prof-text'>Don't miss out on opportunities! Check your notifications for possible job requests from employers.</p>
+                                    <button className='check-notif-button' onClick={() => handleMenuClick('notification')}>Check Notifications <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} width="20" height="20" stroke="currentColor" className="notif-icon">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" /></svg></button>                                       
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        )}
                     </div>                   
                 )}
 
@@ -263,7 +312,7 @@ function ProfileView({ user }) {
                             // Display profile info with fields for both worker and employer
                             <div className="profile-info">
                                 <div className='account-top'>
-                                    <h2>Personal Information</h2>
+                                    <h2 className='box-title'>Personal Information</h2>
                                     <button className='edit-button' onClick={() => setEditMode(true)}>Edit</button>
                                 </div>
                                 {role === 'worker' && (

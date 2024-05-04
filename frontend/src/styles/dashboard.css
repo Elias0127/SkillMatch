@@ -14,6 +14,7 @@ a {
 
 .header-logo {
     margin: 20px;
+    padding-bottom: 10px;
     color: #4163dd;
     font-size: 28px;
 }
@@ -161,6 +162,77 @@ a {
     color: rgb(119, 121, 128);
 }
 
+/* Home Setion */
+
+.box-title {
+    color: #232323;
+    font-size: 20px;
+    margin: 0;
+}
+
+.home-row-1 {
+    display: flex;
+}
+
+.status-box {
+    width: 50%;
+    margin: 30px;
+    margin-right: 0;
+    margin-bottom: 15px;
+    padding: 25px;
+    border: 2px solid rgb(232, 232, 232);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.box {
+    width: 50%;
+    margin: 30px;
+    margin-bottom: 15px;
+    padding: 25px;
+    border: 2px solid rgb(232, 232, 232);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.separator-line {
+    border: 0;
+    height: 2px;
+    background-color: rgb(238, 238, 238); 
+    margin: 10px 30px;
+}
+
+.check-notif-button {
+    margin-right: 20px;
+    padding: 12px 40px;
+    cursor: pointer;
+    border-radius: 100px;
+    font-size: 16px;
+    background-color: #4163dd;
+    color: white;
+    border: none;
+    align-self: flex-end;
+}
+
+.notif-icon {
+    vertical-align: middle;
+    color: #ffffff;
+    margin-left: 5px;
+}
+
+.status-icon {
+    vertical-align: middle;
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+}
+
+.current-status-text {
+    padding-bottom: 15px;
+}
+
 /* Account section */
 .account-top {
     display: flex;
@@ -170,7 +242,7 @@ a {
 
 .edit-button {
     margin-right: 20px;
-    padding: 10px 20px;
+    padding: 10px 50px;
     cursor: pointer;
     border-radius: 100px;
     font-size: 16px;
@@ -273,9 +345,9 @@ button:hover {
 .prof-text {
     font-size: 20;
     font-weight: 500;
+    color: rgb(136, 137, 143);
     padding-bottom: 40px;
     padding-top: 10px;
-    color: rgb(98, 101, 112);
 }
 
 .profile-info {
@@ -293,8 +365,7 @@ button:hover {
 }
 
 .name-item {
-    margin-left: 50px; /* Add space between image and name */
-
+    margin-left: 50px; 
 }
 
 .info-item {
@@ -427,7 +498,6 @@ h2 {
     }
 
 }
-
 
 
 
