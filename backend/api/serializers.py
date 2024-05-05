@@ -166,3 +166,9 @@ class WorkerSkillSerializer(serializers.ModelSerializer):
         skill.level = skill_data.get('level', skill.level)
         skill.save()
         return instance
+    
+
+class JobPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobPost
+        fields = ['id', 'title', 'description', 'skills_required', 'budget', 'location', 'duration', 'employer']

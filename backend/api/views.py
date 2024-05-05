@@ -146,3 +146,13 @@ class WorkerSkillViewSet(viewsets.ModelViewSet):
             return Response(WorkerSkillSerializer(worker_skill).data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUES)
+        
+
+
+class JobPostViewSet(viewsets.ModelViewSet):
+    queryset = JobPost.objects.all()
+    serializer_class = JobPostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(employer=self.request.user)
