@@ -16,9 +16,24 @@ function JobPostForm({ onSuccess }) {
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
-        // Clear errors when stage changes
-        setErrors({});
-    }, [stage]);
+        const fetchSkills = async () => {
+            try {
+                setLoading(true);
+                console.log('Token from storage:', localStorage.getItem('ACCESS_TOKEN'));
+                const response = await api.get('/api/skills/', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
+                });
+                setAllSkills(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Failed to fetch skills:', error);
+                setLoading(false);
+            }
+        };
+
+
+        fetchSkills();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,7 +41,15 @@ function JobPostForm({ onSuccess }) {
     };
 
     const handleSkillChange = (e) => {
-        const value = Array.from(e.target.selectedOptions, option => option.value);
+        const options = e.target.options;
+        if (!options) return;
+    
+        const value = [];
+        for (let i = 0, l = options.length; i < l; i++) {
+            if (options[i].selected) {
+                value.push(options[i].value);
+            }
+        }
         setFormData({ ...formData, skills: value });
     };
 
@@ -84,15 +107,19 @@ function JobPostForm({ onSuccess }) {
                 {errors.description && <p className="error">{errors.description}</p>}
 
                 <label htmlFor="skills">Required Skills:</label>
-                <input
+                <select
                     className="form-input"
                     name="skills"
                     id="skills"
+                    multiple
                     value={formData.skills}
                     onChange={handleSkillChange}
-                    placeholder="List required skills"
-                />
-                {errors.skills && <p className="error">{errors.skills}</p>}
+                    style={{ height: '100px' }}
+                >
+                    {allSkills.map(skill => (
+                        <option key={skill.id} value={skill.name}>{skill.name}</option>
+                    ))}
+                </select>
 
                 <label htmlFor="budget">Budget:</label>
                 <input
