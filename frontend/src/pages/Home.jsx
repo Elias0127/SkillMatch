@@ -7,21 +7,21 @@ import Logout from './Logout';
 const Header = () => {
         return (
             <div className="header">
-            <nav className="nav-bar">
-                <div className="left-section">
-                    <Link to="/Home" className="nav-item">Skillmatch</Link>
-                    <Link to="/about" className="nav-item">About</Link>
-                    <Link to="/discover" className="nav-item">Discover</Link>
-                    <Link to="/review" className="nav-item">Review</Link>
-                </div>
-                <div className="right-section">
-                    <div className="auth-buttons">
-                        <Link to="/login" className="nav-button">Log In</Link>
-                        <Link to="/register" className="nav-button sign-up">Sign Up</Link>
+                <nav className="nav-bar">
+                    <div className="left-section">
+                        <Link to="/Home" className="nav-item logo">SkillMatch</Link>
+                        <Link to="/about" className="nav-item">About</Link>
+                        <Link to="/discover" className="nav-item">Discover</Link>
+                        <Link to="/review" className="nav-item">Review</Link>
                     </div>
-                </div>
-            </nav>
-        </div>
+                    <div className="right-section">
+                        <div className="auth-buttons">
+                            <Link to="/login" className="nav-button">Log In</Link>
+                            <Link to="/register" className="nav-button sign-up">Sign Up</Link>
+                        </div>
+                    </div>
+                </nav>
+            </div>
         
         );
 };
@@ -30,7 +30,7 @@ const HeroSection = () => {
 return (
     <section className="hero-section">
         <div className='hero-content'>
-            <h1>Your local service needs</h1>
+            <h1 className='hero-title'>Your local service needs</h1>
             <Link to="/discover" className="discover-button">Discover</Link>
         </div>
         <div className='hero-image'>
@@ -55,7 +55,7 @@ const ServicesSection = () => {
 
 function Home() {
     return (
-        <div className='home-container'>
+        <div className='container'>
             <Header />
             <HeroSection />
             <ServicesSection />
