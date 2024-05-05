@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import "../styles/Home.css";
 import mainImage from "../assets/Chatbot.png";
+import secondaryImage from "../assets/order-delivered.png";
 import Logout from './Logout'; 
 
 const Header = () => {
@@ -44,10 +45,25 @@ const ServicesSection = () => {
     return (
       <section className="services-section">
         <h2>Available services</h2>
-        <div className="services-list">
-          <div className="service-item">Plumbing</div>
-          <div className="service-item">Electrician</div>
-          <div className="service-item">Mechanic</div>
+        <p className='services-sub'>Here are just some of the services we offer</p>
+        <div className="services-row">
+          <div className="service-item">
+              <h3>Plumbing</h3>
+              <p>Reliable solutions for all your plumbing needs, from leaks to installations.
+              Whether it's a routine maintenance check or an emergency repair, trust our team to deliver top-notch plumbing services that exceed your expectations.
+              </p>
+          </div>
+          <div className="service-item">
+              <h3>Electrician</h3>
+              <p>Our certified electricians are equipped with the skills and knowledge to handle a wide range of electrical issues, from wiring upgrades to appliance installations. 
+                  With meticulous attention to detail, they ensure that every job is completed to the highest standards.
+                </p>
+          </div>
+          <div className="service-item">
+              <h3>Mechanic</h3>
+              <p>Keep your vehicle running smoothly with our comprehensive mechanic services. 
+                  Whether it's routine maintenance like oil changes and tire rotations or more complex repairs such as engine diagnostics and brake replacements, our skilled mechanics have you covered. </p>
+          </div>
         </div>
       </section>
     );
@@ -58,6 +74,18 @@ function Home() {
         <div className='container'>
             <Header />
             <HeroSection />
+            <div className='discover-section'>
+                <div className='discover-image'>
+                    <img src={secondaryImage} alt='main-image' />
+                </div>
+                <div className='discover-content'>
+                    <h2 className='discover-title'>Discover Convenience</h2>
+                    <p className='discover-sub'>Streamline your search for essential services with our user-friendly app. 
+                    From finding the nearest technician to scheduling a home repair, we've got you covered. 
+                    Get started now and discover convenience at your fingertips!</p>
+                    <Link to="/register" className="regist-button">Get Started</Link>
+                </div>
+            </div>
             <ServicesSection />
         </div>
     );
