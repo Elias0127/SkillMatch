@@ -26,6 +26,10 @@
     flex-wrap: nowrap;
   }
 
+  .transparent-header {
+    background-color: transparent;
+  }
+
   .nav-bar {
     display: flex;
     justify-content: space-between;
