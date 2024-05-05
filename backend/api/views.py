@@ -4,8 +4,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Profile, Skill, WorkerProfile, EmployerProfile, WorkerSkill
-from .serializers import SkillSerializer, UserRegistrationSerializer, ProfileSerializer, WorkerProfileSerializer, EmployerProfileSerializer, WorkerSkillSerializer
+from .models import Profile, Skill, WorkerProfile, EmployerProfile, WorkerSkill, JobPost
+from .serializers import SkillSerializer, UserRegistrationSerializer, ProfileSerializer, WorkerProfileSerializer, EmployerProfileSerializer, WorkerSkillSerializer, JobPostSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from tokenize import TokenError
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser

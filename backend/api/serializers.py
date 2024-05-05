@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Profile, WorkerProfile, EmployerProfile, WorkerSkill, Skill
+from .models import Profile, WorkerProfile, EmployerProfile, WorkerSkill, Skill, JobPost
 from django.db import transaction
 
 
