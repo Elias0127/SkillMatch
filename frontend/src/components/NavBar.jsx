@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "../styles/Home.css";
 
 function NavBar() {
+    const [isOpaque, setIsOpaque] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY;
+            if (scrollPosition > 100) {
+                setIsOpaque(true);
+            } else {
+                setIsOpaque(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <div className="header">
+        <div className={`header ${isOpaque ? '' : 'transparent-header'}`}>
             <nav className="nav-bar">
                 <div className="left-section">
                     <Link to="/Home" className="nav-item logo">SkillMatch</Link>
@@ -20,7 +36,6 @@ function NavBar() {
                 </div>
             </nav>
         </div>
-    
     );
 }
 
