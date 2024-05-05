@@ -1,11 +1,12 @@
 from django.urls import path
-from .views import (UserRegistrationView, ProfileView, WorkerProfileView, EmployerProfileView,LoginView, LogoutView, SkillListView, SkillDetailView, WorkerSkillViewSet)
+from .views import (NearbyWorkersView, UserRegistrationView, ProfileView, WorkerProfileView, EmployerProfileView,LoginView, LogoutView, SkillListView, SkillDetailView, WorkerSkillViewSet)
 
 urlpatterns = [
     path('register/', UserRegistrationView.as_view(), name='register'),
     path('profile/<str:username>/', ProfileView.as_view(), name='profile'),
     path('worker-profile/<str:username>/', WorkerProfileView.as_view(), name='worker_profile'),
     path('employer-profile/<str:username>/', EmployerProfileView.as_view(), name='employer_profile'),
+    path('nearby-workers/', NearbyWorkersView.as_view(), name='nearby-workers'),
     path('login/', LoginView.as_view(), name='api_login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('skills/', SkillListView.as_view(), name='skills_list'),

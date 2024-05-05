@@ -9,6 +9,10 @@ from .serializers import SkillSerializer, UserRegistrationSerializer, ProfileSer
 from rest_framework_simplejwt.tokens import RefreshToken
 from tokenize import TokenError
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from django.contrib.gis.measure import D  # Distance measurement
+from django.contrib.gis.db.models.functions import Distance
+from django.contrib.gis.geos import Point
+
 
 
 # User Registration
@@ -105,6 +109,24 @@ class EmployerProfileView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         return get_object_or_404(EmployerProfile, user__username=self.kwargs['username'])
 
+
+class NearbyWorkersView(generics.ListAPIView):
+    serializer_class = WorkerProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        latitude = float(self.request.query_params.get('latitude', 0))
+        longitude = float(self.request.query_params.get('longitude', 0))
+        radius = float(self.request.query_params.get(
+            'radius', 5))  # Default radius 5 km
+
+        employer_location = Point(longitude, latitude, srid=4326)
+        radius = D(km=radius)
+
+        # Find nearby workers
+        return WorkerProfile.objects.annotate(
+            distance=Distance('location', employer_location)
+        ).filter(distance__lte=radius).order_by('distance')
 
 # View for managing skills (Admin level)
 class SkillListView(generics.ListCreateAPIView):
