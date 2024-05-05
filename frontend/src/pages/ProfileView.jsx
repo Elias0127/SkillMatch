@@ -114,7 +114,7 @@ function ProfileView({ user }) {
             <div className='profile'>
                 <div className='profile-header'>
                     <div className='profile-text-container'>
-                        <h1 className='header-logo'>SkillMatch</h1>
+                        <a href="/Home"><h1 className='header-logo'>SkillMatch</h1></a>
                     </div>
                 </div>
                 <div className='menu'> 

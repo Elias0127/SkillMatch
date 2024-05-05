@@ -19,6 +19,12 @@ a {
     font-size: 28px;
 }
 
+.header-logo:hover {
+    font-size: 29px;
+    color: #203ca1;
+    transition: all 0.3s ease;
+}
+
 .role-title {
     color: #366ac5;
     font-size: 17px;
