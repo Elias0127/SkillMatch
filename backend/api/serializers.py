@@ -2,9 +2,13 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from .models import Profile, WorkerProfile, EmployerProfile, WorkerSkill, Skill
 from django.db import transaction
+from django.contrib.gis.geos import Point
+import logging
 
 
 User = get_user_model()
+logger = logging.getLogger(__name__)
+
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -83,60 +87,103 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class WorkerProfileSerializer(serializers.ModelSerializer):
-    first_name = serializers.CharField(source='user.profile.user.first_name', required=False)
-    last_name = serializers.CharField(source='user.profile.user.last_name', required=False)
-    email = serializers.EmailField(source='user.profile.user.email', required=False)
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
     phone_number = serializers.CharField(source='user.profile.phone_number', required=False)
     picture = serializers.ImageField(source='user.profile.picture', required=False)
+    latitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
+    longitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
 
-    class Meta:
-        model = WorkerProfile
-        fields = ['first_name', 'last_name', 'email', 'phone_number', 'picture', 'available_time', 'location', 'rate', 'rate_type']
+    def get_first_name(self, obj):
+        return obj.user.profile.user.first_name
+
+    def get_last_name(self, obj):
+        return obj.user.profile.user.last_name
+
+    def get_email(self, obj):
+        return obj.user.profile.user.email
 
     def update(self, instance, validated_data):
+        logger.debug(f"Received update data: {validated_data}")
+
         profile_data = validated_data.pop('user', {}).get('profile', {})
         user_data = profile_data.pop('user', {})
 
-        # Update the User model
-        for attr, value in user_data.items():
-            setattr(instance.user, attr, value)
+        latitude = validated_data.pop('latitude', None)
+        longitude = validated_data.pop('longitude', None)
 
-        # Update the Profile model
-        for attr, value in profile_data.items():
-            setattr(instance.user.profile, attr, value)
-
-        # Update the WorkerProfile model
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
+        if latitude is not None and longitude is not None:
+            try:
+                instance.location = Point(float(longitude), float(latitude), srid=4326)
+                logger.debug(f"Point created successfully: {instance.location.wkt}")
+            except Exception as e:
+                logger.error(f"Error creating Point: {e}")
+                raise serializers.ValidationError(f"Error creating Point: {str(e)}")
 
         with transaction.atomic():
+            if user_data:
+                for attr, value in user_data.items():
+                    setattr(instance.user, attr, value)
+            if profile_data:
+                for attr, value in profile_data.items():
+                    setattr(instance.user.profile, attr, value)
             instance.user.save()
             instance.user.profile.save()
             instance.save()
-        
+
+        logger.debug(f"Instance updated and saved: {instance}")
         return instance
+
+    class Meta:
+        model = WorkerProfile
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'picture', 'available_time', 'location', 'rate', 'rate_type', 'latitude', 'longitude']
 
 class EmployerProfileSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(source='user.profile', required=False)
+    latitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
+    longitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
 
     class Meta:
         model = EmployerProfile
-        fields = ['profile', 'company_name', 'industry', 'description']
+        fields = ['profile', 'company_name', 'industry', 'description', 'latitude', 'longitude']
 
     def update(self, instance, validated_data):
-        # nested 'profile' under 'user'
+        # Nested 'profile' under 'user'
         user_data = validated_data.pop('user', {})
         profile_data = user_data.get('profile', {})
-
+        
+        # Update profile data
         profile_serializer = ProfileSerializer(instance.user.profile, data=profile_data, partial=True)
         if profile_serializer.is_valid(raise_exception=True):
             profile_serializer.save()
 
-        # Directly updating company details
+        # Handle latitude and longitude for location
+        latitude = validated_data.pop('latitude', None)
+        longitude = validated_data.pop('longitude', None)
+
+        if latitude is not None and longitude is not None:
+            try:
+                instance.location = Point(float(longitude), float(latitude), srid=4326)
+                logger.debug(f"Point created successfully: {instance.location.wkt}")
+            except Exception as e:
+                logger.error(f"Error creating Point: {e}")
+                raise serializers.ValidationError(f"Error creating Point: {str(e)}")
+
+        # Update company details
         instance.company_name = validated_data.get('company_name', instance.company_name)
         instance.industry = validated_data.get('industry', instance.industry)
         instance.description = validated_data.get('description', instance.description)
-        instance.save()
+
+        try:
+            with transaction.atomic():
+                instance.user.profile.save()  # Save changes in Profile
+                instance.save()  # Save changes in EmployerProfile
+            logger.debug("Profile and EmployerProfile updated and saved.")
+        except Exception as e:
+            logger.error(f"Error saving EmployerProfile or Profile: {e}")
+            raise serializers.ValidationError("Update failed due to an error: " + str(e))
+
         return instance
 
 
