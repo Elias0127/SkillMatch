@@ -3,29 +3,7 @@ import { Link } from 'react-router-dom';
 import "../styles/Home.css";
 import mainImage from "../assets/Chatbot.png";
 import secondaryImage from "../assets/order-delivered.png";
-import Logout from './Logout'; 
-
-const Header = () => {
-        return (
-            <div className="header">
-                <nav className="nav-bar">
-                    <div className="left-section">
-                        <Link to="/Home" className="nav-item logo">SkillMatch</Link>
-                        <Link to="/about" className="nav-item">About</Link>
-                        <Link to="/discover" className="nav-item">Discover</Link>
-                        <Link to="/review" className="nav-item">Review</Link>
-                    </div>
-                    <div className="right-section">
-                        <div className="auth-buttons">
-                            <Link to="/login" className="nav-button">Log In</Link>
-                            <Link to="/register" className="nav-button sign-up">Sign Up</Link>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        
-        );
-};
+import NavBar from '../components/NavBar';
 
 const HeroSection = () => {
 return (
@@ -72,7 +50,7 @@ const ServicesSection = () => {
 function Home() {
     return (
         <div className='container'>
-            <Header />
+            <NavBar />
             <HeroSection />
             <div className='discover-section'>
                 <div className='discover-image'>

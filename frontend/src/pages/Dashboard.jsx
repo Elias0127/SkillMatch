@@ -4,6 +4,7 @@ import SkillManagement from './SkillManagement';
 import api from '../api';
 import { useParams } from 'react-router-dom';
 import { ACCESS_TOKEN } from "../constants";
+import NavBar from '../components/NavBar';
 
 function Dashboard() {
     const { username, role } = useParams();
