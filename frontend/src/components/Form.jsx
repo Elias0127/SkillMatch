@@ -34,8 +34,8 @@ function Form({ route, method, fields }) {
         try {
             const res = await api.post(route, formData);
                 if (res.status === 200) {
-                    localStorage.setItem('access', res.data.access); 
-                    localStorage.setItem('refresh', res.data.refresh);
+                    localStorage.setItem(ACCESS_TOKEN, res.data.access); 
+                    localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
                     navigate(`/dashboard/${formData.username}/${res.data.role}`);
                 } else {
                     setErrors({ form: "Unexpected server response: " + res.status });

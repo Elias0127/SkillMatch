@@ -20,6 +20,9 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Configure GDAL and GEOS libraries
+GDAL_LIBRARY_PATH = '/opt/homebrew/Cellar/gdal/3.8.5_2/lib/libgdal.dylib'
+GEOS_LIBRARY_PATH = '/opt/homebrew/lib/libgeos_c.dylib'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -30,24 +33,35 @@ SECRET_KEY = "django-insecure-nma=xi6x2p-crjg^ifqqkapyu1qjd0l=+wn)-rijk_o%$!k3w_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'backend' / 'api.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',  # Changed from 'ERROR' to 'DEBUG'
+#             'class': 'logging.FileHandler',
+#             'filename': BASE_DIR / 'backend' / 'api.log',
+#         },
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             # Added 'console' handler for output to terminal
+#             'handlers': ['file', 'console'],
+#             'level': 'DEBUG',  # Changed from 'ERROR' to 'DEBUG'
+#             'propagate': True,
+#         },
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#             'propagate': False,
+#         },
+#     },
+# }
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -83,6 +97,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.gis",
     "api",
     "rest_framework",
     "corsheaders",
@@ -106,7 +121,7 @@ ROOT_URLCONF = "backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -126,9 +141,13 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'skillmatch', 
+        'USER': 'myusername',
+        'PASSWORD': 'mypassword',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
