@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.models import Group, Permission
+from django.contrib.gis.db import models as gis_models
+
 
 # User Model
 class User(AbstractUser):
@@ -46,7 +48,7 @@ class Profile(models.Model):
 class WorkerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='worker_profile')
     available_time = models.CharField(max_length=50, blank=True, null=True)
-    location = models.CharField(max_length=100, blank=True, null=True)
+    location = gis_models.PointField(geography=True, blank=True, null=True)
     rate_type = models.CharField(max_length=10, choices=[(
         'fixed', 'Fixed'), ('per_hour', 'Per Hour'), ('negotiable', 'Negotiable')], default='fixed')
     rate = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
@@ -55,6 +57,7 @@ class WorkerProfile(models.Model):
 class EmployerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='employer_profile')
     company_name = models.CharField(max_length=255, blank=True, null=True)
+    location = gis_models.PointField(geography=True, blank=True, null=True)  # Add this line
     industry = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
