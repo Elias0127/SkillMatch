@@ -29,6 +29,22 @@ function WorkerHome() {
         fetchJobPosts();
     }, []);
 
+    /*const handleApply = async (jobId) => {
+        try {
+            const response = await api.post(`/api/apply/${jobId}`, {}, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
+                }
+            });
+            if (response.status === 200 || response.status === 201) {
+                alert('Application submitted successfully!');
+            }
+        } catch (error) {
+            console.error('Failed to apply for job:', error);
+            alert('Failed to submit application.');
+        }
+    };*/
+
     if (loading) {
         return <LoadingIndicator />;
     }
@@ -48,6 +64,7 @@ function WorkerHome() {
                         <p>Budget: {job.budget}</p>
                         <p>Location: {job.location}</p>
                         <p>Duration: {job.duration}</p>
+                        <button onClick={() => handleApply(job.id)}>Apply</button>
                     </li>
                 ))}
             </ul>
