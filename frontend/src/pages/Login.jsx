@@ -15,6 +15,7 @@ function LoginPage() {
 
     return (
         <div className="login-container">
+            <h1 className='title'>SkillMatch</h1>
             <Form route="/api/login/" method="Login" fields={fields} />
             <p className="text-center">Don't have an account? 
                 <button onClick={handleRegisterRedirect} className="link-button">

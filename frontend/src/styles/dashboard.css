@@ -1,0 +1,430 @@
+/* General Styling */
+body {
+    font-family: "Inter", sans-serif;
+    background-color: #dadada;
+}
+
+p {
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header-logo {
+    margin: 20px;
+    color: #4163dd;
+    font-size: 28px;
+}
+
+.role-title {
+    color: #366ac5;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.dash-title {
+    display: flex;
+    margin: 0 280px;
+    margin-top: 30px;
+    color: #4163dd;
+}
+
+/* Dash nav container */
+.dashboard-container {
+    display: flex;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.profile {
+    flex: 1;
+    padding-bottom: 20px;
+    background-color: white;
+}
+
+.profile-text-container {
+    line-height: 0.5s;
+}
+
+.profile-header {
+    display: flex;
+    margin-left: 15px;
+}
+
+.profile-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.home-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    padding-left: 10px;
+    border-radius: 7px;
+}
+
+.back-icon {
+    vertical-align: middle;
+    color: #1b1b1b;
+    margin-right: 10px;
+}
+
+.menu-links {
+    display: block;
+    text-decoration: none;
+    margin-top: 10px;
+    padding: 15px;
+    padding-left: 15px;
+    color: #1b1b1b;
+    font-weight: 500;
+    border-radius: 15px;
+    position: relative;
+}
+
+.menu {
+    margin: 0 20px;
+}
+
+
+.menu-links.active {
+    color: white;
+    background-color: #4163dd;
+    outline: 1px solid white;
+    box-shadow: 0 0 0 2px #4163dd;
+}
+
+.menu-links.active .back-icon {
+    color: white;
+}
+
+.menu-links.active:hover {
+    color: white;
+    background-color: #4163dd;
+}
+
+.menu-links:hover {
+    background-color: #dfdfdf;
+    color: #000000;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Main container */
+
+.main-container {
+    flex: 2;
+    max-width: 80%;
+    min-width: 80%;
+    background-color: white;
+    border-left: 2px solid rgb(232, 232, 232);
+    padding-bottom: 30px;
+}
+
+.account-header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    margin: 0;
+    position: relative;
+    /* align-items: flex-start; */
+}
+
+.account-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 30px;
+    right: 30px; 
+    height: 2px;
+    background-color: rgb(232, 232, 232);
+}
+
+.account-title{
+    font-size: 25px;
+    margin-left: 20px;
+    margin-bottom: 0;
+    color: #333333;
+    font-weight: 700;
+}
+
+.account-text {
+    margin-left: 20px;
+    font-size: 20;
+    font-weight: 600;
+    color: rgb(119, 121, 128);
+}
+
+/* Account section */
+.account-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-button {
+    margin-right: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 100px;
+    font-size: 16px;
+    background-color: #4163dd;
+    color: white;
+    border: none;
+    align-self: flex-end;
+}
+
+.specific-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 25px;
+    margin-bottom: 30px;
+    color: rgb(30, 30, 30);
+}
+
+.account-edit {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.edit-container {
+    margin: 30px;
+    padding: 25px;
+    border: 2px solid rgb(232, 232, 232);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 30px;
+}
+
+.edit-fields {
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #a9a9a9;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.save-button {
+    margin: 0 30px;
+    background-color: #4163dd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 100px;
+    font-size: 16px;
+}
+
+.skill-button, .add-skill-button {
+    background-color: #4163dd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.logout-button {
+    margin: 0 30px;
+    background-color: #4163dd;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #024792;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+/* ProfileView Component Styles */
+
+.role-header {
+    color: #7d7d7d;
+    margin-bottom: 20px;
+}
+
+.prof-text {
+    font-size: 20;
+    font-weight: 500;
+    color: rgb(98, 101, 112);
+}
+
+.profile-info {
+    margin: 30px;
+    padding: 25px;
+    border: 2px solid rgb(232, 232, 232);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.name-email-container {
+    display: flex;
+    align-items: center;
+}
+
+.name-item {
+    margin-left: 50px; /* Add space between image and name */
+
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    color: #282828;
+}
+
+.label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* SkillManagement Component Styles */
+
+.skill-container {
+    width: 85%;
+    margin: 20px auto;
+    padding: 50px;
+    border: 2px solid rgb(232, 232, 232);
+    border-radius: 30px;
+    background-color: #fff;
+}
+
+.skill-item {
+    background-color: #f9f9f9;
+    border: 2px solid rgb(232, 232, 232);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+.skill-info{
+    flex: 1;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+
+.skill-fields {
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #a9a9a9;
+    border-radius: 10px;
+}
+
+
+h2 {
+    color: #333333;
+}
+
+.delete-button, .cancel-skill-button {
+    border: 1px solid #555555;
+    background-color: #ffffff;
+    color: rgb(86, 86, 86);
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;  
+}
+
+.delete-button:hover, .cancel-skill-button:hover {
+    background-color: #e3e3e3;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.skill-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.skill-name {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.skill-title {
+    padding-bottom: 20px;
+}
+
+.skill-info, .skill-item {
+    margin-bottom: 15px;
+}
+
+.skill-label {
+    font-weight: 600;
+}
+
+.skill-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.profile-image {
+    height: 80px;
+    width: 80px;
+    border-radius: 50px;
+    margin: 10px;
+}
+
+/* Media */
+
+@media screen and (max-width: 1024px){
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .profile {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    .account-container {
+        margin: 0;
+    }
+
+    .main-container {
+        max-width: 100%;
+    }
+
+    .dash-title {
+        margin: 0;
+    }
+
+}
+
+
+
+
+

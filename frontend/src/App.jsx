@@ -8,6 +8,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import EmployerProfile from "./pages/EmployerProfile";
 import WorkerProfile from "./pages/WorkerProfile";
 import ProfileCompletion from "./pages/ProfileCompletion";
+import SkillManagement from "./pages/SkillManagement";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -26,6 +28,11 @@ function App() {
             <ProfileCompletion />
           </ProtectedRoute>
         } />
+        <Route path="/skill-management/:username" element={
+          <ProtectedRoute>
+            <SkillManagement />
+          </ProtectedRoute>
+        } />
         <Route path="/profile/worker/:username" element={
           <ProtectedRoute>
             <WorkerProfile />
@@ -36,11 +43,16 @@ function App() {
             <EmployerProfile />
           </ProtectedRoute>
         } />
+        <Route path="/dashboard/:username/:role" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-
 export default App;
+

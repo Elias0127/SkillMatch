@@ -1,13 +1,17 @@
 import React from 'react';
-import Logout from './Logout'; 
-function Home() {
+import { useParams } from 'react-router-dom';
+import NearbyWorkers from '../components/NearbyWorkers';
+
+const HomePage = () => {
+    const { role } = useParams();
+    console.log("Role:", role);
     return (
         <div>
-            <h1>Welcome to the Local Services Market</h1>
-            <p>This is your dashboard where you can manage your services or requests.</p>
-            <Logout />
+            <h1>Welcome to the Homepage</h1>
+        
+            {role === 'employer' && <NearbyWorkers />}
         </div>
     );
-}
+};
 
-export default Home;
+export default HomePage;
