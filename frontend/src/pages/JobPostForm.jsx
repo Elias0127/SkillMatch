@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import api from '../api';
 import LoadingIndicator from '../components/LoadingIndicator';
 import { ACCESS_TOKEN } from "../constants";
 
 function JobPostForm({ onSuccess }) {
+
+    const navigate = useNavigate();
+    const { username, role } = useParams();
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -37,7 +42,7 @@ function JobPostForm({ onSuccess }) {
         console.log("Using token: ", token);
         if (!token) {
             console.error('Authentication token not found');
-            return;
+            return;     
         }
         
     
@@ -71,6 +76,10 @@ function JobPostForm({ onSuccess }) {
             setErrors({ form: error.response?.data.message || "An error occurred during job posting" });
             setLoading(false);
         }
+    };
+
+    const handleJobPostFormRedirect = () => {
+        navigate(`/dashboard/${username}/${role}`);
     };
 
     return (
@@ -132,7 +141,7 @@ function JobPostForm({ onSuccess }) {
                     placeholder="Duration (e.g., 2 weeks, 3 months)"
                 />
 
-                <button type="submit" className="form-button">Post Job</button>
+                <button type="submit" onClick={handleJobPostFormRedirect} className="link-button">Post Job</button>
             </form>
         </div>
     );
