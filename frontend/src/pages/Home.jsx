@@ -1,13 +1,13 @@
 import React from 'react';
-import Logout from './Logout'; 
-function Home() {
+import NearbyWorkers from '../components/NearbyWorkers';
+
+const HomePage = () => {
     return (
         <div>
-            <h1>Welcome to the Local Services Market</h1>
-            <p>This is your dashboard where you can manage your services or requests.</p>
-            <Logout />
+            <h1>Welcome to the Homepage</h1>
+            <NearbyWorkers />
         </div>
     );
-}
+};
 
-export default Home;
+export default HomePage;
