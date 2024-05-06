@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Profile, WorkerProfile, EmployerProfile, WorkerSkill, Skill
+from .models import Contract, Profile, WorkerProfile, EmployerProfile, WorkerSkill, Skill
 from django.db import transaction
 from django.contrib.gis.geos import Point
 import logging
@@ -90,6 +90,7 @@ class WorkerProfileSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name', required=False)
     last_name = serializers.CharField(source='user.last_name', required=False)
     email = serializers.EmailField(source='user.email', required=False)
+    username = serializers.CharField(source='user.username', read_only=True)
     phone_number = serializers.CharField(source='user.profile.phone_number', required=False)
     picture = serializers.ImageField(source='user.profile.picture', required=False)
     available_time = serializers.CharField(required=False, allow_blank=True, allow_null=True)
@@ -97,6 +98,12 @@ class WorkerProfileSerializer(serializers.ModelSerializer):
     latitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
     longitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
     distance = serializers.FloatField(read_only=True, source='distance.km')
+
+    class Meta:
+        model = WorkerProfile
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'phone_number', 'picture',
+                  'available_time', 'location', 'rate', 'rate_type', 'latitude', 'longitude', 'distance']
+
 
     def update(self, instance, validated_data):
         user_data = validated_data.pop('user', {})
@@ -125,10 +132,6 @@ class WorkerProfileSerializer(serializers.ModelSerializer):
             instance.save()
 
         return instance
-
-    class Meta:
-        model = WorkerProfile
-        fields = ['first_name', 'last_name', 'email', 'phone_number', 'picture', 'available_time', 'location', 'rate', 'rate_type', 'latitude', 'longitude', 'distance']
 
 
 class EmployerProfileSerializer(serializers.ModelSerializer):
@@ -205,3 +208,9 @@ class WorkerSkillSerializer(serializers.ModelSerializer):
         skill.level = skill_data.get('level', skill.level)
         skill.save()
         return instance
+    
+
+class ContractSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contract
+        fields = ['id', 'worker_profile', 'employer_profile', 'status', 'start_time', 'end_time', 'review']
