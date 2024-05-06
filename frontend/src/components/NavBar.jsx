@@ -25,8 +25,6 @@ function NavBar() {
                 <div className="left-section">
                     <Link to="/Home" className="nav-item logo">SkillMatch</Link>
                     <Link to="/about" className="nav-item">About</Link>
-                    <Link to="/discover" className="nav-item">Discover</Link>
-                    <Link to="/review" className="nav-item">Review</Link>
                 </div>
                 <div className="right-section">
                     <div className="auth-buttons">

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "../styles/About.css";
 import NavBar from '../components/NavBar';
 import aboutImage from "../assets/aboutwallpaper.png.jpg"
 
 function About() {
+
+    useEffect(() => {
+        window.scrollTo(0, 0); 
+    }, []);
+
     return (
         <div className='about-container'>
             <NavBar></NavBar>

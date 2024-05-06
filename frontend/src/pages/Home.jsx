@@ -10,7 +10,7 @@ return (
     <section className="hero-section">
         <div className='hero-content'>
             <h1 className='hero-title'>Your local service needs</h1>
-            <Link to="/discover" className="discover-button">Discover</Link>
+            <Link to="/login" className="discover-button">Get Started</Link>
         </div>
         <div className='hero-image'>
             <img src={mainImage} alt='main-image' />
@@ -61,7 +61,7 @@ function Home() {
                     <p className='discover-sub'>Streamline your search for essential services with our user-friendly app. 
                     From finding the nearest technician to scheduling a home repair, we've got you covered. 
                     Get started now and discover convenience at your fingertips!</p>
-                    <Link to="/register" className="regist-button">Get Started</Link>
+                    <Link to="/About" className="regist-button">Learn more</Link>
                 </div>
             </div>
             <ServicesSection />
