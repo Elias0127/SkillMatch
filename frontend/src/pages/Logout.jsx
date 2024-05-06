@@ -33,7 +33,7 @@ function LogoutButton() {
         }
         localStorage.removeItem(REFRESH_TOKEN);
         localStorage.removeItem(ACCESS_TOKEN);
-        navigate('/home');
+        navigate('/main');
     }
     return (
         <a href="#" className="menu-links" onClick={handleLogout}>
