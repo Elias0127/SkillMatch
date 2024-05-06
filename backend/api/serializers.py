@@ -87,58 +87,47 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class WorkerProfileSerializer(serializers.ModelSerializer):
-    first_name = serializers.SerializerMethodField()
-    last_name = serializers.SerializerMethodField()
-    email = serializers.SerializerMethodField()
+    first_name = serializers.CharField(source='user.first_name', required=False)
+    last_name = serializers.CharField(source='user.last_name', required=False)
+    email = serializers.EmailField(source='user.email', required=False)
     phone_number = serializers.CharField(source='user.profile.phone_number', required=False)
     picture = serializers.ImageField(source='user.profile.picture', required=False)
+    available_time = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    rate = serializers.DecimalField(max_digits=10, decimal_places=2, required=False, allow_null=True)
     latitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
     longitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
 
-    def get_first_name(self, obj):
-        return obj.user.profile.user.first_name
-
-    def get_last_name(self, obj):
-        return obj.user.profile.user.last_name
-
-    def get_email(self, obj):
-        return obj.user.profile.user.email
-
     def update(self, instance, validated_data):
-        logger.debug(f"Received update data: {validated_data}")
+        user_data = validated_data.pop('user', {})
+        profile_data = user_data.pop('profile', {}) if 'profile' in user_data else {}
 
-        profile_data = validated_data.pop('user', {}).get('profile', {})
-        user_data = profile_data.pop('user', {})
+        # Update user fields
+        if user_data:
+            for attr, value in user_data.items():
+                setattr(instance.user, attr, value)
 
+        # Update profile fields
+        if profile_data:
+            for attr, value in profile_data.items():
+                setattr(instance.user.profile, attr, value)
+
+        # Handling geographic location update
         latitude = validated_data.pop('latitude', None)
         longitude = validated_data.pop('longitude', None)
-
         if latitude is not None and longitude is not None:
-            try:
-                instance.location = Point(float(longitude), float(latitude), srid=4326)
-                logger.debug(f"Point created successfully: {instance.location.wkt}")
-            except Exception as e:
-                logger.error(f"Error creating Point: {e}")
-                raise serializers.ValidationError(f"Error creating Point: {str(e)}")
+            instance.location = Point(float(longitude), float(latitude), srid=4326)
 
+        # Save all changes within a transaction
         with transaction.atomic():
-            if user_data:
-                for attr, value in user_data.items():
-                    setattr(instance.user, attr, value)
-            if profile_data:
-                for attr, value in profile_data.items():
-                    setattr(instance.user.profile, attr, value)
             instance.user.save()
             instance.user.profile.save()
             instance.save()
 
-        logger.debug(f"Instance updated and saved: {instance}")
         return instance
 
     class Meta:
         model = WorkerProfile
         fields = ['first_name', 'last_name', 'email', 'phone_number', 'picture', 'available_time', 'location', 'rate', 'rate_type', 'latitude', 'longitude']
-
 class EmployerProfileSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(source='user.profile', required=False)
     latitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
