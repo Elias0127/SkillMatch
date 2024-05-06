@@ -33,34 +33,34 @@ SECRET_KEY = "django-insecure-nma=xi6x2p-crjg^ifqqkapyu1qjd0l=+wn)-rijk_o%$!k3w_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',  # Changed from 'ERROR' to 'DEBUG'
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'backend' / 'api.log',
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            # Added 'console' handler for output to terminal
-            'handlers': ['file', 'console'],
-            'level': 'DEBUG',  # Changed from 'ERROR' to 'DEBUG'
-            'propagate': True,
-        },
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',  # Changed from 'ERROR' to 'DEBUG'
+#             'class': 'logging.FileHandler',
+#             'filename': BASE_DIR / 'backend' / 'api.log',
+#         },
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             # Added 'console' handler for output to terminal
+#             'handlers': ['file', 'console'],
+#             'level': 'DEBUG',  # Changed from 'ERROR' to 'DEBUG'
+#             'propagate': True,
+#         },
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#             'propagate': False,
+#         },
+#     },
+# }
 
 
 MEDIA_URL = '/media/'
