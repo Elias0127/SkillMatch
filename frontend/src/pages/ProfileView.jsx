@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import api from '../api';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Logout from './Logout';
 import SkillManagement from './SkillManagement';
 import { ACCESS_TOKEN } from "../constants";
@@ -10,12 +10,18 @@ import '../styles/dashboard.css';
 function ProfileView({ user }) {
     const [editMode, setEditMode] = useState(false);
     const { username, role } = useParams();
+    const navigate = useNavigate();
 
     const [activeSection, setActiveSection] = useState('account');
 
     const handleMenuClick = (section) => {
         setActiveSection(section);
     };
+
+    const handlePostJobClick = () => {
+        navigate('/job-post'); // Navigate to the job posting form
+    };
+
 
     const getFormData = () => {
         if (role === 'worker') {
@@ -173,6 +179,9 @@ function ProfileView({ user }) {
                         <div className='account-header'>
                             <h2 className='account-title'>Hey, {formData.firstName}! </h2>
                             <p className='account-text'>This is your profile dashboard with all your information as a <span className='role-title'>{role}.</span></p>
+                            <button onClick={handlePostJobClick} className="post-job-button">
+                                Post a Job
+                            </button>
                         </div>
                         {editMode ? (
                             // Edit form with fields for both worker and employer

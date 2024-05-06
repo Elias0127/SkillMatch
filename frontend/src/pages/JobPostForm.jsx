@@ -1,63 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import LoadingIndicator from '../components/LoadingIndicator';
+import { ACCESS_TOKEN } from "../constants";
 
 function JobPostForm({ onSuccess }) {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
-        skills: [],
         budget: '',
         location: '',
         duration: ''
     });
-    const [allSkills, setAllSkills] = useState([]);
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        const fetchSkills = async () => {
-            try {
-                setLoading(true);
-                console.log('Token from storage:', localStorage.getItem('ACCESS_TOKEN'));
-                const response = await api.get('/api/skills/', {
-                    headers: { 'Authorization': `Bearer ${localStorage.getItem('ACCESS_TOKEN')}` }
-                });
-                setAllSkills(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Failed to fetch skills:', error);
-                setLoading(false);
-            }
-        };
-
-
-        fetchSkills();
-    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSkillChange = (e) => {
-        const options = e.target.options;
-        if (!options) return;
-    
-        const value = [];
-        for (let i = 0, l = options.length; i < l; i++) {
-            if (options[i].selected) {
-                value.push(options[i].value);
-            }
-        }
-        setFormData({ ...formData, skills: value });
-    };
-
     const validateForm = () => {
         let formErrors = {};
         if (!formData.title) formErrors.title = "Title is required";
         if (!formData.description) formErrors.description = "Description is required";
-        if (formData.skills.length === 0) formErrors.skills = "At least one skill is required";
         if (!formData.budget) formErrors.budget = "Budget is required";
         setErrors(formErrors);
         return Object.keys(formErrors).length === 0;
@@ -66,15 +32,41 @@ function JobPostForm({ onSuccess }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) return;
-
+    
+        const token = localStorage.getItem('ACCESS_TOKEN');
+        if (!token) {
+            console.error('Authentication token not found');
+            return;
+        }
+    
+        const jobData = {
+            title: formData.title,
+            description: formData.description,
+            budget: formData.budget,
+            location: formData.location,
+            duration: formData.duration
+        };
+    
         try {
             setLoading(true);
-            const response = await api.post('/api/job-posts/', formData);
+            const response = await api.post('/api/job-posts/', jobData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
             setLoading(false);
-            onSuccess();  
+            if (response.status === 200 || response.status === 201) {
+                console.log('Job posted successfully:', response.data);
+                if (onSuccess) {
+                    onSuccess();
+                }
+            } else {
+                throw new Error('Failed to post job');
+            }
         } catch (error) {
-            console.error('Registration error:', error.response ? error.response.data : error);
-            setErrors({ form: error.response?.data.message || "An error occurred" });
+            console.error('Job post error:', error.response ? error.response.data : error);
+            setErrors({ form: error.response?.data.message || "An error occurred during job posting" });
             setLoading(false);
         }
     };
@@ -106,20 +98,6 @@ function JobPostForm({ onSuccess }) {
                 />
                 {errors.description && <p className="error">{errors.description}</p>}
 
-                <label htmlFor="skills">Required Skills:</label>
-                <select
-                    className="form-input"
-                    name="skills"
-                    id="skills"
-                    multiple
-                    value={formData.skills}
-                    onChange={handleSkillChange}
-                    style={{ height: '100px' }}
-                >
-                    {allSkills.map(skill => (
-                        <option key={skill.id} value={skill.name}>{skill.name}</option>
-                    ))}
-                </select>
 
                 <label htmlFor="budget">Budget:</label>
                 <input

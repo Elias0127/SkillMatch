@@ -95,7 +95,6 @@ class Contract(models.Model):
 class JobPost(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    skills_required = models.CharField(max_length=255)
     budget = models.DecimalField(max_digits=10, decimal_places=2)
     location = models.CharField(max_length=255)
     duration = models.CharField(max_length=100)
