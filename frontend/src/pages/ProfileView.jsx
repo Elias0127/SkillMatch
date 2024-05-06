@@ -5,6 +5,7 @@ import Logout from './Logout';
 import SkillManagement from './SkillManagement';
 import { ACCESS_TOKEN } from "../constants";
 import '../styles/dashboard.css';
+import HomePage from './Home';
 
 
 function ProfileView({ user }) {
@@ -39,7 +40,8 @@ function ProfileView({ user }) {
                 picture: user.profile.picture || '',
                 companyName: user.company_name || '',
                 industry: user.industry || '',
-                description: user.description || ''
+                description: user.description || '',
+                location: user.location || '',
             };
         }
     };
@@ -162,6 +164,11 @@ function ProfileView({ user }) {
                     <div id="home-section" className="section">
                          <div className='account-header'>
                             <h2 className='account-title'>Hey, {formData.firstName}! </h2>
+<<<<<<< HEAD
+=======
+                            <p className='account-text'>This is your profile dashboard with all your information as a <span className='role-title'>{role}.</span></p>
+                            <HomePage />
+>>>>>>> c41920c9c61b0c6cbcd261f8ddce2ba3e234a90d
                         </div>
                         {role === 'worker' && (
                             <div className='home-container'>
@@ -317,6 +324,7 @@ function ProfileView({ user }) {
                                             <p className="info-item"><span className="label">Company Name</span> {formData.companyName}</p>
                                             <p className="info-item name-item"><span className="label">Industry</span> {formData.industry}</p>
                                             <p className="info-item name-item"><span className="label">Description</span> {formData.description}</p>
+                                            <p className="info-item name-item"><span className="label">Location</span> {formData.location}</p>
                                         </div>
                                     </>
                                 )}
