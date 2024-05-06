@@ -21,3 +21,8 @@ class IsEmployerAndOwner(permissions.BasePermission):
         return request.user.is_authenticated and \
             request.user.role == User.EMPLOYER and \
             obj.user == request.user
+    
+
+class IsEmployer(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.role == User.EMPLOYER
