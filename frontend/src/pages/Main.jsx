@@ -47,7 +47,7 @@ const ServicesSection = () => {
     );
   };
 
-function Home() {
+function Main() {
     return (
         <div className='container'>
             <NavBar />
@@ -69,4 +69,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Main;
