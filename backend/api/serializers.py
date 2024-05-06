@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Contract, Profile, WorkerProfile, EmployerProfile, WorkerSkill, Skill
+from .models import Contract, Profile, WorkerProfile, EmployerProfile, WorkerSkill, Skill, JobPost
 from django.db import transaction
 from django.contrib.gis.geos import Point
 import logging
@@ -209,6 +209,16 @@ class WorkerSkillSerializer(serializers.ModelSerializer):
         skill.save()
         return instance
     
+
+class JobPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobPost
+        fields = ['id', 'title', 'description', 'budget', 'location', 'duration', 'employer']
+        read_only_fields = ('employer',)  # Ensure employer field is read-only
+
+    def create(self, validated_data):
+        validated_data['employer'] = self.context['request'].user
+        return super().create(validated_data)
 
 class ContractSerializer(serializers.ModelSerializer):
     class Meta:

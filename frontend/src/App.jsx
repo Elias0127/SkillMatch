@@ -10,6 +10,8 @@ import WorkerProfile from "./pages/WorkerProfile";
 import ProfileCompletion from "./pages/ProfileCompletion";
 import SkillManagement from "./pages/SkillManagement";
 import Dashboard from "./pages/Dashboard";
+import JobPostForm from "./pages/JobPostForm";
+import WorkerHome from "./pages/WorkerHome";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/job-post" element={<JobPostForm />} />
+        <Route path="/worker-home" element={<WorkerHome />} />
         <Route path="/" element={
           <ProtectedRoute>
             <Home />
