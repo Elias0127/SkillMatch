@@ -29,7 +29,7 @@ function WorkerHome() {
         fetchJobPosts();
     }, []);
 
-    const handleApply = async (jobId) => {
+    /*const handleApply = async (jobId) => {
         try {
             const response = await api.post(`/api/apply/${jobId}`, {}, {
                 headers: {
@@ -43,7 +43,7 @@ function WorkerHome() {
             console.error('Failed to apply for job:', error);
             alert('Failed to submit application.');
         }
-    };
+    };*/
 
     if (loading) {
         return <LoadingIndicator />;
