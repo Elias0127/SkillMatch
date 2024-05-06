@@ -94,3 +94,14 @@ class Contract(models.Model):
         constraints = [
             models.CheckConstraint(check=models.Q(start_time__lt=models.F('end_time')), name='start_time_before_end_time'),
         ]
+
+class JobPost(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    budget = models.DecimalField(max_digits=10, decimal_places=2)
+    location = models.CharField(max_length=255)
+    duration = models.CharField(max_length=100)
+    employer = models.ForeignKey(User, related_name='job_posts', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title

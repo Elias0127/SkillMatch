@@ -7,8 +7,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .permissions import IsEmployer
-from .models import Contract, Profile, Skill, WorkerProfile, EmployerProfile, WorkerSkill
-from .serializers import ContractSerializer, SkillSerializer, UserRegistrationSerializer, ProfileSerializer, WorkerProfileSerializer, EmployerProfileSerializer, WorkerSkillSerializer
+from .models import Contract, Profile, Skill, WorkerProfile, EmployerProfile, WorkerSkill, JobPost
+from .serializers import ContractSerializer, SkillSerializer, UserRegistrationSerializer, ProfileSerializer, WorkerProfileSerializer, EmployerProfileSerializer, WorkerSkillSerializer, JobPostSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from tokenize import TokenError
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
@@ -174,25 +174,32 @@ class WorkerSkillViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUES)
         
+
+class JobPostViewSet(viewsets.ModelViewSet):
+    queryset = JobPost.objects.all()
+    serializer_class = JobPostSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"request": self.request})
+        return context
+
 class CreateContractView(generics.CreateAPIView):
     queryset = Contract.objects.all()
     serializer_class = ContractSerializer
     permission_classes = [permissions.IsAuthenticated, IsEmployer]
 
     def post(self, request, *args, **kwargs):
-        # Assume that the request includes worker_profile_id and other necessary details
         worker_profile_id = request.data.get('worker_profile_id')
         employer_profile = EmployerProfile.objects.get(user=request.user)
-
-        # You might want to validate that the employer can indeed hire the worker (e.g., check if the worker is available)
         worker_profile = WorkerProfile.objects.get(pk=worker_profile_id)
 
         # Create the contract
         contract = Contract.objects.create(
             worker_profile=worker_profile,
             employer_profile=employer_profile,
-            start_time=timezone.now(),  # Example, you might want to get this from request
-            end_time=timezone.now() + timezone.timedelta(days=1),  # Example end time
+            start_time=timezone.now(),  
+            end_time=timezone.now() + timezone.timedelta(days=1),  
             status=Contract.PENDING
         )
 

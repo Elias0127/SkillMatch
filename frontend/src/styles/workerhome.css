@@ -1,0 +1,35 @@
+.worker-home {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.worker-home h1 {
+    color: #333;
+    text-align: center;
+}
+
+.worker-home ul {
+    list-style: none;
+    padding: 0;
+}
+
+.worker-home li {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.worker-home h2 {
+    color: #007BFF;
+}
+
+.worker-home p {
+    color: #666;
+    line-height: 1.6;
+    margin: 5px 0;
+}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import mark_safe  # Allows safe HTML rendering
-from .models import User, Profile, WorkerProfile, Skill, WorkerSkill, EmployerProfile, Contract
+from .models import User, Profile, WorkerProfile, Skill, WorkerSkill, EmployerProfile, Contract, JobPost
 
 # Custom admin for the Profile model to show pictures
 class ProfileAdmin(admin.ModelAdmin):
@@ -22,3 +22,4 @@ admin.site.register(Skill)
 admin.site.register(WorkerSkill)
 admin.site.register(EmployerProfile)
 admin.site.register(Contract)
+admin.site.register(JobPost)
