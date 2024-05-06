@@ -74,10 +74,9 @@ function JobPostForm({ onSuccess }) {
     };
 
     return (
-        <div className="registration-container">
-            <h1 className='title'>Post a Job Request</h1>
+        <div>
             {loading && <LoadingIndicator />}
-            <form onSubmit={handleSubmit} className="form-container">
+            <form onSubmit={handleSubmit} className="box">
                 <label htmlFor='title'>Job Title:</label>
                 <input
                     className="form-input"

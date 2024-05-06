@@ -175,7 +175,9 @@ function ProfileView({ user }) {
                 {activeSection === 'home' && (
                     <div id="home-section" className="section">
                         {role === 'worker' ? (
-                            <WorkerHome />
+                            <div className='box'>
+                                <WorkerHome />
+                            </div>
                         ) : (
                          <div className='account-header'>
                             <h2 className='account-title'>Hey, {formData.firstName}! </h2>
@@ -187,7 +189,13 @@ function ProfileView({ user }) {
 
                 {activeSection === 'postJobs' && (
                     <div id="postJobs-section" className="section">
+                        <div className='account-header'>
+                            <h2 className='account-title'>Job Request</h2> 
+                            <p className='account-text'>Posting a job request will allow for workers to see these postings!</p>
+                        </div>
+                        <div id="postJobs-section">
                         <JobPostForm onSuccess={() => console.log('Job posted successfully!')} />
+                        </div>
                     </div>
                 )}
 
