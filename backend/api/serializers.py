@@ -96,6 +96,7 @@ class WorkerProfileSerializer(serializers.ModelSerializer):
     rate = serializers.DecimalField(max_digits=10, decimal_places=2, required=False, allow_null=True)
     latitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
     longitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
+    distance = serializers.FloatField(read_only=True, source='distance.km')
 
     def update(self, instance, validated_data):
         user_data = validated_data.pop('user', {})
@@ -127,7 +128,9 @@ class WorkerProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkerProfile
-        fields = ['first_name', 'last_name', 'email', 'phone_number', 'picture', 'available_time', 'location', 'rate', 'rate_type', 'latitude', 'longitude']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'picture', 'available_time', 'location', 'rate', 'rate_type', 'latitude', 'longitude', 'distance']
+
+
 class EmployerProfileSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(source='user.profile', required=False)
     latitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
