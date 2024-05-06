@@ -4,7 +4,8 @@ import api from "../api";
 import "../styles/Form.css";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
-import PasswordChecklist from "react-password-checklist";
+//import PasswordChecklist from "react-password-checklist";
+import validator from 'validator'
 
 function RegistrationForm() {
     const [formData, setFormData] = useState({
@@ -24,6 +25,14 @@ function RegistrationForm() {
         let tempErrors = {};
         if (!formData.username) tempErrors.username = "Username is required";
         if (!formData.password) tempErrors.password = "Password is required";
+        //new way of validating password to meet certain requirements 
+        // to be strong
+        if(!validator.isStrongPassword(formData.password, { 
+            minLength: 8, minLowercase: 1, 
+            minUppercase: 1, minNumbers: 1, minSymbols: 1 
+        })){ 
+            tempErrors.password = "Password is not strong.";
+        }
         setErrors(tempErrors);
         return Object.keys(tempErrors).length === 0;
     };
@@ -99,12 +108,12 @@ function RegistrationForm() {
                     onChange={updateField}
                     placeholder="Password"
                 />
-
+                {/* 
                 <PasswordChecklist
 				rules={["minLength","specialChar","number","capital"]}
 				minLength={8}
 				value={formData.password}
-				onChange={(isValid) => {}}
+				onChange={() => validate()}
                 messages={{
 					minLength: "Password length must have minimum length of 8 characters.",
 					specialChar: "Password must contain as least 1 special character.",
@@ -112,7 +121,7 @@ function RegistrationForm() {
 					capital: "Password must contain as least 1 capitialized letter.",
 				}}
                 />
-            
+                */}
                 <select
                     name="role"
                     value={formData.role}

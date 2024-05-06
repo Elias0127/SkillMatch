@@ -1,11 +1,12 @@
 from django.urls import path
-from .views import (UserRegistrationView, ProfileView, WorkerProfileView, EmployerProfileView,LoginView, LogoutView, SkillListView, SkillDetailView, WorkerSkillViewSet, JobPostViewSet)
+from .views import (CreateContractView, NearbyWorkersView, UserRegistrationView, ProfileView, WorkerProfileView, EmployerProfileView,LoginView, LogoutView, SkillListView, SkillDetailView, WorkerSkillViewSet, JobPostViewSet)
 
 urlpatterns = [
     path('register/', UserRegistrationView.as_view(), name='register'),
     path('profile/<str:username>/', ProfileView.as_view(), name='profile'),
     path('worker-profile/<str:username>/', WorkerProfileView.as_view(), name='worker_profile'),
     path('employer-profile/<str:username>/', EmployerProfileView.as_view(), name='employer_profile'),
+    path('nearby-workers/', NearbyWorkersView.as_view(), name='nearby-workers'),
     path('login/', LoginView.as_view(), name='api_login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('skills/', SkillListView.as_view(), name='skills_list'),
@@ -14,4 +15,5 @@ urlpatterns = [
     path('worker-skills/<str:username>/<int:pk>/', WorkerSkillViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'}), name='worker_skill_detail'),
     path('job-posts/', JobPostViewSet.as_view({'get': 'list', 'post': 'create'}), name='job_posts'),
     path('job-posts/<int:pk>/', JobPostViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'}), name='job_post_detail'),
+    path('create-contract/', CreateContractView.as_view(), name='create_contract'),
 ]
