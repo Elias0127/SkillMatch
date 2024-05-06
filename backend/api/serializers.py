@@ -30,7 +30,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         username = self.cleaned_data.get('username')
         
         # check username length
-        if len(username) < 4:
+        if len(username) < 3:
             self._errors['username'] = self.error_class([
                 'Username is not unique'])
         
