@@ -180,19 +180,16 @@ class CreateContractView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated, IsEmployer]
 
     def post(self, request, *args, **kwargs):
-        # Assume that the request includes worker_profile_id and other necessary details
         worker_profile_id = request.data.get('worker_profile_id')
         employer_profile = EmployerProfile.objects.get(user=request.user)
-
-        # You might want to validate that the employer can indeed hire the worker (e.g., check if the worker is available)
         worker_profile = WorkerProfile.objects.get(pk=worker_profile_id)
 
         # Create the contract
         contract = Contract.objects.create(
             worker_profile=worker_profile,
             employer_profile=employer_profile,
-            start_time=timezone.now(),  # Example, you might want to get this from request
-            end_time=timezone.now() + timezone.timedelta(days=1),  # Example end time
+            start_time=timezone.now(),  
+            end_time=timezone.now() + timezone.timedelta(days=1),  
             status=Contract.PENDING
         )
 
