@@ -172,3 +172,8 @@ class JobPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobPost
         fields = ['id', 'title', 'description', 'budget', 'location', 'duration', 'employer']
+        read_only_fields = ('employer',)  # Ensure employer field is read-only
+
+    def create(self, validated_data):
+        validated_data['employer'] = self.context['request'].user
+        return super().create(validated_data)

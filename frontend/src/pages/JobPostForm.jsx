@@ -33,11 +33,13 @@ function JobPostForm({ onSuccess }) {
         e.preventDefault();
         if (!validateForm()) return;
     
-        const token = localStorage.getItem('ACCESS_TOKEN');
+        const token = localStorage.getItem(ACCESS_TOKEN);
+        console.log("Using token: ", token);
         if (!token) {
             console.error('Authentication token not found');
             return;
         }
+        
     
         const jobData = {
             title: formData.title,
