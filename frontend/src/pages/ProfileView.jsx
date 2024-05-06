@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Logout from './Logout';
 import SkillManagement from './SkillManagement';
 import JobPostForm from './JobPostForm';
+import WorkerHome from './WorkerHome';
 import { ACCESS_TOKEN } from "../constants";
 import '../styles/dashboard.css';
 
@@ -15,13 +16,14 @@ function ProfileView({ user }) {
     const navigate = useNavigate();
 
     const [activeSection, setActiveSection] = useState('account');
+    
 
     const handleMenuClick = (section) => {
         setActiveSection(section);
     };
 
     const handlePostJobClick = () => {
-        navigate('/job-post'); // Navigate to the job posting form
+        navigate('/job-post');
     };
 
 
@@ -168,10 +170,14 @@ function ProfileView({ user }) {
             <div className="main-container">
                 {activeSection === 'home' && (
                     <div id="home-section" className="section">
+                        {role === 'worker' ? (
+                            <WorkerHome />
+                        ) : (
                          <div className='account-header'>
                             <h2 className='account-title'>Hey, {formData.firstName}! </h2>
                             <p className='account-text'>This is your profile dashboard with all your information as a <span className='role-title'>{role}.</span></p>
                         </div>
+                        )}
                     </div>                   
                 )}
 
