@@ -4,6 +4,7 @@ import api from '../api';
 import '../styles/Form.css';
 import "../styles/ProfileCompletion.css";
 import { ACCESS_TOKEN } from "../constants";
+import LocationInput from '../components/LocationInput';
 
 function ProfileCompletionForm() {
     const { username, role } = useParams();
@@ -29,7 +30,9 @@ function ProfileCompletionForm() {
         rate: '',
         company_name: '',
         industry: '',
-        description: ''
+        description: '',
+        latitude: null,  // Added to store latitude
+        longitude: null // Added to store longitude
     });
 
     const [newSkill, setNewSkill] = useState({ name: '', level: '', description: '' });
@@ -38,16 +41,28 @@ function ProfileCompletionForm() {
     const [stage, setStage] = useState(1);
 
     useEffect(() => {
-        // Clear errors when stage changes
         setErrors({});
     }, [stage]);
+    // useEffect(() => {
+    // console.log('Profile data updated:', profileData); // Log every time profileData changes
+    // },[profileData]);
+
 
     const updateField = e => {
         const { name, type, value, files } = e.target;
         setProfileData(prev => ({ ...prev, [name]: type === 'file' ? files[0] : value }));
     };
 
-    const validateFields = (fields) => {
+    const handleLocationSelect = locationData => {
+        setProfileData(prevData => ({
+            ...prevData,
+            location: locationData.address,
+            latitude: locationData.coordinates.lat,
+            longitude: locationData.coordinates.lng
+        }));
+    };
+
+    const validateFields = fields => {
         const newErrors = {};
         fields.forEach(field => {
             if (!profileData[field]) {
@@ -63,6 +78,7 @@ function ProfileCompletionForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('Submitting profile data:', profileData);
         setLoading(true);
         try {
             switch (stage) {
@@ -133,6 +149,8 @@ function ProfileCompletionForm() {
             formData.append('email', profileData.email);
             formData.append('available_time', profileData.availableTime);
             formData.append('location', profileData.location);
+            formData.append('latitude', profileData.latitude);  // Append latitude
+            formData.append('longitude', profileData.longitude); // Append longitude
             formData.append('rate_type', profileData.rateType);
             formData.append('rate', profileData.rate.toString());
             if (profileData.picture) {
@@ -140,19 +158,23 @@ function ProfileCompletionForm() {
             }
         } else {
             formData = JSON.stringify({
-                profile: {
-                    phone_number: profileData.phoneNumber,
-                    user: {
-                        first_name: profileData.firstName,
-                        last_name: profileData.lastName,
-                        email: profileData.email
-                    }
-                },
-                company_name: profileData.company_name,
-                industry: profileData.industry,
-                description: profileData.description
-            });
-        }
+                    profile: {
+                        phone_number: profileData.phoneNumber,
+                        user: {
+                            first_name: profileData.firstName,
+                            last_name: profileData.lastName,
+                            email: profileData.email
+                        },
+                        coordinates: {
+                            latitude: profileData.latitude,
+                            longitude: profileData.longitude
+                        }
+                    },
+                    company_name: profileData.company_name,
+                    industry: profileData.industry,
+                    description: profileData.description
+                });
+            }
 
         try {
             const response = await api.put(endpoint, formData, {
@@ -161,7 +183,7 @@ function ProfileCompletionForm() {
                     'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
                 }
             });
-            console.log('User role:', response.data.role);
+            console.log('User role:', role);
             navigate(`/dashboard/${username}/${role}`);
         } catch (error) {
             console.error('Profile completion error:', error);
@@ -170,11 +192,13 @@ function ProfileCompletionForm() {
     };
 
 
+
     const handleNext = async () => {
         setErrors({}); // Clear previous errors
         try {
             switch (stage) {
                 case 1:
+                    // Validation for initial personal info
                     const requiredFields = ['firstName', 'lastName', 'phoneNumber', 'email'];
                     if (!validateFields(requiredFields)) return;
                     if (role === 'worker' && !profileData.picture) {
@@ -182,19 +206,24 @@ function ProfileCompletionForm() {
                     }
                     break;
                 case 2:
-                    const additionalRequiredFields = role === 'worker' ? ['availableTime', 'location', 'rate', 'rateType'] : ['company_name', 'industry', 'description'];
+                    // Additional info based on role
+                    const additionalRequiredFields = role === 'worker' ? 
+                        ['availableTime', 'location', 'rate', 'rateType'] : 
+                        ['company_name', 'industry', 'description'];
                     if (!validateFields(additionalRequiredFields)) return;
                     break;
                 case 3:
+                    // Worker-specific skill addition
                     if (role === 'worker') {
                         const skillAddedSuccessfully = await handleAddSkill();
                         if (!skillAddedSuccessfully) return;
-                        break;
                     }
                     break;
                 default:
+                    console.warn('Unexpected stage in profile completion');
                     break;
             }
+            // Proceed to the next stage if conditions are met
             if (stage < totalSteps) {
                 setStage(prevStage => prevStage + 1);
             }
@@ -203,6 +232,7 @@ function ProfileCompletionForm() {
             setErrors({ form: error.message || "An error occurred while proceeding to the next stage" });
         }
     };
+
 
     return (
         <div className="profile-completion-container">
@@ -251,7 +281,7 @@ function ProfileCompletionForm() {
                         <h1 className="prof-complete-title">One last step!</h1>
                         <h2 className='prof-complete-sub'>Fill out the last fields to complete your profile</h2>
                         <input className="prof-complete-input" type="text" name="availableTime" value={profileData.availableTime} onChange={updateField} placeholder="Available Time" />
-                        <input className="prof-complete-input" type="text" name="location" value={profileData.location} onChange={updateField} placeholder="Location" />
+                        <LocationInput onLocationSelect={handleLocationSelect} />
                         <div className="rate-container">
                             <input className="prof-complete-input" type="number" name="rate" value={profileData.rate} onChange={updateField} placeholder="Pay Rate" />
                             <select name="rateType" value={profileData.rateType} onChange={updateField} className="prof-complete-input">
@@ -299,6 +329,7 @@ function ProfileCompletionForm() {
                         <input className="prof-complete-input" type="text" name="company_name" value={profileData.company_name} onChange={updateField} placeholder="Company Name" />
                         <input className="prof-complete-input" type="text" name="industry" value={profileData.industry} onChange={updateField} placeholder="Industry" />
                         <textarea className="prof-complete-input" name="description" value={profileData.description} onChange={updateField} placeholder="Description"></textarea>
+                        <LocationInput onLocationSelect={handleLocationSelect} />
                         <div className='button-container'>
                             <button type="button" onClick={() => setStage(1)} className="back-button">Back</button>
                             <button type="button" onClick={() => handleNext(3)} className="next-button">Next</button>
