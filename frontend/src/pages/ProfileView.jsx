@@ -3,8 +3,10 @@ import api from '../api';
 import { useNavigate, useParams } from 'react-router-dom';
 import Logout from './Logout';
 import SkillManagement from './SkillManagement';
+import JobPostForm from './JobPostForm';
 import { ACCESS_TOKEN } from "../constants";
 import '../styles/dashboard.css';
+
 
 
 function ProfileView({ user }) {
@@ -129,6 +131,9 @@ function ProfileView({ user }) {
                         <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
                         Home
                     </a>
+                    {role === 'employer' && (
+                        <a href="#" className={activeSection === 'postJobs' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('postJobs')}>Post A Job Request</a>
+                    )}
                     <a href="#" className={activeSection === 'account' ? 'menu-links active' : 'menu-links'} onClick={() => handleMenuClick('account')}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" width="20" height="20" className="back-icon">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
@@ -170,6 +175,12 @@ function ProfileView({ user }) {
                     </div>                   
                 )}
 
+                {activeSection === 'postJobs' && (
+                    <div id="postJobs-section" className="section">
+                        <JobPostForm onSuccess={() => console.log('Job posted successfully!')} />
+                    </div>
+                )}
+
 
 
                 {/* Account Section */}
@@ -179,9 +190,6 @@ function ProfileView({ user }) {
                         <div className='account-header'>
                             <h2 className='account-title'>Hey, {formData.firstName}! </h2>
                             <p className='account-text'>This is your profile dashboard with all your information as a <span className='role-title'>{role}.</span></p>
-                            <button onClick={handlePostJobClick} className="post-job-button">
-                                Post a Job
-                            </button>
                         </div>
                         {editMode ? (
                             // Edit form with fields for both worker and employer
